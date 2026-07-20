@@ -1,0 +1,46 @@
+[tool.black]
+
+line-length = 88
+target-version = ["py312"]
+skip-string-normalization = false
+
+[tool.ruff]
+
+line-length = 88
+target-version = "py312"
+
+exclude = [
+    ".git",
+    "venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".mypy_cache",
+    "allure-results",
+    "allure-report",
+]
+
+[tool.ruff.lint]
+
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "UP",
+    "B",
+]
+
+ignore = [
+    "E501",
+]
+
+[tool.ruff.format]
+
+quote-style = "double"
+
+indent-style = "space"
+
+line-ending = "lf"
+
+docstring-code-format = true
