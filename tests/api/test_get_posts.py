@@ -19,7 +19,7 @@ class TestGetPosts:
     @allure.title("GET /posts returns 200")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_get_posts_statuss_code(self, client: ApiClient):
+    def test_get_posts_status_code(self, client: ApiClient):
         response = client.get("/posts")
 
         assert validate_status_code(response.status_code, 200)

@@ -56,3 +56,32 @@ POST_SCHEMA: dict = {
     },
     "additionalProperties": True,
 }
+
+CREATE_POST_SCHEMA: dict = {
+    "type": "object",
+    "required": [
+        "id",
+        "title",
+        "body",
+        "userId",
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "minimum": 1,
+        },
+        "title": {
+            "type": "string",
+            "minLength": 1,
+        },
+        "body": {
+            "type": "string",
+            "minLength": 1,
+        },
+        "userId": {
+            "type": "integer",
+            "minimum": 1,
+        },
+    },
+    "additionalProperties": True,
+}
