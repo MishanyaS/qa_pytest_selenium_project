@@ -7,7 +7,7 @@ from utils.api_client import ApiClient
 from utils.validators import validate_status_code, validate_email
 
 @allure.epic("API")
-@allure.feature("Posts")
+@allure.feature("Users")
 @pytest.mark.api
 @pytest.mark.regression
 class TestGetUsers:
