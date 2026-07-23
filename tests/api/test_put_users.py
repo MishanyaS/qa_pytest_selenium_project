@@ -11,7 +11,7 @@ allure.epic("API")
 @allure.feature("Update Users")
 @pytest.mark.api
 @pytest.mark.regression
-class TestUpdatePosts:
+class TestUpdateUsers:
     @pytest.fixture(scope="class")
     def client(self, api_session):
         return ApiClient(api_session)
@@ -30,7 +30,7 @@ class TestUpdatePosts:
     @allure.title("PUT /users/1 returns 200")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_update_user_status_code(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_updated_user_status_code(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
 
         assert response.status_code == 200
