@@ -40,7 +40,7 @@ class TestDeletePosts:
     @allure.story("Delete post")
     @allure.title("Deleted id equals requested id")
     @pytest.mark.positive
-    def test_deleted_id_metches(self, client: ApiClient):
+    def test_deleted_id_matches(self, client: ApiClient):
         response = client.delete("/posts/1")
 
         assert response.json()["id"] == 1
