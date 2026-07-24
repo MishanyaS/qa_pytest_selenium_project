@@ -43,7 +43,7 @@ class TestPatchUsers:
     @allure.story("Patch user")
     @allure.title("Returned firstName equals sent firstName")
     @pytest.mark.positive
-    def test_response_is_json(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_patch_first_name(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.patch("/users/1", json=user_payload)
 
         assert response.json()["firstName"] == user_payload["firstName"]
@@ -178,7 +178,7 @@ class TestPatchUsers:
         assert response.status_code in (200, 404)
 
     @allure.story("Boundary")
-    @allure.title("Patch invalid id")
+    @allure.title("Patch minimum age")
     @pytest.mark.boundary
     def test_patch_minimum_age(self, client: ApiClient):
         payload = {
@@ -260,7 +260,7 @@ class TestPatchUsers:
     @allure.title("Verify response time")
     @pytest.mark.slow
     def test_response_time_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
-        with allure.step("Send PUT request"):
+        with allure.step("Send PATCH request"):
             response = self.patch_user(client, 1, user_payload)
 
         with allure.step("Verify response time"):
