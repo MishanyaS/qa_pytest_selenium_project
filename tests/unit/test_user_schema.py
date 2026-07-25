@@ -96,7 +96,7 @@ class TestUserSchema:
     def test_gender_type(self):
         assert USER_SCHEMA["properties"]["gender"]["type"] == "string"
 
-    @allure.story("Schema")
+    @allure.story("Validation")
     @allure.title("Valid user passes validation")
     def test_valid_user(self, valid_user: dict):
         validate(instance=valid_user, schema=USER_SCHEMA)
