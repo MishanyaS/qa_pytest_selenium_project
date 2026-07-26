@@ -54,13 +54,16 @@ class HomePage(BasePage):
     def open_alerts(self) -> None:
         self.click(self.ALERTS_CARD)
 
+    def open_widgets(self) -> None:
+        self.click(self.WIDGETS_CARD)
+
     def open_interactions(self) -> None:
         self.click(self.INTERACTIONS_CARD)
 
     def open_book_store(self) -> None:
         self.click(self.BOOK_STORE_CARD)
 
-    def events_visible(self) -> bool:
+    def elements_visible(self) -> bool:
         return self.is_visible(self.ELEMENTS_CARD)
 
     def forms_visible(self) -> bool:
