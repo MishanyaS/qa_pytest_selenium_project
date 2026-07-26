@@ -154,7 +154,7 @@ class BasePage:
     def hover(self, locator: Locator) -> None:       
         element = self.wait_visible(locator)
 
-        ActionChains(self.driver).move_by_offset(element).perform()
+        ActionChains(self.driver).move_to_element(element).perform()
 
     def double_click(self, locator: Locator) -> None:       
         element = self.wait_visible(locator)
