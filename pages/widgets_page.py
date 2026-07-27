@@ -52,7 +52,7 @@ class WidgetsPage(BasePage):
     )
 
     def __init__(self, driver: WebDriver) -> None:
-            super().__init__(driver)
+        super().__init__(driver)
                 
     def open_accordion(self) -> None:
         self.click(self.ACCORDION_ITEM)

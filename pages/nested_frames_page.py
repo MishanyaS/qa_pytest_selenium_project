@@ -27,7 +27,7 @@ class NestedFramesPage(BasePage):
     )
 
     def __init__(self, driver: WebDriver) -> None:
-                super().__init__(driver)
+        super().__init__(driver)
         
     def parent_frame_visible(self) -> bool:
         return self.is_visible(self.PARENT_FRAME)

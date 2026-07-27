@@ -37,7 +37,7 @@ class AccordionPage(BasePage):
     )
 
     def __init__(self, driver: WebDriver) -> None:
-                super().__init__(driver)
+        super().__init__(driver)
                     
     def open_section_1(self) -> None:
         self.click(self.SECTION_1_HEADER)
