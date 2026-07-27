@@ -231,3 +231,10 @@ class BasePage:
 
     def alert_send_keys(self, text: str) -> None:
         self.wait_alert().send_keys(text)
+
+    def drag_by_offset(self, locator: Locator, x_offset: int, y_offset: int) -> None:
+        element = self.wait_visible(locator)
+
+        ActionChains(self.driver).move_to_element(
+            element
+        ).click_and_hold().move_by_offset(x_offset, y_offset).release().perform()

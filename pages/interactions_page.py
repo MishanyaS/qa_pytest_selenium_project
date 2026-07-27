@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver import ActionChains
 
 from pages.base_page import BasePage
 
@@ -218,13 +217,7 @@ class InteractionsPage(BasePage):
         )
 
     def resize_element(self, x_offset: int, y_offset: int) -> None:
-        element = self.wait_visible(self.RESIZABLE)
-        handle = self.wait_visible(self.RESIZABLE_HANDLE)
-
-        ActionChains(self.driver).move_to_element(handle).click_and_hold().move_by_offset(
-            x_offset,
-            y_offset
-        ).release().perform()
+        self.drag_by_offset(self.RESIZABLE_HANDLE, x_offset, y_offset)
 
     def element_text(self, locator: tuple[str, str]) -> str:
         return self.text(locator)
