@@ -8,12 +8,12 @@ from pages.base_page import BasePage
 class FramesPage(BasePage):
     FRAME_1 = (
         By.ID,
-        "Frame1"
+        "frame1"
     )
 
     FRAME_2 = (
         By.ID,
-        "Frame2"
+        "frame2"
     )
 
     FRAME_HEADING = (
@@ -22,7 +22,7 @@ class FramesPage(BasePage):
     )
 
     def __init__(self, driver: WebDriver) -> None:
-            super().__init__(driver)
+        super().__init__(driver)
     
     def frame_1_visible(self) -> bool:
         return self.is_visible(self.FRAME_1)
