@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.common.keys import Keys
 
 from pages.base_page import BasePage
 
