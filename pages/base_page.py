@@ -228,3 +228,6 @@ class BasePage:
 
     def save_screenshot(self, path: str) -> None:
         self.driver.save_screenshot(path)
+
+    def alert_send_keys(self, text: str) -> None:
+        self.wait_alert().send_keys(text)
