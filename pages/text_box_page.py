@@ -37,23 +37,23 @@ class TextBoxPage(BasePage):
     )
 
     OUTPUT_NAME = (
-        By.ID,
-        "name",
+        By.CSS_SELECTOR,
+        "#output #name",
     )
 
     OUTPUT_EMAIL = (
-        By.ID,
-        "email",
+        By.CSS_SELECTOR,
+        "#output #email",
     )
 
     OUTPUT_CURRENT_ADDRESS = (
-        By.ID,
-        "currentAddress",
+        By.CSS_SELECTOR,
+        "#output #currentAddress",
     )
 
     OUTPUT_PERMANENT_ADDRESS = (
-        By.ID,
-        "permanentAddress",
+        By.CSS_SELECTOR,
+        "#output #permanentAddress",
     )
 
     def __init__(self, driver: WebDriver):
