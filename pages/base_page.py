@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
@@ -91,6 +91,12 @@ class BasePage:
 
     def click(self, locator: Locator) -> None:
         self.wait_clickable(locator).click()
+
+    def click_with_fallback(self, locator: Locator) -> None:
+        try:
+            self.click(locator)
+        except ElementClickInterceptedException:
+            self.js_click(locator)
 
     def type(self, locator: Locator, text: str) -> None:
         element = self.wait_visible(locator)

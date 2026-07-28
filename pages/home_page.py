@@ -61,7 +61,7 @@ class HomePage(BasePage):
         self.click(self.INTERACTIONS_CARD)
 
     def open_book_store(self) -> None:
-        self.click(self.BOOK_STORE_CARD)
+        self.click_with_fallback(self.BOOK_STORE_CARD)
 
     def elements_visible(self) -> bool:
         return self.is_visible(self.ELEMENTS_CARD)
