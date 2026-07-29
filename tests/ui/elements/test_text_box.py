@@ -3,8 +3,6 @@ from __future__ import annotations
 import allure
 import pytest
 
-from faker import Faker
-
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
 from pages.text_box_page import TextBoxPage
