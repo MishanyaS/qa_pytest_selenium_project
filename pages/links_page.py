@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -94,3 +95,8 @@ class LinkPage(BasePage):
 
     def response_attribute(self, name: str) -> str | None:
         return self.attribute(self.LINK_RESPONSE, name)
+
+    def wait_for_response_status(self, expected_status: str) -> None:
+        self.wait.until(
+            EC.text_to_be_present_in_element(self.LINK_RESPONSE, expected_status)
+        )
