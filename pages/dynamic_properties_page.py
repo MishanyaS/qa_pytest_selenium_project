@@ -55,5 +55,3 @@ class DynamicPropertiesPage(BasePage):
                 *self.VISIBLE_AFTER_BUTTON
             ).is_displayed()
         )
-
-    

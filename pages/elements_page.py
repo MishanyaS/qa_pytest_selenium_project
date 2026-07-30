@@ -48,7 +48,7 @@ class ElementsPage(BasePage):
 
     DYNAMIC_PROPERTIES_ITEM = (
         By.XPATH,
-        "//span[text()='Dynamics Properties']",
+        "//span[text()='Dynamic Properties']",
     )
 
     def __init__(self, driver: WebDriver):
