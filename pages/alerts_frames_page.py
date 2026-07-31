@@ -31,6 +31,11 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Modal Dialogs']"
     )
 
+    ACCORDION_SECTION = (
+        By.XPATH,
+        "//span[text()='Accordian']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -78,6 +83,9 @@ class AlertsFramesPage(BasePage):
 
     def open_modal_dialogs(self) -> None:
         self.click(self.MODAL_DIALOGS_SECTION)
+
+    def open_accordion(self) -> None:
+        self.click(self.ACCORDION_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)

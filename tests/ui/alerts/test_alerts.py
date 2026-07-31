@@ -14,7 +14,7 @@ from pages.alerts_page import AlertsPage
 class TestAlerts:
     @allure.story("Alerts navigation")
     @allure.title("Alerts page opens successfully")
-    @allure.description("Verifies that the Alerts page can be opens successfully from the Alerts, Frame & Windows section.")
+    @allure.description("Verifies that the Alerts page can be opened successfully from the Alerts, Frame & Windows section.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_alerts(self, driver):
