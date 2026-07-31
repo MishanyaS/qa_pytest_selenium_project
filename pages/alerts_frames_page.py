@@ -6,6 +6,11 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from pages.base_page import BasePage
 
 class AlertsFramesPage(BasePage):
+    BROWSER_WINDOWS_SECTION = (
+        By.XPATH,
+        "//span[text()='Browser Windows']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -38,6 +43,9 @@ class AlertsFramesPage(BasePage):
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
+
+    def open_browser_windows(self) -> None:
+        self.click(self.BROWSER_WINDOWS_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)
