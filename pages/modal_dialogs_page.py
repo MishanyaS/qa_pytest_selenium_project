@@ -33,7 +33,7 @@ class ModalDialogsPage(BasePage):
 
     CLOSE_MODAL_BUTTON = (
         By.XPATH,
-        "//button[@class='close']"
+        "//div[contains(@class, 'modal-content')]//button"# "//button[@class='close']"
     )
 
     def __init__(self, driver: WebDriver) -> None:

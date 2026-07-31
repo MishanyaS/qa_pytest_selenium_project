@@ -26,6 +26,11 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Nested Frames']"
     )
 
+    MODAL_DIALOGS_SECTION = (
+        By.XPATH,
+        "//span[text()='Modal Dialogs']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -70,6 +75,9 @@ class AlertsFramesPage(BasePage):
 
     def open_nested_frames(self) -> None:
         self.click(self.NESTED_FRAMES_SECTION)
+
+    def open_modal_dialogs(self) -> None:
+        self.click(self.MODAL_DIALOGS_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)
