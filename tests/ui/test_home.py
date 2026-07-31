@@ -41,7 +41,7 @@ class TestHomePage:
             assert page.forms_visible()
 
         with allure.step("Verify Alerts, Frame & Windows card"):
-            assert page.alerts_visible()
+            assert page.alerts_frame_windows_visible()
 
         with allure.step("Verify Widgets card"):
             assert page.widgets_visible()
@@ -95,7 +95,7 @@ class TestHomePage:
             page.open()
 
         with allure.step("Click Alerts, Frame & Windows card"):
-            page.open_alerts()
+            page.open_alerts_frame_windows()
 
         with allure.step("Verify Alerts, Frame & Window URL"):
             assert page.current_url.endswith("/alertsWindows")

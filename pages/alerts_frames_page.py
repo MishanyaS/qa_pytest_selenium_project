@@ -11,24 +11,29 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Browser Windows']"
     )
 
+    ALERTS_SECTION = (
+        By.XPATH,
+        "//span[text()='Alerts']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
     )
 
-    TIMER_ALLERT_BUTTON = (
+    TIMER_ALERT_BUTTON = (
         By.ID,
         "timerAlertButton",
     )
 
-    CONFIRM_ALLERT_BUTTON = (
+    CONFIRM_ALERT_BUTTON = (
         By.ID,
         "confirmButton",
     )
 
-    PROMPT_ALLERT_BUTTON = (
+    PROMPT_ALERT_BUTTON = (
         By.ID,
-        "promptButton",
+        "promtButton",
     )
 
     CONFIRM_RESULT = (
@@ -47,29 +52,32 @@ class AlertsFramesPage(BasePage):
     def open_browser_windows(self) -> None:
         self.click(self.BROWSER_WINDOWS_SECTION)
 
+    def open_alerts(self) -> None:
+        self.click(self.ALERTS_SECTION)
+
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)
 
     def open_timer_alert(self) -> None:
-        self.click(self.TIMER_ALLERT_BUTTON)
+        self.click(self.TIMER_ALERT_BUTTON)
 
     def open_confirm_alert(self) -> None:
-        self.click(self.CONFIRM_ALLERT_BUTTON)
+        self.click(self.CONFIRM_ALERT_BUTTON)
 
     def open_prompt_alert(self) -> None:
-        self.click(self.PROMPT_ALLERT_BUTTON)
+        self.click(self.PROMPT_ALERT_BUTTON)
 
     def simple_alert_visible(self) -> bool:
         return self.is_visible(self.SIMPLE_ALERT_BUTTON)
 
     def timer_alert_visible(self) -> bool:
-        return self.is_visible(self.TIMER_ALLERT_BUTTON)
+        return self.is_visible(self.TIMER_ALERT_BUTTON)
 
     def confirm_alert_visible(self) -> bool:
-        return self.is_visible(self.CONFIRM_ALLERT_BUTTON)
+        return self.is_visible(self.CONFIRM_ALERT_BUTTON)
 
     def prompt_alert_visible(self) -> bool:
-        return self.is_visible(self.PROMPT_ALLERT_BUTTON)
+        return self.is_visible(self.PROMPT_ALERT_BUTTON)
 
     def accept_current_alert(self) -> None:
         self.accept_alert()

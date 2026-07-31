@@ -3,7 +3,7 @@ from __future__ import annotations
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from config import BASE_UI_URL, PAGE_LOAD_TIMEOUT
+from config import BASE_UI_URL
 from pages.base_page import BasePage
 
 class HomePage(BasePage):
@@ -19,7 +19,7 @@ class HomePage(BasePage):
         "//h5[text()='Forms']",
     )
 
-    ALERTS_CARD = (
+    ALERTS_FRAME_WINDOWS_CARD = (
         By.XPATH,
         "//h5[text()='Alerts, Frame & Windows']",
     )
@@ -51,8 +51,8 @@ class HomePage(BasePage):
     def open_forms(self) -> None:
         self.click(self.FORMS_CARD)
 
-    def open_alerts(self) -> None:
-        self.click(self.ALERTS_CARD)
+    def open_alerts_frame_windows(self) -> None:
+        self.click(self.ALERTS_FRAME_WINDOWS_CARD)
 
     def open_widgets(self) -> None:
         self.click(self.WIDGETS_CARD)
@@ -69,8 +69,8 @@ class HomePage(BasePage):
     def forms_visible(self) -> bool:
         return self.is_visible(self.FORMS_CARD)
 
-    def alerts_visible(self) -> bool:
-        return self.is_visible(self.ALERTS_CARD)
+    def alerts_frame_windows_visible(self) -> bool:
+        return self.is_visible(self.ALERTS_FRAME_WINDOWS_CARD)
 
     def widgets_visible(self) -> bool:
         return self.is_visible(self.WIDGETS_CARD)

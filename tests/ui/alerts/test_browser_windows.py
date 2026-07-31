@@ -14,7 +14,7 @@ from pages.browser_windows_page import BrowserWindowsPage
 class TestBrowserWindows:
     @allure.story("Browser Windows navigation")
     @allure.title("Browser Windows page opens successfully")
-    @allure.description("Verifies that the Browser Windows page page can be opened successfully.")
+    @allure.description("Verifies that the Browser Windows page can be opened successfully from the Alerts, Frame & Windows section.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_browser_windows(self, driver):
@@ -26,7 +26,7 @@ class TestBrowserWindows:
             home_page.open()
 
         with allure.step("Open Alerts, Frame & Windows section"):
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
 
         with allure.step("Open Browser Windows page"):
             alerts_frames_page.open_browser_windows()
@@ -46,7 +46,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Verify New Tab button is visible"):
@@ -70,7 +70,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Store initial window handle"):
@@ -99,7 +99,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Open new tab"):
@@ -125,7 +125,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Store initial window handle"):
@@ -154,7 +154,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Open new window"):
@@ -180,7 +180,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Store original window handle"):
@@ -209,7 +209,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Store original window handle"):
@@ -246,7 +246,7 @@ class TestBrowserWindows:
 
         with allure.step("Open Browser Windows page"):
             home_page.open()
-            home_page.open_alerts()
+            home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
         with allure.step("Store original window handle"):
