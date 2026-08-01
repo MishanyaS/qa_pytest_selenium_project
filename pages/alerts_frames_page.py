@@ -41,6 +41,11 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Auto Complete']"
     )
 
+    DATE_PICKER_SECTION = (
+        By.XPATH,
+        "//span[text()='Date Picker']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -94,6 +99,9 @@ class AlertsFramesPage(BasePage):
 
     def open_auto_complete(self) -> None:
         self.click(self.AUTO_COMPLETE_SECTION)
+
+    def open_date_picker(self) -> None:
+        self.click(self.DATE_PICKER_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)

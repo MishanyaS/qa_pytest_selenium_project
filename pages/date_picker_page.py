@@ -100,7 +100,7 @@ class DatePickerPage(BasePage):
             By.XPATH,
             "//div[contains(@class, 'react-datepicker__day') "
             f"and normalize-space()='{day}' "
-            "'react-datepicker__day--outside-month'))]",
+            "and not(contains(@class, 'react-datepicker__day--outside-month'))]",
         )
 
         self.click(date)
@@ -119,8 +119,6 @@ class DatePickerPage(BasePage):
 
     def select_date_and_time(self, month: str, year: str, day: str, time: str) -> None:
         self.open_date_and_time_picker()
-        self.select_month(month)
-        self.select_year(year)
         self.select_date(day)
         self.select_time(time)
 
