@@ -38,8 +38,8 @@ class SliderPage(BasePage):
     def slider_max(self) -> str | None:
         return self.attribute(self.SLIDER, "max")
 
-    def slider_step(self) -> str | None:
-        return self.attribute(self.SLIDER, "step")
+    def slider_value_attribute(self) -> str | None:
+        return self.attribute(self.SLIDER, "value")
 
     def set_slider_value(self, value: int) -> None:
         self.execute_script(

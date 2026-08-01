@@ -46,6 +46,11 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Date Picker']"
     )
 
+    SLIDER_SECTION = (
+        By.XPATH,
+        "//span[text()='Slider']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -102,6 +107,9 @@ class AlertsFramesPage(BasePage):
 
     def open_date_picker(self) -> None:
         self.click(self.DATE_PICKER_SECTION)
+
+    def open_slider(self) -> None:
+        self.click(self.SLIDER_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)
