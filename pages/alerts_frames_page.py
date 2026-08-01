@@ -36,6 +36,11 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Accordian']"
     )
 
+    AUTO_COMPLETE_SECTION = (
+        By.XPATH,
+        "//span[text()='Auto Complete']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -86,6 +91,9 @@ class AlertsFramesPage(BasePage):
 
     def open_accordion(self) -> None:
         self.click(self.ACCORDION_SECTION)
+
+    def open_auto_complete(self) -> None:
+        self.click(self.AUTO_COMPLETE_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)
