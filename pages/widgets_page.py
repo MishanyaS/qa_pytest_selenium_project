@@ -6,32 +6,32 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from pages.base_page import BasePage
 
 class WidgetsPage(BasePage):
-    ACCORDION_ITEM = (
+    ACCORDION_SECTION = (
         By.XPATH,
-        "//span[text()='Accordion']"
+        "//span[text()='Accordian']"
     )
 
-    AUTO_COMPLETE_ITEM = (
+    AUTO_COMPLETE_SECTION = (
         By.XPATH,
         "//span[text()='Auto Complete']"
     )
 
-    DATE_PICKER_ITEM = (
+    DATE_PICKER_SECTION = (
         By.XPATH,
         "//span[text()='Date Picker']"
     )
 
-    SLIDER_ITEM = (
+    SLIDER_SECTION = (
         By.XPATH,
         "//span[text()='Slider']"
     )
 
-    PROGRESS_BAR_ITEM = (
+    PROGRESS_BAR_SECTION = (
         By.XPATH,
         "//span[text()='Progress Bar']"
     )
 
-    TABS_ITEM = (
+    TABS_SECTION = (
         By.XPATH,
         "//span[text()='Tabs']"
     )
@@ -55,22 +55,28 @@ class WidgetsPage(BasePage):
         super().__init__(driver)
                 
     def open_accordion(self) -> None:
-        self.click(self.ACCORDION_ITEM)
+        self.scroll_to(self.ACCORDION_SECTION)
+        self.click_with_fallback(self.ACCORDION_SECTION)
 
     def open_auto_complete(self) -> None:
-        self.click(self.AUTO_COMPLETE_ITEM)
+        self.scroll_to(self.AUTO_COMPLETE_SECTION)
+        self.click_with_fallback(self.AUTO_COMPLETE_SECTION)
 
     def open_date_picker(self) -> None:
-        self.click(self.DATE_PICKER_ITEM)
+        self.scroll_to(self.DATE_PICKER_SECTION)
+        self.click_with_fallback(self.DATE_PICKER_SECTION)
 
     def open_slider(self) -> None:
-        self.click(self.SLIDER_ITEM)
+        self.scroll_to(self.SLIDER_SECTION)
+        self.click_with_fallback(self.SLIDER_SECTION)
 
     def open_progress_bar(self) -> None:
-        self.click(self.PROGRESS_BAR_ITEM)
+        self.scroll_to(self.PROGRESS_BAR_SECTION)
+        self.click_with_fallback(self.PROGRESS_BAR_SECTION)
 
     def open_tabs(self) -> None:
-        self.click(self.TABS_ITEM)
+        self.scroll_to(self.TABS_SECTION)
+        self.click_with_fallback(self.TABS_SECTION)
 
     def open_tool_tips(self) -> None:
         self.click(self.TOOL_TIPS_ITEM)
@@ -107,3 +113,4 @@ class WidgetsPage(BasePage):
 
     def select_menu_visible(self) -> bool:
         return self.is_visible(self.SELECT_MENU_ITEM)
+

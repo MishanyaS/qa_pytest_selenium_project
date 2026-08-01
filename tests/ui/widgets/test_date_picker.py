@@ -3,7 +3,7 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.alerts_frames_page import AlertsFramesPage
+from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.date_picker_page import DatePickerPage
 
@@ -19,7 +19,7 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_open_date_picker(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         date_picker_page = DatePickerPage(driver)
 
         with allure.step("Open DemoQA home page"):
@@ -29,7 +29,7 @@ class TestDatePicker:
             home_page.open_widgets()
 
         with allure.step("Open Date Picker page"):
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Verify Date Picker page URL"):
             assert date_picker_page.current_url.endswith("/date-picker")
@@ -41,13 +41,13 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_date_picker_inputs_visible(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Verify Select Date input is visible"):
             assert page.date_input_visible()
@@ -61,13 +61,13 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_open_date_picker_popup(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Open Date Picker popup"):
             page.open_date_picker()
@@ -81,13 +81,13 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_open_date_and_time_picker_popup(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Open Date and Time Picker popup"):
             page.open_date_and_time_picker()
@@ -101,13 +101,13 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_select_date(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Select date"):
             page.select_date_by_month_year(month="July", year="2025", day="15")
@@ -121,13 +121,13 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_select_date_and_time(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Select date and time"):
             page.select_date_and_time(month="July", year="2025", day="15", time="12:00")
@@ -141,13 +141,13 @@ class TestDatePicker:
     @pytest.mark.positive
     def test_time_options_visible(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_date_picker()
+            widgets_page.open_date_picker()
 
         with allure.step("Select Date and Time Picker"):
             page.open_date_and_time_picker()

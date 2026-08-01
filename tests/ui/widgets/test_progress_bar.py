@@ -4,7 +4,7 @@ import allure
 import pytest
 import time
 
-from pages.alerts_frames_page import AlertsFramesPage
+from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.progress_bar_page import ProgressBarPage
 
@@ -20,7 +20,7 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_open_progress_bar(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         progress_bar_page = ProgressBarPage(driver)
 
         with allure.step("Open DemoQA home page"):
@@ -30,7 +30,7 @@ class TestProgressBar:
             home_page.open_widgets()
 
         with allure.step("Open Progress Bar page"):
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Verify Progress Bar page URL"):
             assert progress_bar_page.current_url.endswith("/progress-bar")
@@ -42,13 +42,13 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_progress_bar_elements_visible(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Verify progress bar is visible"):
             assert page.progress_bar_visible()
@@ -65,13 +65,13 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_start_progress(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Start progress"):
             page.start_progress()
@@ -88,13 +88,13 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_stop_progress(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Start progress"):
             page.start_progress()
@@ -114,13 +114,13 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_progress_completion(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Start progress"):
             page.start_progress()
@@ -137,13 +137,13 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_reset_progress(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Start progress"):
             page.start_progress()
@@ -166,13 +166,13 @@ class TestProgressBar:
     @pytest.mark.positive
     def test_progress_bar_limits(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_progress_bar()
+            widgets_page.open_progress_bar()
 
         with allure.step("Verify minimum value"):
             assert page.progress_bar_min_value() == "0"

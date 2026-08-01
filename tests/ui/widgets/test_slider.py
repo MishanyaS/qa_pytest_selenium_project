@@ -3,7 +3,7 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.alerts_frames_page import AlertsFramesPage
+from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.slider_page import SliderPage
 
@@ -19,7 +19,7 @@ class TestSlider:
     @pytest.mark.positive
     def test_open_slider(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         slider_page = SliderPage(driver)
 
         with allure.step("Open DemoQA home page"):
@@ -29,7 +29,7 @@ class TestSlider:
             home_page.open_widgets()
 
         with allure.step("Open Slider page"):
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Verify Slider page URL"):
             assert slider_page.current_url.endswith("/slider")
@@ -41,13 +41,13 @@ class TestSlider:
     @pytest.mark.positive
     def test_slider_visible(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Verify Slider is visibile"):
             assert page.slider_visible()
@@ -61,13 +61,13 @@ class TestSlider:
     @pytest.mark.positive
     def test_slider_properties(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Verify minimum value exists"):
             assert page.slider_min()
@@ -84,13 +84,13 @@ class TestSlider:
     @pytest.mark.positive
     def test_set_slider_value(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Set Slider value to 75"):
             page.set_slider_value(75)
@@ -104,13 +104,13 @@ class TestSlider:
     @pytest.mark.positive
     def test_increase_slider(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Store initial value"):
             initial = int(page.slider_value())
@@ -127,13 +127,13 @@ class TestSlider:
     @pytest.mark.positive
     def test_decrease_slider(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Move Slider to maximum"):
             page.set_slider_to_max()
@@ -153,13 +153,13 @@ class TestSlider:
     @pytest.mark.positive
     def test_slider_min_and_max(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_slider()
+            widgets_page.open_slider()
 
         with allure.step("Set Slider to minimum"):
             page.set_slider_to_min()

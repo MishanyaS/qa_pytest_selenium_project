@@ -31,31 +31,6 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Modal Dialogs']"
     )
 
-    ACCORDION_SECTION = (
-        By.XPATH,
-        "//span[text()='Accordian']"
-    )
-
-    AUTO_COMPLETE_SECTION = (
-        By.XPATH,
-        "//span[text()='Auto Complete']"
-    )
-
-    DATE_PICKER_SECTION = (
-        By.XPATH,
-        "//span[text()='Date Picker']"
-    )
-
-    SLIDER_SECTION = (
-        By.XPATH,
-        "//span[text()='Slider']"
-    )
-
-    PROGRESS_BAR_SECTION = (
-        By.XPATH,
-        "//span[text()='Progress Bar']"
-    )
-
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -90,34 +65,24 @@ class AlertsFramesPage(BasePage):
         super().__init__(driver)
 
     def open_browser_windows(self) -> None:
-        self.click(self.BROWSER_WINDOWS_SECTION)
+        self.scroll_to(self.BROWSER_WINDOWS_SECTION)
+        self.click_with_fallback(self.BROWSER_WINDOWS_SECTION)
 
     def open_alerts(self) -> None:
-        self.click(self.ALERTS_SECTION)
+        self.scroll_to(self.ALERTS_SECTION)
+        self.click_with_fallback(self.ALERTS_SECTION)
 
     def open_frames(self) -> None:
-        self.click(self.FRAMES_SECTION)
+        self.scroll_to(self.FRAMES_SECTION)
+        self.click_with_fallback(self.FRAMES_SECTION)
 
     def open_nested_frames(self) -> None:
-        self.click(self.NESTED_FRAMES_SECTION)
+        self.scroll_to(self.NESTED_FRAMES_SECTION)
+        self.click_with_fallback(self.NESTED_FRAMES_SECTION)
 
     def open_modal_dialogs(self) -> None:
-        self.click(self.MODAL_DIALOGS_SECTION)
-
-    def open_accordion(self) -> None:
-        self.click(self.ACCORDION_SECTION)
-
-    def open_auto_complete(self) -> None:
-        self.click(self.AUTO_COMPLETE_SECTION)
-
-    def open_date_picker(self) -> None:
-        self.click(self.DATE_PICKER_SECTION)
-
-    def open_slider(self) -> None:
-        self.click(self.SLIDER_SECTION)
-
-    def open_progress_bar(self) -> None:
-        self.click(self.PROGRESS_BAR_SECTION)
+        self.scroll_to(self.MODAL_DIALOGS_SECTION)
+        self.click_with_fallback(self.MODAL_DIALOGS_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)

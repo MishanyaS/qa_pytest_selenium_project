@@ -3,7 +3,7 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.alerts_frames_page import AlertsFramesPage
+from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.accordion_page import AccordionPage
 
@@ -19,7 +19,7 @@ class TestAlerts:
     @pytest.mark.positive
     def test_open_accordion(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         accordion_page = AccordionPage(driver)
 
         with allure.step("Open DemoQA home page"):
@@ -29,7 +29,7 @@ class TestAlerts:
             home_page.open_widgets()
 
         with allure.step("Open Accordion page"):
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Verify Accordion page URL"):
             assert accordion_page.current_url.endswith("/accordian")
@@ -41,13 +41,13 @@ class TestAlerts:
     @pytest.mark.positive
     def test_accordion_sections_visible(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Verify Section 1 header is visible"):
             assert page.section_1_visible()
@@ -64,13 +64,13 @@ class TestAlerts:
     @pytest.mark.positive
     def test_open_section_1(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Open Section 1"):
             page.open_section_1()
@@ -90,13 +90,13 @@ class TestAlerts:
     @pytest.mark.positive
     def test_open_section_2(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Open Section 2"):
             page.open_section_2()
@@ -116,13 +116,13 @@ class TestAlerts:
     @pytest.mark.positive
     def test_open_section_3(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Open Section 3"):
             page.open_section_3()
@@ -142,13 +142,13 @@ class TestAlerts:
     @pytest.mark.positive
     def test_all_sections_contain_content(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Get Section 1 content"):
             section_1_content = page.open_section_1_get_content()
@@ -174,13 +174,13 @@ class TestAlerts:
     @pytest.mark.positive
     def test_sections_contain_different_content(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_accordion()
+            widgets_page.open_accordion()
 
         with allure.step("Get Section 1 content"):
             section_1_content = page.open_section_1_get_content()

@@ -3,7 +3,7 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.alerts_frames_page import AlertsFramesPage
+from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.auto_complete_page import AutoCompletePage
 
@@ -19,7 +19,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_open_auto_complete(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         auto_complete_page = AutoCompletePage(driver)
 
         with allure.step("Open DemoQA home page"):
@@ -29,7 +29,7 @@ class TestAutoComplete:
             home_page.open_widgets()
 
         with allure.step("Open Auto Complete page"):
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Verify Auto Complete page URL"):
             assert auto_complete_page.current_url.endswith("/auto-complete")
@@ -41,13 +41,13 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_open_auto_complete_input_visible(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Verify Single Value input is visible"):
             assert page.single_value_input_visible()
@@ -61,7 +61,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_enter_single_value(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         value = "Red"
@@ -69,7 +69,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Enter value into Single Value input"):
             page.enter_single_value(value)
@@ -83,7 +83,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_enter_multiple_value(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         value = "Red"
@@ -91,7 +91,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Enter value into Multiple Value input"):
             page.enter_multiple_value(value)
@@ -105,7 +105,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_options_are_displayed(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         value = "Red"
@@ -113,7 +113,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Enter value into Single Value input"):
             page.enter_single_value(value)
@@ -130,7 +130,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_select_single_value(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         value = "Red"
@@ -138,7 +138,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Select Single Value"):
             page.select_single_value(value)
@@ -155,7 +155,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_select_multiple_values(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         first_value = "Red"
@@ -164,7 +164,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Select first value"):
             page.select_multiple_value(first_value)
@@ -187,7 +187,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_remove_multiple_value(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         first_value = "Red"
@@ -196,7 +196,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Select first value"):
             page.select_multiple_value(first_value)
@@ -221,7 +221,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_clear_single_value(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         value = "Red"
@@ -229,7 +229,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Enter value"):
             page.enter_single_value(value)
@@ -246,7 +246,7 @@ class TestAutoComplete:
     @pytest.mark.positive
     def test_clear_multiple_value_input(self, driver):
         home_page = HomePage(driver)
-        alerts_frames_page = AlertsFramesPage(driver)
+        widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         value = "Red"
@@ -254,7 +254,7 @@ class TestAutoComplete:
         with allure.step("Open Auto Complete page"):
             home_page.open()
             home_page.open_widgets()
-            alerts_frames_page.open_auto_complete()
+            widgets_page.open_auto_complete()
 
         with allure.step("Enter value"):
             page.enter_multiple_value(value)

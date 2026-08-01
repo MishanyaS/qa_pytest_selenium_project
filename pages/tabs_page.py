@@ -48,23 +48,27 @@ class TabsPage(BasePage):
 
     ACTIVE_TAB = (
         By.CSS_SELECTOR,
-        ".nav-item.nav-link.active"
+        ".nav-link.active"
     )
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
                                 
     def open_what_tab(self) -> None:
-        self.click(self.WHAT_TAB)
+        self.scroll_to(self.WHAT_TAB)
+        self.click_with_fallback(self.WHAT_TAB)
 
     def open_origin_tab(self) -> None:
-        self.click(self.ORIGIN_TAB)
+        self.scroll_to(self.ORIGIN_TAB)
+        self.click_with_fallback(self.ORIGIN_TAB)
 
     def open_use_tab(self) -> None:
-        self.click(self.USE_TAB)
+        self.scroll_to(self.USE_TAB)
+        self.click_with_fallback(self.USE_TAB)
 
     def open_more_tab(self) -> None:
-        self.click(self.MORE_TAB)
+        self.scroll_to(self.MORE_TAB)
+        self.click_with_fallback(self.MORE_TAB)
 
     def what_tab_visible(self) -> bool:
         return self.is_visible(self.WHAT_TAB)
