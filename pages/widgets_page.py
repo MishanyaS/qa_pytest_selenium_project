@@ -36,7 +36,7 @@ class WidgetsPage(BasePage):
         "//span[text()='Tabs']"
     )
 
-    TOOL_TIPS_ITEM = (
+    TOOL_TIPS_SECTION = (
         By.XPATH,
         "//span[text()='Tool Tips']"
     )
@@ -79,13 +79,16 @@ class WidgetsPage(BasePage):
         self.click_with_fallback(self.TABS_SECTION)
 
     def open_tool_tips(self) -> None:
-        self.click(self.TOOL_TIPS_ITEM)
+        self.scroll_to(self.TOOL_TIPS_SECTION)
+        self.click_with_fallback(self.TOOL_TIPS_SECTION)
 
     def open_menu(self) -> None:
-        self.click(self.MENU_ITEM)
+        self.scroll_to(self.TOOL_TIPS_SECTION)
+        self.click_with_fallback(self.MENU_ITEM)
 
     def open_select_menu(self) -> None:
-        self.click(self.SELECT_MENU_ITEM)
+        self.scroll_to(self.TOOL_TIPS_SECTION)
+        self.click_with_fallback(self.SELECT_MENU_ITEM)
 
     def accordion_visible(self) -> bool:
         return self.is_visible(self.ACCORDION_ITEM)
@@ -106,7 +109,7 @@ class WidgetsPage(BasePage):
         return self.is_visible(self.TABS_ITEM)
 
     def tool_tips_visible(self) -> bool:
-        return self.is_visible(self.TOOL_TIPS_ITEM)
+        return self.is_visible(self.TOOL_TIPS_SECTION)
 
     def menu_visible(self) -> bool:
         return self.is_visible(self.MENU_ITEM)
