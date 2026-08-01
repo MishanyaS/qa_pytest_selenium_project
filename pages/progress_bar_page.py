@@ -42,13 +42,13 @@ class ProgressBarPage(BasePage):
         return self.is_visible(self.RESET_BUTTON)
 
     def progress_bar_value(self) -> str | None:
-        return self.attribute(self.PROGRESS_BAR_VALUE, "aria-valuenow")
+        return self.wait_present(self.PROGRESS_BAR_VALUE).get_attribute("aria-valuenow")
 
     def progress_bar_max_value(self) -> str | None:
-        return self.attribute(self.PROGRESS_BAR_VALUE, "aria-valuemax")
+        return self.wait_present(self.PROGRESS_BAR_VALUE).get_attribute("aria-valuemax")
 
     def progress_bar_min_value(self) -> str | None:
-        return self.attribute(self.PROGRESS_BAR_VALUE, "aria-valuemin")
+        return self.wait_present(self.PROGRESS_BAR_VALUE).get_attribute("aria-valuemin")
 
     def progress_bar_text(self) -> str:
         return self.text(self.PROGRESS_BAR_VALUE)

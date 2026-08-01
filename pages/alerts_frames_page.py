@@ -51,6 +51,11 @@ class AlertsFramesPage(BasePage):
         "//span[text()='Slider']"
     )
 
+    PROGRESS_BAR_SECTION = (
+        By.XPATH,
+        "//span[text()='Progress Bar']"
+    )
+
     SIMPLE_ALERT_BUTTON = (
         By.ID,
         "alertButton",
@@ -110,6 +115,9 @@ class AlertsFramesPage(BasePage):
 
     def open_slider(self) -> None:
         self.click(self.SLIDER_SECTION)
+
+    def open_progress_bar(self) -> None:
+        self.click(self.PROGRESS_BAR_SECTION)
 
     def open_simple_alert(self) -> None:
         self.click(self.SIMPLE_ALERT_BUTTON)
