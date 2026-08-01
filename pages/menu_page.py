@@ -8,22 +8,22 @@ from pages.base_page import BasePage
 class MenuPage(BasePage):
     HOME_ITEM = (
         By.XPATH,
-        "//a[normalize-space()='Main Item 1']"
+        "//ul[@id='nav']/li[1]/a"
     )
 
     MAIN_ITEM_2 = (
         By.XPATH,
-        "//a[normalize-space()='Main Item 2']"
+        "//ul[@id='nav']/li[2]/a"
     )
 
     MAIN_ITEM_3 = (
         By.XPATH,
-        "//a[normalize-space()='Main Item 3']"
+        "//ul[@id='nav']/li[3]/a"
     )
 
     SUB_SUB_LIST = (
         By.XPATH,
-        "//a[normalize-space()='SUB SUB LIST']"
+        "//ul[@id='nav']//a[normalize-space()='SUB SUB LIST »']"
     )
 
     SUB_SUB_ITEM_1 = (
@@ -99,7 +99,7 @@ class MenuPage(BasePage):
         return self.text(self.MAIN_ITEM_3)
 
     def sub_sub_list_text(self) -> str:
-        return self.text(self.SUB_SUB_LIST)
+        return self.text(self.SUB_SUB_LIST).replace(" »", "").replace("»", "").strip()
 
     def sub_sub_item_1_text(self) -> str:
         return self.text(self.SUB_SUB_ITEM_1)
