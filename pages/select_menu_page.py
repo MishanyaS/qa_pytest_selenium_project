@@ -27,8 +27,8 @@ class SelectMenuPage(BasePage):
     )
 
     REACT_SELECT_INPUT = (
-        By.CSS_SELECTOR,
-        "#selectMenuContainer .react-select__input"
+        By.ID,
+        "react-select-2-input"
     )
 
     REACT_SELECT_SINGLE = (
@@ -43,17 +43,17 @@ class SelectMenuPage(BasePage):
 
     REACT_SELECT_OPTIONS = (
         By.CSS_SELECTOR,
-        ".react-select__option"
+        "div[class*='option']"
     )
 
     SELECTED_OPTION = (
         By.CSS_SELECTOR,
-        ".react-select__single-value"
+        "div[class*='singleValue']"
     )
 
     SELECTED_OPTIONS = (
         By.CSS_SELECTOR,
-        ".react-select__multi-value__label"
+        "div[class*='multiValue__label']"
     )
 
     def __init__(self, driver: WebDriver) -> None:
@@ -123,7 +123,8 @@ class SelectMenuPage(BasePage):
         self.select_multiple_by_text(text)
 
     def open_react_select(self) -> None:
-        self.click(self.REACT_SELECT_INPUT)
+        self.scroll_to(self.REACT_SELECT_INPUT)
+        self.click_with_fallback(self.REACT_SELECT_INPUT)
 
     def react_options_visible(self) -> bool:
         return self.exists(self.REACT_SELECT_OPTIONS)
@@ -137,11 +138,10 @@ class SelectMenuPage(BasePage):
     def select_react_option(self, value: str) -> None:
         options = (
             By.XPATH,
-            "//div[contains(@class, 'react-select__option' "
-            f"and normalize-space()='{value}']",
+            f"//div[@role='option' and normalize-space()='{value}']",
         )
 
-        self.click(options)
+        self.click_with_fallback(options)
 
     def select_react_option_by_text(self, value: str) -> None:
         self.open_react_select()

@@ -11,7 +11,7 @@ from pages.tool_tips_page import ToolTipsPage
 @allure.feature("Widgets")
 @pytest.mark.ui
 @pytest.mark.regression
-class TestTabs:
+class TestToolTips:
     @allure.story("Tool Tips navigation")
     @allure.title("Tool Tips page opens successfully")
     @allure.description("Verifies that the Tool Tips page can be opened successfully from the Widgets section.")

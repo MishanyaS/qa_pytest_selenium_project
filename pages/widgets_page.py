@@ -46,7 +46,7 @@ class WidgetsPage(BasePage):
         "//span[text()='Menu']"
     )
 
-    SELECT_MENU_ITEM = (
+    SELECT_MENU_SECTION = (
         By.XPATH,
         "//span[text()='Select Menu']"
     )
@@ -87,8 +87,8 @@ class WidgetsPage(BasePage):
         self.click_with_fallback(self.MENU_SECTION)
 
     def open_select_menu(self) -> None:
-        self.scroll_to(self.TOOL_TIPS_SECTION)
-        self.click_with_fallback(self.SELECT_MENU_ITEM)
+        self.scroll_to(self.SELECT_MENU_SECTION)
+        self.click_with_fallback(self.SELECT_MENU_SECTION)
 
     def accordion_visible(self) -> bool:
         return self.is_visible(self.ACCORDION_ITEM)
@@ -115,5 +115,5 @@ class WidgetsPage(BasePage):
         return self.is_visible(self.MENU_SECTION)
 
     def select_menu_visible(self) -> bool:
-        return self.is_visible(self.SELECT_MENU_ITEM)
+        return self.is_visible(self.SELECT_MENU_SECTION)
 

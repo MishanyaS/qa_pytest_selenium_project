@@ -11,7 +11,7 @@ from pages.accordion_page import AccordionPage
 @allure.feature("Widgets")
 @pytest.mark.ui
 @pytest.mark.regression
-class TestAlerts:
+class TestAccordion:
     @allure.story("Accordion navigation")
     @allure.title("Accordion page opens successfully")
     @allure.description("Verifies that the Accordion page can be opened successfully from the Widgets section.")
