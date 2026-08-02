@@ -13,7 +13,7 @@ class ResizablePage(BasePage):
 
     RESIZABLE_HANDLE = (
         By.CSS_SELECTOR,
-        "#resizable .ui-resizable-se"
+        "#resizable .react-resizable-handle-se"
     )
 
     def __init__(self, driver: WebDriver) -> None:
