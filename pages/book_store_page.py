@@ -13,17 +13,22 @@ class BookStorePage(BasePage):
 
     BOOK_ROWS = (
         By.CSS_SELECTOR,
-        ".rt-tbody .rt-tr-group"
+        "table tbody tr"
+    )
+
+    BOOK_TITLE = (
+        By.XPATH,
+        "//div[@id='title-wrapper']//div[2]/label"
     )
 
     BOOK_TITLES = (
         By.CSS_SELECTOR,
-        ".rt-tbody .rt-tr-group .rt-td:nth-child(2)"
+        "table tbody tr td:nth-child(2) a"
     )
 
     FIRST_BOOK = (
         By.CSS_SELECTOR,
-        ".rt-tbody .rt-tr-group:first-child .rt-td:nth-child(2) a"
+        "table tbody tr:first-child td:nth-child(2) a"
     )
 
     LOGIN_BUTTON = (
@@ -43,6 +48,9 @@ class BookStorePage(BasePage):
     def books_count(self) -> int:
         return len(self.find_all(self.BOOK_ROWS))
 
+    def book_title_visible(self, title: str) -> bool:
+        return self.text(self.BOOK_TITLE) == title
+
     def book_titles(self) -> list[str]:
         return [
             book.text
@@ -53,7 +61,7 @@ class BookStorePage(BasePage):
     def book_title(self, index: int) -> str:
         locator = (
             By.CSS_SELECTOR,
-            f".rt-tbody .rt-tr-group:nth-child({index}) .rt-td:nth-child(2) a"
+            f"table tbody tr:nth-child({index}) td:nth-child(2) a"
         )
 
         return self.text(locator)
@@ -61,7 +69,7 @@ class BookStorePage(BasePage):
     def book_visible(self, index: int) -> bool:
         locator = (
             By.CSS_SELECTOR,
-            f".rt-tbody .rt-tr-group:nth-child({index})"
+            f"table tbody tr:nth-child({index}) td:nth-child(2) a"
         )
 
         return self.is_visible(locator)
@@ -81,7 +89,7 @@ class BookStorePage(BasePage):
     def open_book(self, index: int) -> None:
         locator = (
             By.CSS_SELECTOR,
-            f".rt-tbody .rt-tr-group:nth-child({index}) .rt-td:nth-child(2) a"
+            f"table tbody tr:nth-child({index}) td:nth-child(2) a"
         )
 
         self.click(locator)
