@@ -41,5 +41,5 @@ class DroppablePage(BasePage):
         return self.text(self.DRAGGABLE)
 
     def dropped(self) -> bool:
-        return self.droppable_text() == "Dropped"
+        return self.droppable_text() == "Dropped!"
     

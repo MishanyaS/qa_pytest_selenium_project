@@ -61,7 +61,7 @@ class SortablePage(BasePage):
             f"#demo-tabpane-list .list-group-item:nth-child({target_index})"
         )
 
-        self.drag_and_drop(source, target)
+        self.drag_and_drop_by_hold(source, target)
 
     def drag_item_by_locator(self, source: tuple[str, str], target: tuple[str, str]) -> None:
-        self.drag_and_drop(source, target)
+        self.drag_and_drop_by_hold(source, target)

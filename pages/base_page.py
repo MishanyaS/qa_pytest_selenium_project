@@ -172,13 +172,29 @@ class BasePage:
 
         ActionChains(self.driver).context_click(element).perform()
 
-    # def drag_and_drop(self, source: Locator, target: Locator) -> None:       
-    #     ActionChains(self.driver).drag_and_drop(
-    #         self.wait_visible(source),
-    #         self.wait_visible(target),
-    #     ).perform()
+    # def drag_and_drop(self, source: Locator, target: Locator) -> None:
+    #     source_element = self.wait_visible(source)
+    #     target_element = self.wait_visible(target)
 
-    def drag_and_drop(self, source: Locator, target: Locator) -> None:       
+    #     actions = ActionChains(self.driver)
+
+    #     (
+    #         actions.click_and_hold(source_element).move_to_element(target_element)
+    #         .move_by_offset(0, 10).pause(0.2).release().perform()
+    #     )
+
+    def drag_and_drop(self, source: Locator, target: Locator) -> None:
+        source_element = self.wait_visible(source)
+        target_element = self.wait_visible(target)
+
+        actions = ActionChains(self.driver)
+
+        (
+            actions.click_and_hold(source_element).pause(0.2).move_to_element(target_element)
+            .pause(0.2).release().perform()
+        )
+
+    def drag_and_drop_by_hold(self, source: Locator, target: Locator) -> None:
         source_element = self.wait_visible(source)
         target_element = self.wait_visible(target)
 
