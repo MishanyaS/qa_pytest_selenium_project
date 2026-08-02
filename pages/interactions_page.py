@@ -26,6 +26,11 @@ class InteractionsPage(BasePage):
         "//span[text()='Droppable']"
     )
 
+    DRAGGABLE_SECTION = (
+        By.XPATH,
+        "//span[text()='Dragabble']"
+    )
+
     SELECTABLE_ITEM_1 = (
         By.CSS_SELECTOR,
         "#selectable li:nth-child(1)"
@@ -139,6 +144,10 @@ class InteractionsPage(BasePage):
     def open_droppable(self) -> None:
         self.scroll_to(self.DROPPABLE_SECTION)
         self.click_with_fallback(self.DROPPABLE_SECTION)
+
+    def open_draggable(self) -> None:
+        self.scroll_to(self.DRAGGABLE_SECTION)
+        self.click_with_fallback(self.DRAGGABLE_SECTION)
 
     def selectable_visible(self) -> bool:
         return self.is_visible(self.SELECTABLE_ITEMS)

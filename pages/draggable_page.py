@@ -8,7 +8,7 @@ from pages.base_page import BasePage
 class DraggablePage(BasePage):
     DRAGGABLE = (
         By.ID,
-        "draggable"
+        "dragBox"
     )
 
     def __init__(self, driver: WebDriver) -> None:
@@ -20,22 +20,34 @@ class DraggablePage(BasePage):
     def draggable_enabled(self) -> bool:
         return self.is_enabled(self.DRAGGABLE)
 
-    def draggable_text(self) -> bool:
+    def draggable_text(self) -> str:
         return self.text(self.DRAGGABLE)
 
     def draggable_position(self) -> tuple[int, int]:
         element = self.wait_visible(self.DRAGGABLE)
 
         return (
-            element.location["x"],
-            element.location["y"],
+                self.execute_script(
+                "return window.getComputedStyle(arguments[0]).left;",
+                self.wait_visible(self.DRAGGABLE)
+            ),
+            self.execute_script(
+                "return window.getComputedStyle(arguments[0]).top;",
+                self.wait_visible(self.DRAGGABLE)
+            )
         )
 
     def draggable_x(self) -> int:
-        return self.wait_visible(self.DRAGGABLE).location["x"]
+        return self.execute_script(
+            "return window.getComputedStyle(arguments[0]).left;",
+            self.wait_visible(self.DRAGGABLE)
+        )
 
     def draggable_y(self) -> int:
-        return self.wait_visible(self.DRAGGABLE).location["y"]
+        return self.execute_script(
+            "return window.getComputedStyle(arguments[0]).top;",
+            self.wait_visible(self.DRAGGABLE)
+        )
 
-    def drag(self, x_offset: int, y_offset: int) -> int:
+    def drag(self, x_offset: int, y_offset: int) -> None:
         self.drag_by_offset(self.DRAGGABLE, x_offset, y_offset)
