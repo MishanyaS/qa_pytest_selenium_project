@@ -8,12 +8,12 @@ from pages.base_page import BasePage
 class SortablePage(BasePage):
     SORTABLE = (
         By.ID,
-        "sortable"
+        "demo-tabpane-list"
     )
 
     SORTABLE_ITEMS = (
         By.CSS_SELECTOR,
-        "#sortable li"
+        "#demo-tabpane-list .list-group-item"
     )
 
     def __init__(self, driver: WebDriver) -> None:
@@ -37,7 +37,7 @@ class SortablePage(BasePage):
     def sortable_item_visible(self, index: int) -> bool:
         item = (
             By.CSS_SELECTOR,
-            f"#sortable li:nth-child({index})"
+            f"#demo-tabpane-list .list-group-item:nth-child({index})"
         )
 
         return self.is_visible(item)
@@ -45,7 +45,7 @@ class SortablePage(BasePage):
     def sortable_item_text(self, index: int) -> str:
         item = (
             By.CSS_SELECTOR,
-            f"#sortable li:nth-child({index})"
+            f"#demo-tabpane-list .list-group-item:nth-child({index})"
         )
 
         return self.text(item)
@@ -53,12 +53,12 @@ class SortablePage(BasePage):
     def drag_item(self, source_index: int, target_index: int) -> None:
         source = (
             By.CSS_SELECTOR,
-            f"#sortable li:nth-child({source_index})"
+            f"#demo-tabpane-list .list-group-item:nth-child({source_index})"
         )
 
         target = (
             By.CSS_SELECTOR,
-            f"#sortable li:nth-child({target_index})"
+            f"#demo-tabpane-list .list-group-item:nth-child({target_index})"
         )
 
         self.drag_and_drop(source, target)

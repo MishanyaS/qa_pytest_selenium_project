@@ -25,13 +25,13 @@ class TestSelectable:
         with allure.step("Open DemoQA home page"):
             home_page.open()
 
-        with allure.step("Open Widgets section"):
+        with allure.step("Open Interactions section"):
             home_page.open_interactions()
 
-        with allure.step("Open Accordion page"):
+        with allure.step("Open Selectable page"):
             interactions_page.open_selectable()
 
-        with allure.step("Verify Accordion page URL"):
+        with allure.step("Verify Selectable page URL"):
             assert selectable_page.current_url.endswith("/selectable")
 
     @allure.story("Selectable page")

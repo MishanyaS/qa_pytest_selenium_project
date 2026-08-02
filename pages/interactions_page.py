@@ -11,6 +11,11 @@ class InteractionsPage(BasePage):
         "//span[text()='Selectable']"
     )
 
+    SORTABLE_SECTION = (
+        By.XPATH,
+        "//span[text()='Sortable']"
+    )
+
     SELECTABLE_ITEM_1 = (
         By.CSS_SELECTOR,
         "#selectable li:nth-child(1)"
@@ -53,32 +58,32 @@ class InteractionsPage(BasePage):
 
     SORTABLE_ITEM_1 = (
         By.CSS_SELECTOR,
-        "#sortable li:nth-child(1)"
+        "#demo-tabpane-list .list-group-item:nth-child(1)"
     )
 
     SORTABLE_ITEM_2 = (
         By.CSS_SELECTOR,
-        "#sortable li:nth-child(2)"
+        "#demo-tabpane-list .list-group-item:nth-child(2)"
     )
 
     SORTABLE_ITEM_3 = (
         By.CSS_SELECTOR,
-        "#sortable li:nth-child(3)"
+        "#demo-tabpane-list .list-group-item:nth-child(3)"
     )
 
     SORTABLE_ITEM_4 = (
         By.CSS_SELECTOR,
-        "#sortable li:nth-child(4)"
+        "#demo-tabpane-list .list-group-item:nth-child(4)"
     )
 
     SORTABLE_ITEM_5 = (
         By.CSS_SELECTOR,
-        "#sortable li:nth-child(5)"
+        "#demo-tabpane-list .list-group-item:nth-child(5)"
     )
 
     SORTABLE_ITEM_6 = (
         By.CSS_SELECTOR,
-        "#sortable li:nth-child(6)"
+        "#demo-tabpane-list .list-group-item:nth-child(6)"
     )
 
     DROPPABLE = (
@@ -112,6 +117,10 @@ class InteractionsPage(BasePage):
     def open_selectable(self) -> None:
         self.scroll_to(self.SELECTABLE_SECTION)
         self.click_with_fallback(self.SELECTABLE_SECTION)
+
+    def open_sortable(self) -> None:
+        self.scroll_to(self.SORTABLE_SECTION)
+        self.click_with_fallback(self.SORTABLE_SECTION)
 
     def selectable_visible(self) -> bool:
         return self.is_visible(self.SELECTABLE_ITEMS)
