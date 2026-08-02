@@ -11,7 +11,7 @@ from pages.select_menu_page import SelectMenuPage
 @allure.feature("Widgets")
 @pytest.mark.ui
 @pytest.mark.regression
-class TestProgressBar:
+class TestSelectMenu:
     @allure.story("Select Menu navigation")
     @allure.title("Select Menu page opens successfully")
     @allure.description("Verifies that the Select Menu page can be opened successfully from the Widgets section.")

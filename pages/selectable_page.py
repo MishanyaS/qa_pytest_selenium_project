@@ -8,17 +8,17 @@ from pages.base_page import BasePage
 class SelectablePage(BasePage):
     SELECTABLE = (
         By.ID,
-        "selectable"
+        "listContainer"
     )
 
     SELECTABLE_ITEMS = (
         By.CSS_SELECTOR,
-        "#selectable li"
+        "#verticalListContainer li"
     )
 
     SELECTED_ITEMS = (
         By.CSS_SELECTOR,
-        "#selectable li.ui-selected"
+        "#verticalListContainer li.active"
     )
 
     def __init__(self, driver: WebDriver) -> None:
@@ -42,7 +42,7 @@ class SelectablePage(BasePage):
     def selectable_item_visible(self, index: int) -> bool:
         item = (
             By.CSS_SELECTOR,
-            f"#selectable li:nth-child({index})"
+            f"#verticalListContainer li:nth-child({index})"
         )
 
         return self.is_visible(item)
@@ -50,7 +50,7 @@ class SelectablePage(BasePage):
     def selectable_item_text(self, index: int) -> str:
         item = (
             By.CSS_SELECTOR,
-            f"#selectable li:nth-child({index})"
+            f"#verticalListContainer li:nth-child({index})"
         )
 
         return self.text(item)
@@ -58,7 +58,7 @@ class SelectablePage(BasePage):
     def select_item(self, index: int) -> None:
         item = (
             By.CSS_SELECTOR,
-            f"#selectable li:nth-child({index})"
+            f"#verticalListContainer li:nth-child({index})"
         )
 
         self.click(item)
@@ -75,7 +75,7 @@ class SelectablePage(BasePage):
     def item_selected(self, index: int) -> bool:
         item = (
             By.CSS_SELECTOR,
-            f"#selectable li:nth-child({index}).ui-selected"
+            f"#verticalListContainer li:nth-child({index}).active"
         )
 
         return self.exists(item)

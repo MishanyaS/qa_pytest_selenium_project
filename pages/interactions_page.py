@@ -6,6 +6,11 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from pages.base_page import BasePage
 
 class InteractionsPage(BasePage):
+    SELECTABLE_SECTION = (
+        By.XPATH,
+        "//span[text()='Selectable']"
+    )
+
     SELECTABLE_ITEM_1 = (
         By.CSS_SELECTOR,
         "#selectable li:nth-child(1)"
@@ -103,6 +108,10 @@ class InteractionsPage(BasePage):
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
+
+    def open_selectable(self) -> None:
+        self.scroll_to(self.SELECTABLE_SECTION)
+        self.click_with_fallback(self.SELECTABLE_SECTION)
 
     def selectable_visible(self) -> bool:
         return self.is_visible(self.SELECTABLE_ITEMS)
