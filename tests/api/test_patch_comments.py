@@ -7,7 +7,7 @@ from typing import Any
 from schemas.comment_schema import COMMENT_SCHEMA
 from utils.api_client import ApiClient
 
-allure.epic("API")
+@allure.epic("API")
 @allure.feature("Patch Comments")
 @pytest.mark.api
 @pytest.mark.regression
@@ -24,6 +24,7 @@ class TestPatchComments:
 
     @allure.story("Patch comment")
     @allure.title("PATCH /comments/1 returns 200")
+    @allure.description("Verifies that PATCH /comments/{id} returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_patch_comment_status_code(self, client: ApiClient, comment_payload: dict[str, Any]):
@@ -33,6 +34,7 @@ class TestPatchComments:
 
     @allure.story("Patch comment")
     @allure.title("Patched user matches schema")
+    @allure.description("Verifies that patched comment matches the JSON schema.")
     @pytest.mark.schema
     @pytest.mark.positive
     def test_patch_schema(self, client: ApiClient, comment_payload: dict[str, Any]):
@@ -42,6 +44,7 @@ class TestPatchComments:
 
     @allure.story("Patch comment")
     @allure.title("Returned body equals sent body")
+    @allure.description("Verifies that the returned body matches the submitted value.")
     @pytest.mark.positive
     def test_patch_body(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/1", json=comment_payload)
@@ -50,6 +53,7 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Returned id is positive")
+    @allure.description("Verifies that the returned comment id is positive.")
     @pytest.mark.positive
     def test_comment_id_positive(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/1", json=comment_payload)
@@ -58,6 +62,7 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Returned field types are correct")
+    @allure.description("Verifies that all returned fields have the expected data types.")
     @pytest.mark.positive
     def test_returned_field_types(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/1", json=comment_payload)
@@ -72,6 +77,7 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Nested user object contains required fields")
+    @allure.description("Verifies that the nested user object contains all required fields.")
     @pytest.mark.positive
     def test_nested_user_fields(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/1", json=comment_payload)
@@ -83,6 +89,7 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Patch comment with different body values")
+    @allure.description("Verifies that different comment body values are updated successfully.")
     @pytest.mark.parametrize(
         "body",
         [
@@ -107,6 +114,7 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Patch several comments")
+    @allure.description("Verifies that multiple comments can be patched successfully.")
     @pytest.mark.parametrize(
         "comment_id",
         [
@@ -117,6 +125,7 @@ class TestPatchComments:
             10,
         ]
     )
+    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_multiple_comments(self, client: ApiClient, faker: Faker, comment_id: int):
         payload = {
@@ -132,6 +141,7 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Patch postId")
+    @allure.description("Verifies that the postId field is updated correctly.")
     @pytest.mark.parametrize(
         "post_id",
         [
@@ -155,6 +165,7 @@ class TestPatchComments:
 
     @allure.story("Negative")
     @allure.title("Patch empty payload")
+    @allure.description("Verifies API behavior when an empty PATCH payload is sent.")
     @pytest.mark.negative
     def test_patch_empty_payload(self, client: ApiClient):
         response = client.patch("/comments/1", json={})
@@ -163,6 +174,7 @@ class TestPatchComments:
 
     @allure.story("Negative")
     @allure.title("Patch invalid id")
+    @allure.description("Verifies API behavior when patching a non-existing comment.")
     @pytest.mark.negative
     def test_patch_invalid_id(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/999999", json=comment_payload)
@@ -171,7 +183,9 @@ class TestPatchComments:
 
     @allure.story("Boundary")
     @allure.title("Patch minimum body")
+    @allure.description("Verifies that a minimum-length comment body is accepted.")
     @pytest.mark.boundary
+    @pytest.mark.positive
     def test_patch_minimum_body(self, client: ApiClient):
         payload = {
             "body": "A",
@@ -183,15 +197,18 @@ class TestPatchComments:
 
     @allure.story("Headers")
     @allure.title("Response content type")
+    @allure.description("Verifies that the response Content-Type is application/json.")
     @pytest.mark.positive
     def test_content_type(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/1", json=comment_payload)
 
         assert "application/json" in response.headers["Content-Type"]
 
-    @allure.story("Performane")
+    @allure.story("Performance")
     @allure.title("Patch response time")
+    @allure.description("Verifies that the PATCH request completes within the acceptable time.")
     @pytest.mark.slow
+    @pytest.mark.positive
     def test_patch_response_time(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/1", json=comment_payload)
 
@@ -203,6 +220,7 @@ class TestPatchComments:
 
     @allure.story("Step by step")
     @allure.title("Patch several comments")
+    @allure.description("Verifies step-by-step patching of multiple comments.")
     @pytest.mark.parametrize(
         "comment_id",
         [
@@ -213,7 +231,9 @@ class TestPatchComments:
             10,
         ],
     )
-    def test_patch_multiple_comments(self, client: ApiClient, faker: Faker, comment_id: int):
+    @pytest.mark.regression
+    @pytest.mark.positive
+    def test_patch_multiple_comments_step_by_step(self, client: ApiClient, faker: Faker, comment_id: int):
         payload = {
             "body": faker.sentence(),
         }
@@ -226,7 +246,9 @@ class TestPatchComments:
 
     @allure.story("Step by step")
     @allure.title("Patch comment step by step")
+    @allure.description("Verifies comment patching step by step.")
     @pytest.mark.smoke
+    @pytest.mark.positive
     def test_update_comment_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
         with allure.step("Send PATCH request"):
             response = self.patch_comment(client, 1, comment_payload)
@@ -242,6 +264,8 @@ class TestPatchComments:
 
     @allure.story("Step by step")
     @allure.title("Verify response headers")
+    @allure.description("Verifies response headers step by step.")
+    @pytest.mark.positive
     def test_headers_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
         with allure.step("Send PATCH request"):
             response = self.patch_comment(client, 1, comment_payload)
@@ -251,7 +275,9 @@ class TestPatchComments:
 
     @allure.story("Step by step")
     @allure.title("Verify response time")
+    @allure.description("Verifies response time step by step.")
     @pytest.mark.slow
+    @pytest.mark.positive
     def test_response_time_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
         with allure.step("Send PATCH request"):
             response = self.patch_comment(client, 1, comment_payload)

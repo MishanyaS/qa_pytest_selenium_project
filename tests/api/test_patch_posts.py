@@ -7,7 +7,7 @@ from typing import Any
 from schemas.post_schema import CREATE_POST_SCHEMA
 from utils.api_client import ApiClient
 
-allure.epic("API")
+@allure.epic("API")
 @allure.feature("Patch Posts")
 @pytest.mark.api
 @pytest.mark.regression
@@ -26,6 +26,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("PATCH /posts/1 returns 200")
+    @allure.description("Verifies that PATCH /posts/{id} returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_patch_post_status_code(self, client: ApiClient, post_payload: dict[str, Any]):
@@ -35,6 +36,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("Patched post matches schema")
+    @allure.description("Verifies that the patched post matches the JSON schema.")
     @pytest.mark.schema
     @pytest.mark.positive
     def test_patch_schema(self, client: ApiClient, post_payload: dict[str, Any]):
@@ -44,6 +46,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("Response is JSON")
+    @allure.description("Verifies that the response Content-Type is JSON.")
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -52,6 +55,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("Title patched")
+    @allure.description("Verifies that the post title is updated successfully.")
     @pytest.mark.positive
     def test_title_updated(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -60,6 +64,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("Body patched")
+    @allure.description("Verifies that the post body is updated successfully.")
     @pytest.mark.positive
     def test_body_updated(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -68,6 +73,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("UserId patched")
+    @allure.description("Verifies that the userId field is updated successfully.")
     @pytest.mark.positive
     def test_user_id_updated(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -76,6 +82,7 @@ class TestPatchPosts:
 
     @allure.story("Validation")
     @allure.title("Id remains unchanged")
+    @allure.description("Verifies that the post ID remains unchanged after patching.")
     @pytest.mark.positive
     def test_id_not_changed(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -84,6 +91,7 @@ class TestPatchPosts:
 
     @allure.story("Validation")
     @allure.title("Returned id is integer")
+    @allure.description("Verifies that the returned post ID is an integer.")
     @pytest.mark.positive
     def test_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -92,6 +100,7 @@ class TestPatchPosts:
 
     @allure.story("Validation")
     @allure.title("Returned title is string")
+    @allure.description("Verifies that the returned title is a string.")
     @pytest.mark.positive
     def test_title_type(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -100,6 +109,7 @@ class TestPatchPosts:
 
     @allure.story("Validation")
     @allure.title("Returned body is string")
+    @allure.description("Verifies that the returned body is a string.")
     @pytest.mark.positive
     def test_body_type(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -108,6 +118,7 @@ class TestPatchPosts:
 
     @allure.story("Validation")
     @allure.title("Returned userId is integer")
+    @allure.description("Verifies that the returned userId is an integer.")
     @pytest.mark.positive
     def test_user_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
@@ -116,6 +127,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("Patch different posts")
+    @allure.description("Verifies that different posts can be patched successfully.")
     @pytest.mark.parametrize(
         "post_id",
         [
@@ -127,6 +139,7 @@ class TestPatchPosts:
         ],
     )
     @pytest.mark.regression
+    @pytest.mark.positive
     def test_patch_various_posts(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {
             "title": faker.sentence(),
@@ -140,6 +153,7 @@ class TestPatchPosts:
 
     @allure.story("Patch post")
     @allure.title("Patch different user ids")
+    @allure.description("Verifies that different userId values are accepted.")
     @pytest.mark.parametrize(
         "user_id",
         [
@@ -150,6 +164,7 @@ class TestPatchPosts:
             100,
         ],
     )
+    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_various_user_ids(self, client: ApiClient, user_id: int):
         payload = {
@@ -163,14 +178,16 @@ class TestPatchPosts:
 
     @allure.story("Negative")
     @allure.title("Unknown endpoint returns 404")
+    @allure.description("Verifies that an unknown endpoint returns HTTP 404.")
     @pytest.mark.negative
-    def test_user_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_unknown_endpoint(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts123/1", json=post_payload)
 
         assert response.status_code == 404
 
     @allure.story("Negative")
     @allure.title("Unknown post id")
+    @allure.description("Verifies API behavior when patching a non-existing post.")
     @pytest.mark.negative
     def test_unknown_post_id(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/999999", json=post_payload)
@@ -179,6 +196,7 @@ class TestPatchPosts:
 
     @allure.story("Negative")
     @allure.title("Empty JSON")
+    @allure.description("Verifies API behavior when an empty JSON payload is sent.")
     @pytest.mark.negative
     def test_empty_json(self, client: ApiClient):
         response = client.patch("/posts/1", json={})
@@ -187,6 +205,7 @@ class TestPatchPosts:
 
     @allure.story("Negative")
     @allure.title("Invalid userId type")
+    @allure.description("Verifies API behavior when userId has an invalid type.")
     @pytest.mark.negative
     def test_invalid_user_id_type(self, client: ApiClient):
         response = client.patch("/posts/1", json={"userId": "abc"})
@@ -195,7 +214,9 @@ class TestPatchPosts:
 
     @allure.story("Negative")
     @allure.title("Negative userId")
+    @allure.description("Verifies API behavior when a negative userId is provided.")
     @pytest.mark.negative
+    @pytest.mark.boundary
     def test_negative_user_id(self, client: ApiClient):
         response = client.patch("/posts/1", json={"userId": -1})
 
@@ -203,7 +224,9 @@ class TestPatchPosts:
 
     @allure.story("Performane")
     @allure.title("Response time is acceptable")
+    @allure.description("Verifies that the PATCH request completes within the acceptable time.")
     @pytest.mark.slow
+    @pytest.mark.positive
     def test_response_time(self, client: ApiClient, post_payload: dict[str, Any]):
         response = client.patch("/posts/1", json=post_payload)
 
@@ -215,6 +238,7 @@ class TestPatchPosts:
 
     @allure.story("Step by step")
     @allure.title("Patch several posts")
+    @allure.description("Verifies step-by-step patching of multiple posts.")
     @pytest.mark.parametrize(
         "post_id",
         [
@@ -225,6 +249,8 @@ class TestPatchPosts:
             10,
         ],
     )
+    @pytest.mark.regression
+    @pytest.mark.positive
     def test_patch_multiple_posts(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {
             "title": faker.sentence(),

@@ -17,6 +17,7 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("GET /comments returns 200")
+    @allure.description("Verifies that the comments list endpoint returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_get_comments_status_code(self, client: ApiClient):
@@ -26,7 +27,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Response is JSON")
+    @allure.description("Verifies that the comments list response is returned in JSON format.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_response_is_json(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -34,7 +37,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Response contains comments")
+    @allure.description("Verifies that the response contains the comments field.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_comments_key_exists(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -44,7 +49,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Comments is list")
+    @allure.description("Verifies that the comments field is a list.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_comments_is_list(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -54,6 +61,7 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Comments list is not empty")
+    @allure.description("Verifies that the comments list is not empty.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_comments_is_not_empty(self, client: ApiClient):
@@ -65,7 +73,9 @@ class TestGetComments:
 
     @allure.story("Schema check")
     @allure.title("First comment matches schema")
+    @allure.description("Verifies that the first comment matches the JSON schema.")
     @pytest.mark.schema
+    @pytest.mark.api
     def test_first_comment_schema(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -75,7 +85,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Comments total count is bigger than 0")
+    @allure.description("Verifies that the total number of comments is greater than zero.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_total_positive(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -85,7 +97,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("limit is bigger than 0")
+    @allure.description("Verifies that the limit value is greater than zero.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_limit_positive(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -95,7 +109,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("skip is not negative")
+    @allure.description("Verifies that the skip value is not negative.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_skip_not_negative(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -105,7 +121,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("First comment contains id")
+    @allure.description("Verifies that the first comment contains the id field.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_first_comment_has_id(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -115,7 +133,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("First comment contains body")
+    @allure.description("Verifies that the first comment contains the body field.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_first_comment_has_body(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -125,7 +145,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("First comment contains likes")
+    @allure.description("Verifies that the first comment contains the likes field.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_first_comment_has_likes(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -135,7 +157,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("First comment contains user")
+    @allure.description("Verifies that the first comment contains the user field.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_first_comment_has_user(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -145,6 +169,7 @@ class TestGetComments:
 
     @allure.story("Get single comment")
     @allure.title("GET /comments/1 returns 200")
+    @allure.description("Verifies that retrieving a single comment returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_get_single_comment_status_code(self, client: ApiClient):
@@ -154,7 +179,9 @@ class TestGetComments:
 
     @allure.story("Get single comment")
     @allure.title("Single comment matches schema")
+    @allure.description("Verifies that the returned comment matches the JSON schema.")
     @pytest.mark.schema
+    @pytest.mark.api
     def test_single_comment_schema(self, client: ApiClient):
         response = client.get("/comments/1")
 
@@ -162,7 +189,9 @@ class TestGetComments:
 
     @allure.story("Get single comment")
     @allure.title("Returned id matches requested")
+    @allure.description("Verifies that the returned comment id matches the requested id.")
     @pytest.mark.positive
+    @pytest.mark.api
     def test_comment_id_matches(self, client: ApiClient):
         response = client.get("/comments/1")
 
@@ -170,6 +199,7 @@ class TestGetComments:
 
     @allure.story("Pagination")
     @allure.title("Limit parameter works")
+    @allure.description("Verifies that the limit parameter restricts the number of returned comments.")
     @pytest.mark.parametrize(
         "limit",
         [
@@ -181,6 +211,7 @@ class TestGetComments:
         ],
     )
     @pytest.mark.positive
+    @pytest.mark.api
     def test_limit_parameter(self, client: ApiClient, limit: int):
         response = client.get("/comments", params={"limit": limit})
 
@@ -190,6 +221,7 @@ class TestGetComments:
 
     @allure.story("Pagination")
     @allure.title("Skip parameter works")
+    @allure.description("Verifies that the skip parameter offsets the returned comments.")
     @pytest.mark.parametrize(
         "skip",
         [
@@ -201,6 +233,7 @@ class TestGetComments:
         ],
     )
     @pytest.mark.positive
+    @pytest.mark.api
     def test_skip_parameter(self, client: ApiClient, skip: int):
         response = client.get("/comments", params={"skip": skip})
 
@@ -208,6 +241,7 @@ class TestGetComments:
 
     @allure.story("Pagination")
     @allure.title("Limit and skip together")
+    @allure.description("Verifies that limit and skip parameters work together correctly.")
     @pytest.mark.parametrize(
         "limit, skip",
         [
@@ -218,6 +252,7 @@ class TestGetComments:
         ],
     )
     @pytest.mark.regression
+    @pytest.mark.positive
     def test_limit_skip(self, client: ApiClient, limit: int, skip: int):
         response = client.get("/comments", params={"limit": limit, "skip": skip})
 
@@ -228,7 +263,7 @@ class TestGetComments:
 
     @allure.story("Get comments by post")
     @allure.title("GET /comments/post/{post_id} returns 200")
-    @pytest.mark.positive
+    @allure.description("Verifies that comments can be retrieved for a specific post.")
     @pytest.mark.parametrize(
         "post_id",
         [
@@ -239,6 +274,8 @@ class TestGetComments:
             20,
         ],
     )
+    @pytest.mark.positive
+    @pytest.mark.api
     def test_comment_by_post_status_code(self, client: ApiClient, post_id: int):
         response = client.get(f"/comments/post/{post_id}")
 
@@ -246,7 +283,7 @@ class TestGetComments:
 
     @allure.story("Get comments by post")
     @allure.title("Returned comments belong to requested post")
-    @pytest.mark.regression
+    @allure.description("Verifies that all returned comments belong to the requested post.")
     @pytest.mark.parametrize(
         "post_id",
         [
@@ -257,6 +294,8 @@ class TestGetComments:
             20,
         ],
     )
+    @pytest.mark.regression
+    @pytest.mark.positive
     def test_comments_belong_to_post(self, client: ApiClient, post_id: int):
         response = client.get(f"/comments/post/{post_id}")
 
@@ -269,7 +308,9 @@ class TestGetComments:
 
     @allure.story("Validation")
     @allure.title("Every comment has unique id")
+    @allure.description("Verifies that all returned comments have unique ids.")
     @pytest.mark.regression
+    @pytest.mark.api
     def test_unique_comment_ids(self, client: ApiClient):
         response = client.get("/comment")
 
@@ -282,7 +323,9 @@ class TestGetComments:
 
     @allure.story("Validation")
     @allure.title("Every comment has body")
+    @allure.description("Verifies that every returned comment has a non-empty body.")
     @pytest.mark.regression
+    @pytest.mark.api
     def test_first_names_not_empty(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -295,7 +338,9 @@ class TestGetComments:
 
     @allure.story("Validation")
     @allure.title("Every user has last name")
+    @allure.description("Verifies that every returned user has a non-empty last name.")
     @pytest.mark.regression
+    @pytest.mark.api
     def test_last_names_not_empty(self, client: ApiClient):
         response = client.get("/users")
 
@@ -308,7 +353,9 @@ class TestGetComments:
 
     @allure.story("Validation")
     @allure.title("Likes are not negative")
+    @allure.description("Verifies that comment likes are never negative.")
     @pytest.mark.regression
+    @pytest.mark.api
     def test_likes_not_negative(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -321,7 +368,9 @@ class TestGetComments:
 
     @allure.story("Validation")
     @allure.title("Every comment has user id")
+    @allure.description("Verifies that every comment contains a user id.")
     @pytest.mark.regression
+    @pytest.mark.api
     def test_every_comment_has_user_id(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -334,7 +383,9 @@ class TestGetComments:
 
     @allure.story("Validation")
     @allure.title("Every comment has username")
+    @allure.description("Verifies that every comment contains a username.")
     @pytest.mark.regression
+    @pytest.mark.api
     def test_every_comment_has_username(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -347,7 +398,9 @@ class TestGetComments:
 
     @allure.story("Performance")
     @allure.title("Response time is acceptable")
+    @allure.description("Verifies that the response time is within the expected limit.")
     @pytest.mark.slow
+    @pytest.mark.api
     def test_response_time(self, client: ApiClient):
         response = client.get("/comments")
 
@@ -355,7 +408,9 @@ class TestGetComments:
 
     @allure.story("Negative")
     @allure.title("Unknown endpoint returns 404")
+    @allure.description("Verifies that an unknown endpoint returns HTTP 404.")
     @pytest.mark.negative
+    @pytest.mark.api
     def test_unknown_endpoint(self, client: ApiClient):
         response = client.get("/comments123456")
 
@@ -367,6 +422,7 @@ class TestGetComments:
 
     @allure.story("Step by step")
     @allure.title("Several comments are successfully loaded")
+    @allure.description("Verifies successful retrieval of multiple comments using different ids.")
     @pytest.mark.parametrize(
         "comment_id",
         [
@@ -377,6 +433,8 @@ class TestGetComments:
             20,
         ],
     )
+    @pytest.mark.regression
+    @pytest.mark.positive
     def test_multiple_comments(self, client: ApiClient, comment_id: int):
         response = self.get_comment(client, comment_id)
 
