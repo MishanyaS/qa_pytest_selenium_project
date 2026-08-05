@@ -12,7 +12,7 @@ from utils.helpers import is_positive, random_email, random_string, remove_none
 class TestHelpers:
     @allure.story("random_string")
     @allure.title("Returns string")
-    @allure.description("Verifies that rendom_string() returns a string.")
+    @allure.description("Verifies that random_string() returns a string.")
     @pytest.mark.positive
     def test_random_string_type(self):
         assert isinstance(random_string(), str)
@@ -123,14 +123,14 @@ class TestHelpers:
 
     @allure.story("is_positive")
     @allure.title("Positive integer")
-    @allure.description("Verifies that a positive integer is recognized at positive.")
+    @allure.description("Verifies that a positive integer is recognized as positive.")
     @pytest.mark.positive
     def test_positive_integer(self):
         assert is_positive(5) is True
 
     @allure.story("is_positive")
     @allure.title("Positive float")
-    @allure.description("Verifies that a positive float is recognized at positive.")
+    @allure.description("Verifies that a positive float is recognized as positive.")
     @pytest.mark.positive
     def test_positive_float(self):
         assert is_positive(3.14) is True
@@ -146,14 +146,14 @@ class TestHelpers:
     @allure.story("is_positive")
     @allure.title("Negative integer")
     @allure.description("Verifies that a negative integer is not recognized as positive.")
-    @pytest.mark.positive
+    @pytest.mark.negative
     def test_negative_integer(self):
         assert is_positive(-5) is False
 
     @allure.story("is_positive")
     @allure.title("Negative float")
     @allure.description("Verifies that a negative float is not recognized as positive.")
-    @pytest.mark.positive
+    @pytest.mark.negative
     def test_negative_float(self):
         assert is_positive(-0.1) is False
 
@@ -178,7 +178,7 @@ class TestHelpers:
 
     @allure.story("remove_none")
     @allure.title("Removes None values")
-    @allure.description("Verifies that None values are removed from a directory.")
+    @allure.description("Verifies that None values are removed from a dictionary.")
     @pytest.mark.positive
     def test_remove_none(self):
         data = {
@@ -219,7 +219,7 @@ class TestHelpers:
 
     @allure.story("remove_none")
     @allure.title("Empty dictionary")
-    @allure.description("Verifies that an empty dictionary is handled correclty.")
+    @allure.description("Verifies that an empty dictionary is handled correctly.")
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_remove_none_empty(self):

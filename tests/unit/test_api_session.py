@@ -79,7 +79,7 @@ class TestApiSession:
 
     @allure.story("Session")
     @allure.title("Headers are included into prepared request")
-    @allure.description("Verifies that session headers are included in a prepared requests.")
+    @allure.description("Verifies that session headers are included in the prepared requests.")
     @pytest.mark.positive
     def test_headers_in_prepared_request(self, api_session):
         request = requests.Request("GET", "https://dummyjson.com/users")

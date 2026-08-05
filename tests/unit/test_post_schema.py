@@ -29,6 +29,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Schema is object")
     @allure.description("Verifies that the schema root type is object.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_schema_type(self):
         assert POST_SCHEMA["type"] == "object"
@@ -36,6 +37,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Schema contains required section")
     @allure.description("Verifies that the schema defines required fields.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_required_exists(self):
         assert "required" in POST_SCHEMA
@@ -43,6 +45,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Schema contains properties section")
     @allure.description("Verifies that the schema defines properties.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_properties_exists(self):
         assert "properties" in POST_SCHEMA
@@ -50,6 +53,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Required fields count")
     @allure.description("Verifies that the schema contains seven required fields.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_required_fields_count(self):
         assert len(POST_SCHEMA["required"]) == 7
@@ -57,6 +61,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Required fields match expected")
     @allure.description("Verifies that required fields match the expected list.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_required_fields(self):
         assert POST_SCHEMA["required"] == [
@@ -72,6 +77,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Properties count")
     @allure.description("Verifies that the schema defines seven properties.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_properties_count(self):
         assert len(POST_SCHEMA["properties"]) == 7
@@ -79,6 +85,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Id type")
     @allure.description("Verifies that the id property is an integer.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_id_type(self):
         assert POST_SCHEMA["properties"]["id"]["type"] == "integer"
@@ -93,6 +100,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Body type")
     @allure.description("Verifies that the body property is a string.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_body_type(self):
         assert POST_SCHEMA["properties"]["body"]["type"] == "string"
@@ -100,6 +108,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("userId type")
     @allure.description("Verifies that the userId property is an integer.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_user_id_type(self):
         assert POST_SCHEMA["properties"]["userId"]["type"] == "integer"
@@ -107,6 +116,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Tags type")
     @allure.description("Verifies that the tags property is an array.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_tags_format(self):
         assert POST_SCHEMA["properties"]["tags"]["type"] == "array"
@@ -114,6 +124,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Tags item type")
     @allure.description("Verifies that tag items are strings.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_tags_item_type(self):
         assert POST_SCHEMA["properties"]["tags"]["items"]["type"] == "string"
@@ -121,6 +132,7 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Reactions type")
     @allure.description("Verifies that the reactions property is an object.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_reactions_type(self):
         assert POST_SCHEMA["properties"]["reactions"]["type"] == "object"
@@ -128,13 +140,15 @@ class TestPostSchema:
     @allure.story("Schema")
     @allure.title("Views type")
     @allure.description("Verifies that the views property is an integer.")
+    @pytest.mark.schema
     @pytest.mark.positive
     def test_views_type(self):
         assert POST_SCHEMA["properties"]["views"]["type"] == "integer"
 
     @allure.story("Schema")
     @allure.title("Views minimum")
-    @allure.description("Verifies that the minimum allowed value foe views is zero.")
+    @allure.description("Verifies that the minimum allowed value for views is zero.")
+    @pytest.mark.schema
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_views_minimum(self):
@@ -142,7 +156,8 @@ class TestPostSchema:
 
     @allure.story("Schema")
     @allure.title("Likes minimum")
-    @allure.description("Verifies that the minimum allowed value foe likes is zero.")
+    @allure.description("Verifies that the minimum allowed value for likes is zero.")
+    @pytest.mark.schema
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_likes_minimum(self):
@@ -150,7 +165,8 @@ class TestPostSchema:
 
     @allure.story("Schema")
     @allure.title("Dislikes minimum")
-    @allure.description("Verifies that the minimum allowed value foe dislikes is zero.")
+    @allure.description("Verifies that the minimum allowed value for dislikes is zero.")
+    @pytest.mark.schema
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_dislikes_minimum(self):

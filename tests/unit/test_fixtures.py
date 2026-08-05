@@ -54,7 +54,6 @@ class TestFixtures:
     @allure.title("Timeout fixture is positive")
     @allure.description("Verifies that the timeout fixture returns a positive value.")
     @pytest.mark.positive
-    @pytest.mark.boundary
     def test_timeout_fixture_positive(self, timeout: int):
         assert timeout > 0
 

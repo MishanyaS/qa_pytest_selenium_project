@@ -155,7 +155,7 @@ class TestParser:
     @allure.story("nested_value")
     @allure.title("Raises KeyError on first missing key")
     @allure.description("Verifies that nested_value() raises KeyError for a missing first-level key.")
-    @pytest.mark.positive
+    @pytest.mark.negative
     def test_nested_missing_first_key(self, nested_data: dict):
         with pytest.raises(KeyError):
             nested_value(nested_data, "account")
@@ -163,7 +163,7 @@ class TestParser:
     @allure.story("nested_value")
     @allure.title("Raises KeyError on nested missing key")
     @allure.description("Verifies that nested_value() raises KeyError for a missing nested key.")
-    @pytest.mark.positive
+    @pytest.mark.negative
     def test_nested_missing_inner_key(self, nested_data: dict):
         with pytest.raises(KeyError):
             nested_value(nested_data, "user", "address")
@@ -171,8 +171,8 @@ class TestParser:
     @allure.story("nested_value")
     @allure.title("Raises KeyError on last missing key")
     @allure.description("Verifies that nested_value() raises KeyError for a missing final key.")
-    @pytest.mark.positive
-    def test_nested_none_value(self, nested_data: dict):
+    @pytest.mark.negative
+    def test_nested_missing_last_value(self, nested_data: dict):
         with pytest.raises(KeyError):
             nested_value(nested_data, "user", "profile", "city")
 
@@ -180,7 +180,7 @@ class TestParser:
     @allure.title("Works with None value")
     @allure.description("Verifies that nested_value() returns None for an existing key with a None value.")
     @pytest.mark.positive
-    def test_nested_missing_last_key(self):
+    def test_nested_none_value(self):
         data = {
             "user": {
                 "address": None,

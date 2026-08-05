@@ -87,7 +87,6 @@ class TestConfig:
     @allure.title("Timeout values are positive")
     @allure.description("Verifies that all timeout values are greater than zero.")
     @pytest.mark.positive
-    @pytest.mark.boundary
     def test_timeout_values_positive(self):
         assert config.REQUEST_TIMEOUT > 0
         assert config.IMPLICIT_WAIT > 0
@@ -97,7 +96,6 @@ class TestConfig:
     @allure.title("Page load timeout is the greatest")
     @allure.description("Verifies that timeout values are configured in the expected order.")
     @pytest.mark.positive
-    @pytest.mark.boundary
     def test_timeout_order(self):
         assert config.PAGE_LOAD_TIMEOUT > config.REQUEST_TIMEOUT
         assert config.REQUEST_TIMEOUT > config.IMPLICIT_WAIT
@@ -144,7 +142,7 @@ class TestConfig:
 
     @allure.story("Directories")
     @allure.title("Screenshots directory type")
-    @allure.description("Verifies that the screenshots direvtory is a Path object.")
+    @allure.description("Verifies that the screenshots directory is a Path object.")
     @pytest.mark.positive
     def test_screenshots_dir_type(self):
         assert isinstance(config.SCREENSHOTS_DIR, Path)
@@ -249,6 +247,5 @@ class TestConfig:
     )
     @allure.description("Verifies that all directory constants are Path objects.")
     @pytest.mark.positive
-    @pytest.mark.boundary
     def test_path_objects(self, directory: Path):
         assert isinstance(directory, Path)
