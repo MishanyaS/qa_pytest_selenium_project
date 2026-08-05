@@ -33,8 +33,8 @@ class TestPatchComments:
         assert response.status_code == 200
 
     @allure.story("Patch comment")
-    @allure.title("Patched user matches schema")
-    @allure.description("Verifies that patched comment matches the JSON schema.")
+    @allure.title("Patched comment matches schema")
+    @allure.description("Verifies that the patched comment matches the JSON schema.")
     @pytest.mark.schema
     @pytest.mark.positive
     def test_patch_schema(self, client: ApiClient, comment_payload: dict[str, Any]):
@@ -125,7 +125,6 @@ class TestPatchComments:
             10,
         ]
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_multiple_comments(self, client: ApiClient, faker: Faker, comment_id: int):
         payload = {
@@ -174,7 +173,7 @@ class TestPatchComments:
 
     @allure.story("Negative")
     @allure.title("Patch invalid id")
-    @allure.description("Verifies API behavior when patching a non-existing comment.")
+    @allure.description("Verifies API behavior when patching a non-existant comment.")
     @pytest.mark.negative
     def test_patch_invalid_id(self, client: ApiClient, comment_payload: dict[str, Any]):
         response = client.patch("/comments/999999", json=comment_payload)
@@ -231,7 +230,6 @@ class TestPatchComments:
             10,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_multiple_comments_step_by_step(self, client: ApiClient, faker: Faker, comment_id: int):
         payload = {

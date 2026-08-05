@@ -182,7 +182,6 @@ class TestCreateUsers:
             80,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_with_various_ages(self, client: ApiClient, faker: Faker, age: int):
         payload = {
@@ -208,7 +207,6 @@ class TestCreateUsers:
             "female",
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_with_various_genders(self, client: ApiClient, faker: Faker, gender: str):
         payload = {
@@ -236,7 +234,6 @@ class TestCreateUsers:
             "example.com",
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_with_various_domains(self, client: ApiClient, faker: Faker, domain: str):
         payload = {
@@ -356,6 +353,7 @@ class TestCreateUsers:
     @allure.title("Response time is acceptable")
     @allure.description("Verifies that the user creation response time is acceptable.")
     @pytest.mark.slow
+    @pytest.mark.positive
     def test_response_time(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.post("/users/add", json=user_payload)
 
@@ -378,7 +376,6 @@ class TestCreateUsers:
             5,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_multiple_users(self, client: ApiClient, faker: Faker, index: int):
         payload = {

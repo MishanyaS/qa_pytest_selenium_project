@@ -89,7 +89,6 @@ class TestPatchUsers:
             "Robert",
         ]
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_various_first_names(self, client: ApiClient, first_name: str):
         payload = {
@@ -115,7 +114,6 @@ class TestPatchUsers:
             10,
         ]
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_multiple_users(self, client: ApiClient, faker: Faker, user_id: int):
         payload = {
@@ -142,7 +140,6 @@ class TestPatchUsers:
             80,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_age(self, client: ApiClient, age: int):
         payload = {
@@ -164,7 +161,6 @@ class TestPatchUsers:
             "female"
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_gender(self, client: ApiClient, gender: str):
         payload = {
@@ -244,7 +240,6 @@ class TestPatchUsers:
             10,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_multiple_users_step_by_step(self, client: ApiClient, faker: Faker, user_id: int):
         payload = {

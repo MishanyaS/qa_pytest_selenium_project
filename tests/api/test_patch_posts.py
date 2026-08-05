@@ -138,7 +138,6 @@ class TestPatchPosts:
             50,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_various_posts(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {
@@ -164,7 +163,6 @@ class TestPatchPosts:
             100,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_various_user_ids(self, client: ApiClient, user_id: int):
         payload = {
@@ -222,7 +220,7 @@ class TestPatchPosts:
 
         assert response.status_code in (200, 400)
 
-    @allure.story("Performane")
+    @allure.story("Performance")
     @allure.title("Response time is acceptable")
     @allure.description("Verifies that the PATCH request completes within the acceptable time.")
     @pytest.mark.slow
@@ -249,7 +247,6 @@ class TestPatchPosts:
             10,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_patch_multiple_posts(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {

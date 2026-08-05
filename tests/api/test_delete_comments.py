@@ -33,7 +33,7 @@ class TestDeleteComments:
 
     @allure.story("Delete comment")
     @allure.title("Deleted comment contains id")
-    @allure.description("Verifies that the deleted comment contains an id failed.")
+    @allure.description("Verifies that the deleted comment contains an id field.")
     @pytest.mark.positive
     def test_deleted_comment_has_id(self, client: ApiClient):
         response = client.delete("/comments/1")
@@ -137,7 +137,6 @@ class TestDeleteComments:
         ],
     )
     @allure.description("Verifies that different comment ids can be deleted successfully.")
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_delete_various_comments(self, client: ApiClient, comment_id: int):
         response = client.delete(f"/comments/{comment_id}")
@@ -191,7 +190,6 @@ class TestDeleteComments:
             10,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_delete_multiple_comments(self, client: ApiClient, comment_id: int):
         response = self.delete_comment(client, comment_id)

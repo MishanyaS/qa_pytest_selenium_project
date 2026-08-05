@@ -124,7 +124,6 @@ class TestUpdatePosts:
             50,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_update_various_posts(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {
@@ -139,7 +138,7 @@ class TestUpdatePosts:
         assert response.json()["id"] == post_id
 
     @allure.story("Update post")
-    @allure.title("Update with different user ids")
+    @allure.title("Update posts with different user ids")
     @allure.description("Verifies that posts can be updated with different user IDs.")
     @pytest.mark.parametrize(
         "user_id",
@@ -152,7 +151,7 @@ class TestUpdatePosts:
         ],
     )
     @pytest.mark.positive
-    def test_update_various_post_ids(self, client: ApiClient, faker: Faker, user_id: int):
+    def test_update_with_various_post_ids(self, client: ApiClient, faker: Faker, user_id: int):
         payload = {
             "title": faker.sentence(),
             "body": faker.text(),
@@ -165,7 +164,7 @@ class TestUpdatePosts:
         assert response.json()["userId"] == user_id
 
     @allure.story("Negative")
-    @allure.title("Unknown endpoint retutns 404")
+    @allure.title("Unknown endpoint returns 404")
     @allure.description("Verifies that an invalid endpoint returns HTTP 404.")
     @pytest.mark.negative
     def test_unknown_endpoint(self, client: ApiClient, post_payload: dict[str, Any]):
@@ -211,7 +210,7 @@ class TestUpdatePosts:
 
     @allure.story("Negative")
     @allure.title("Invalid userId type")
-    @allure.description("Verifies API behavior when an invalid userId data type.")
+    @allure.description("Verifies API behavior when an invalid userId data type is provided.")
     @pytest.mark.negative
     def test_only_user_id_type(self, client: ApiClient):
         response = client.put("/posts/1", json={"title": "Title", "body": "Body", "userId": "abc"})
@@ -298,7 +297,6 @@ class TestUpdatePosts:
             10,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_update_multiple_posts(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {

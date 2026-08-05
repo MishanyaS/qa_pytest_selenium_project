@@ -128,7 +128,6 @@ class TestCreateComments:
             200,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_comment_with_various_post_ids(self, client: ApiClient, faker: Faker, post_id: int):
         payload = {
@@ -170,7 +169,7 @@ class TestCreateComments:
 
     @allure.story("Negative")
     @allure.title("Create comment without postId")
-    @allure.description("Verifies API behavior when postId is missing.")
+    @allure.description("Verifies API behavior when postId has invalid format.")
     @pytest.mark.negative
     def test_create_comment_without_post_id(self, client: ApiClient, faker: Faker):
         payload = {
@@ -206,7 +205,7 @@ class TestCreateComments:
 
         assert response.status_code in (200, 201, 400)
 
-    @allure.story("Negative")
+    @allure.story("Headers")
     @allure.title("Response content type is JSON")
     @allure.description("Verifies that the response Content-Type is application/json.")
     @pytest.mark.positive

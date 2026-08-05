@@ -93,7 +93,6 @@ class TestCreatePosts:
             100,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_with_various_user_ids(self, client: ApiClient, faker: Faker, user_id: int):
         payload = {
@@ -170,7 +169,6 @@ class TestCreatePosts:
             5,
         ],
     )
-    @pytest.mark.regression
     @pytest.mark.positive
     def test_create_multiple_posts(self, client: ApiClient, faker: Faker, index: int):
         payload = {
