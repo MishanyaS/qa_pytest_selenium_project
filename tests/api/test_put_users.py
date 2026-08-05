@@ -184,7 +184,6 @@ class TestUpdateUsers:
     @pytest.mark.negative
     def test_update_without_first_name(self, client: ApiClient, faker: Faker):
         payload = {
-            "firstName":faker.first_name(),
             "lastName": faker.last_name(),
             "age": 30,
             "gender": "male",
