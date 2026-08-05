@@ -12,11 +12,7 @@ from utils.api_client import ApiClient
 @pytest.mark.api
 @pytest.mark.regression
 class TestUpdateUsers:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-    
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def user_payload(self, faker: Faker) -> dict[str, str | int]:
         return {
             "firstName":faker.first_name(),

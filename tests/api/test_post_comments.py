@@ -11,12 +11,8 @@ from utils.api_client import ApiClient
 @allure.feature("Create Comments")
 @pytest.mark.api
 @pytest.mark.regression
-class TestCreateComments:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-    
-    @pytest.fixture()
+class TestCreateComments:    
+    @pytest.fixture(scope="function")
     def comment_payload(self, faker: Faker) -> dict[str, Any]:
         return {
             "body": faker.sentence(nb_words=200),

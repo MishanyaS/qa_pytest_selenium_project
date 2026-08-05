@@ -8,7 +8,7 @@ from schemas.comment_schema import COMMENT_SCHEMA
 @allure.feature("Comment Schema")
 @pytest.mark.unit
 class TestCommentSchema:
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def valid_comment(self) -> dict:
         return {
             "id": 1,

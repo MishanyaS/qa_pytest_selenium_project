@@ -11,10 +11,6 @@ from utils.validators import validate_status_code
 @pytest.mark.api
 @pytest.mark.regression
 class TestGetComments:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-
     @allure.story("Get comments list")
     @allure.title("GET /comments returns 200")
     @allure.description("Verifies that the comments list endpoint returns HTTP 200.")

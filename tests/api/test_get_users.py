@@ -11,10 +11,6 @@ from utils.validators import validate_status_code, validate_email
 @pytest.mark.api
 @pytest.mark.regression
 class TestGetUsers:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-
     @allure.story("Get users list")
     @allure.title("GET /users returns 200")
     @allure.description("Verify that GET /users returns HTTP 200 status code.")

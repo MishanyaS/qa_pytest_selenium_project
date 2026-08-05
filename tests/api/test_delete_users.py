@@ -8,10 +8,6 @@ from utils.api_client import ApiClient
 @pytest.mark.api
 @pytest.mark.regression
 class TestDeleteUsers:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-
     @allure.story("Delete user")
     @allure.title("DELETE /users/1 returns 200")
     @allure.description("Verifies that deleting an existing user returns HTTP 200.")

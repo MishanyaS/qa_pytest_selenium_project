@@ -8,7 +8,7 @@ from schemas.post_schema import POST_SCHEMA
 @allure.feature("Post Schema")
 @pytest.mark.unit
 class TestPostSchema:
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def valid_post(self) -> dict:
         return {
             "id": 1,

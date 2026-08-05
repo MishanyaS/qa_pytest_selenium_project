@@ -11,12 +11,8 @@ from utils.api_client import ApiClient
 @allure.feature("Create Posts")
 @pytest.mark.api
 @pytest.mark.regression
-class TestCreatePosts:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-    
-    @pytest.fixture()
+class TestCreatePosts:    
+    @pytest.fixture(scope="function")
     def post_payload(self, faker: Faker) -> dict[str, str | int]:
         return {
             "title": faker.sentence(nb_words=5),

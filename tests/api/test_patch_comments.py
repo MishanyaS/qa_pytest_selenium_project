@@ -12,11 +12,7 @@ from utils.api_client import ApiClient
 @pytest.mark.api
 @pytest.mark.regression
 class TestPatchComments:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def comment_payload(self, faker: Faker) -> dict[str, Any]:
         return {
             "body":faker.sentence(nb_words=50),

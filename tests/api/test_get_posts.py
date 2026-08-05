@@ -10,11 +10,7 @@ from utils.validators import validate_status_code
 @allure.feature("Posts")
 @pytest.mark.api
 @pytest.mark.regression
-class TestGetPosts:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-    
+class TestGetPosts:    
     @allure.story("Get posts list")
     @allure.title("GET /posts returns 200")
     @allure.description("Verifies that GET /posts returns HTTP 200 status code.")

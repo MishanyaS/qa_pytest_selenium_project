@@ -8,7 +8,7 @@ from schemas.user_schema import USER_SCHEMA
 @allure.feature("User Schema")
 @pytest.mark.unit
 class TestUserSchema:
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def valid_user(self) -> dict:
         return {
             "id": 1,

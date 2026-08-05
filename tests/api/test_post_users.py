@@ -12,12 +12,8 @@ from utils.validators import validate_email
 @allure.feature("Create Users")
 @pytest.mark.api
 @pytest.mark.regression
-class TestCreateUsers:
-    @pytest.fixture(scope="class")
-    def client(self, api_session):
-        return ApiClient(api_session)
-    
-    @pytest.fixture()
+class TestCreateUsers:    
+    @pytest.fixture(scope="function")
     def user_payload(self, faker: Faker) -> dict[str, Any]:
         return {
             "firstName": faker.first_name(),

@@ -9,15 +9,15 @@ from utils.api_client import ApiClient
 @allure.feature("ApiClient")
 @pytest.mark.unit
 class TestApiClient:
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def session(self) -> MagicMock:
         return MagicMock(spec=requests.Session)
 
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def client(self, session: MagicMock) -> ApiClient:
         return ApiClient(session=session, base_url="https://dummyjson.com", timeout=15)
 
-    @pytest.fixture()
+    @pytest.fixture(scope="function")
     def response(self) -> MagicMock:
         response = MagicMock(spec=requests.Response)
         response.status_code = 200

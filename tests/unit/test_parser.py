@@ -7,6 +7,17 @@ from utils.parser import get_value, key_exists, nested_value
 @allure.feature("Parser")
 @pytest.mark.unit
 class TestParser:
+    @pytest.fixture(scope="function")
+    def nested_data(self) -> dict:
+        return {
+            "user": {
+                "profile": {
+                    "name": "John",
+                    "age": 30,
+                }
+            }
+        }
+    
     @allure.story("get_value")
     @allure.title("Returns value by key")
     @allure.description("Verifies that get_value() returns the value for an existing key.")
@@ -109,17 +120,6 @@ class TestParser:
         }
 
         assert key_exists(data, key) is expected
-
-    @pytest.fixture()
-    def nested_data(self) -> dict:
-        return {
-            "user": {
-                "profile": {
-                    "name": "John",
-                    "age": 30,
-                }
-            }
-        }
 
     @allure.story("nested_value")
     @allure.title("Returns nested string")

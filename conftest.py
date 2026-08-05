@@ -1,4 +1,5 @@
 import sqlite3
+import logging
 from pathlib import Path
 
 import allure
@@ -9,6 +10,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
+from utils.api_client import ApiClient
 
 from config import (
     ALLURE_REPORT,
@@ -66,7 +69,7 @@ def sqlite_connection():
 
     connection.close()
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def db_cursor(sqlite_connection):
     cursor = sqlite_connection.cursor()
 
@@ -76,7 +79,7 @@ def db_cursor(sqlite_connection):
 
     cursor.close()
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def driver():
     options = Options()
 
@@ -131,16 +134,20 @@ def pytest_runtest_makereport(item, call):
                 attachment_type=allure.attachment_type.PNG
             )
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(message)s%", datefmt="%H:%M:%S")
+
+logger = logging.getLogger(__name__)
+
 @pytest.fixture(autouse=True)
-def test_logger(request):
-    print()
-
-    print("=" * 80)
-
-    print(f"START TEST -> {request.node.name}")
+def test_logget(request):
+    logger.info("=" * 80)
+    logger.info("START TEST -> %s", request.node.name)
 
     yield
 
-    print(f"END TEST -> {request.node.name}")
+    logger.info("END TEST -> %s", request.node.name)
+    logger.info("=" * 80)
 
-    print("=" * 80)
+@pytest.fixture(scope="session")
+def client(api_session) -> ApiClient:
+    return ApiClient(api_session)
