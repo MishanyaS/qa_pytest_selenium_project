@@ -1,12 +1,14 @@
+from typing import Any
+
 import allure
 import pytest
 import requests
 from jsonschema import validate
-from typing import Any
 
 from schemas.comment_schema import COMMENT_SCHEMA
 from utils.api_client import ApiClient
 from utils.validators import validate_status_code
+
 
 @allure.epic("API")
 @allure.feature("Comments")
@@ -33,7 +35,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Response is JSON")
-    @allure.description("Verifies that the comments list response is returned in JSON format.")
+    @allure.description(
+        "Verifies that the comments list response is returned in JSON format."
+    )
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient):
         response = self._get_comments(client)
@@ -87,7 +91,9 @@ class TestGetComments:
 
     @allure.story("Get comments list")
     @allure.title("Comments total count is bigger than 0")
-    @allure.description("Verifies that the total number of comments is greater than zero.")
+    @allure.description(
+        "Verifies that the total number of comments is greater than zero."
+    )
     @pytest.mark.positive
     def test_total_positive(self, client: ApiClient):
         response = self._get_comments(client)
@@ -183,7 +189,9 @@ class TestGetComments:
 
     @allure.story("Get single comment")
     @allure.title("Returned id matches requested")
-    @allure.description("Verifies that the returned comment id matches the requested id.")
+    @allure.description(
+        "Verifies that the returned comment id matches the requested id."
+    )
     @pytest.mark.positive
     def test_comment_id_matches(self, client: ApiClient):
         response = self._get_comment(client, 1)
@@ -192,7 +200,9 @@ class TestGetComments:
 
     @allure.story("Pagination")
     @allure.title("Limit parameter works")
-    @allure.description("Verifies that the limit parameter restricts the number of returned comments.")
+    @allure.description(
+        "Verifies that the limit parameter restricts the number of returned comments."
+    )
     @pytest.mark.parametrize(
         "limit",
         [
@@ -213,7 +223,9 @@ class TestGetComments:
 
     @allure.story("Pagination")
     @allure.title("Skip parameter works")
-    @allure.description("Verifies that the skip parameter offsets the returned comments.")
+    @allure.description(
+        "Verifies that the skip parameter offsets the returned comments."
+    )
     @pytest.mark.parametrize(
         "skip",
         [
@@ -232,7 +244,9 @@ class TestGetComments:
 
     @allure.story("Pagination")
     @allure.title("Limit and skip together")
-    @allure.description("Verifies that limit and skip parameters work together correctly.")
+    @allure.description(
+        "Verifies that limit and skip parameters work together correctly."
+    )
     @pytest.mark.parametrize(
         "limit, skip",
         [
@@ -273,7 +287,9 @@ class TestGetComments:
 
     @allure.story("Get comments by post")
     @allure.title("Returned comments belong to requested post")
-    @allure.description("Verifies that all returned comments belong to the requested post.")
+    @allure.description(
+        "Verifies that all returned comments belong to the requested post."
+    )
     @pytest.mark.parametrize(
         "post_id",
         [
@@ -291,10 +307,7 @@ class TestGetComments:
 
         comments = response.json()["comments"]
 
-        assert all(
-            comment["postId"] == post_id
-            for comment in comments
-        )
+        assert all(comment["postId"] == post_id for comment in comments)
 
     @allure.story("Validation")
     @allure.title("Every comment has unique id")
@@ -305,10 +318,7 @@ class TestGetComments:
 
         data = response.json()
 
-        ids = [
-            comment["id"]
-            for comment in data["comments"]
-        ]
+        ids = [comment["id"] for comment in data["comments"]]
 
         assert len(ids) == len(set(ids))
 
@@ -321,10 +331,7 @@ class TestGetComments:
 
         comments = response.json()["comments"]
 
-        assert all(
-            len(comment["body"].strip()) > 0
-            for comment in comments
-        )
+        assert all(len(comment["body"].strip()) > 0 for comment in comments)
 
     @allure.story("Validation")
     @allure.title("Likes are not negative")
@@ -335,10 +342,7 @@ class TestGetComments:
 
         comments = response.json()["comments"]
 
-        assert all(
-            comment["likes"] >= 0
-            for comment in comments
-        )
+        assert all(comment["likes"] >= 0 for comment in comments)
 
     @allure.story("Validation")
     @allure.title("Every comment has user id")
@@ -349,10 +353,7 @@ class TestGetComments:
 
         comments = response.json()["comments"]
 
-        assert all(
-            "id" in comment["user"]
-            for comment in comments
-        )
+        assert all("id" in comment["user"] for comment in comments)
 
     @allure.story("Validation")
     @allure.title("Every comment has username")
@@ -363,10 +364,7 @@ class TestGetComments:
 
         comments = response.json()["comments"]
 
-        assert all(
-            "username" in comment["user"]
-            for comment in comments
-        )
+        assert all("username" in comment["user"] for comment in comments)
 
     @allure.story("Performance")
     @allure.title("Response time is acceptable")
@@ -388,7 +386,9 @@ class TestGetComments:
 
     @allure.story("Step by step")
     @allure.title("Several comments are successfully loaded")
-    @allure.description("Verifies successful retrieval of multiple comments using different ids.")
+    @allure.description(
+        "Verifies successful retrieval of multiple comments using different ids."
+    )
     @pytest.mark.parametrize(
         "comment_id",
         [

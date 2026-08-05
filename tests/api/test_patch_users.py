@@ -1,12 +1,14 @@
+from typing import Any
+
 import allure
 import pytest
 import requests
 from faker import Faker
 from jsonschema import validate
-from typing import Any
 
 from schemas.user_schema import USER_SCHEMA
 from utils.api_client import ApiClient
+
 
 @allure.epic("API")
 @allure.feature("Patch Users")
@@ -20,7 +22,9 @@ class TestPatchUsers:
         }
 
     @allure.step("Patch user")
-    def _patch_user(self, client: ApiClient, user_id: int, user_payload: dict[str, Any]) -> requests.Response:
+    def _patch_user(
+        self, client: ApiClient, user_id: int, user_payload: dict[str, Any]
+    ) -> requests.Response:
         return client.patch(f"/users/{user_id}", json=user_payload)
 
     @allure.story("Patch user")
@@ -28,7 +32,9 @@ class TestPatchUsers:
     @allure.description("Verifies that PATCH /users/{id} returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_patch_user_status_code(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_patch_user_status_code(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ):
         response = self._patch_user(client, 1, user_payload)
 
         assert response.status_code == 200
@@ -45,7 +51,9 @@ class TestPatchUsers:
 
     @allure.story("Patch user")
     @allure.title("Returned firstName equals sent firstName")
-    @allure.description("Verifies that the returned firstName matches the submitted value.")
+    @allure.description(
+        "Verifies that the returned firstName matches the submitted value."
+    )
     @pytest.mark.positive
     def test_patch_first_name(self, client: ApiClient, user_payload: dict[str, Any]):
         response = self._patch_user(client, 1, user_payload)
@@ -63,9 +71,13 @@ class TestPatchUsers:
 
     @allure.story("Validation")
     @allure.title("Returned field types are correct")
-    @allure.description("Verifies that all returned fields have the expected data types.")
+    @allure.description(
+        "Verifies that all returned fields have the expected data types."
+    )
     @pytest.mark.positive
-    def test_returned_field_types(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_returned_field_types(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ):
         response = self._patch_user(client, 1, user_payload)
 
         data = response.json()
@@ -79,7 +91,9 @@ class TestPatchUsers:
 
     @allure.story("Validation")
     @allure.title("Patch user with different first names")
-    @allure.description("Verifies that different firstName values are updated successfully.")
+    @allure.description(
+        "Verifies that different firstName values are updated successfully."
+    )
     @pytest.mark.parametrize(
         "first_name",
         [
@@ -88,7 +102,7 @@ class TestPatchUsers:
             "Michael",
             "Kate",
             "Robert",
-        ]
+        ],
     )
     @pytest.mark.positive
     def test_patch_various_first_names(self, client: ApiClient, first_name: str):
@@ -97,7 +111,6 @@ class TestPatchUsers:
         }
 
         response = self._patch_user(client, 1, payload)
-
 
         assert response.status_code == 200
         assert response.json()["firstName"] == first_name
@@ -113,7 +126,7 @@ class TestPatchUsers:
             3,
             5,
             10,
-        ]
+        ],
     )
     @pytest.mark.positive
     def test_patch_multiple_users(self, client: ApiClient, faker: Faker, user_id: int):
@@ -158,10 +171,7 @@ class TestPatchUsers:
     @allure.description("Verifies that the gender field is updated successfully.")
     @pytest.mark.parametrize(
         "gender",
-        [
-            "male",
-            "female"
-        ],
+        ["male", "female"],
     )
     @pytest.mark.positive
     def test_patch_gender(self, client: ApiClient, gender: str):
@@ -217,7 +227,9 @@ class TestPatchUsers:
 
     @allure.story("Performance")
     @allure.title("Patch response time")
-    @allure.description("Verifies that the PATCH request completes within the acceptable time.")
+    @allure.description(
+        "Verifies that the PATCH request completes within the acceptable time."
+    )
     @pytest.mark.slow
     @pytest.mark.positive
     def test_patch_response_time(self, client: ApiClient, user_payload: dict[str, Any]):
@@ -239,7 +251,9 @@ class TestPatchUsers:
         ],
     )
     @pytest.mark.positive
-    def test_patch_multiple_users_step_by_step(self, client: ApiClient, faker: Faker, user_id: int):
+    def test_patch_multiple_users_step_by_step(
+        self, client: ApiClient, faker: Faker, user_id: int
+    ):
         payload = {
             "firstName": faker.first_name(),
         }
@@ -257,7 +271,9 @@ class TestPatchUsers:
     @allure.description("Verifies user patching step by step.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_update_user_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_update_user_step_by_step(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ):
         with allure.step("Send PATCH request"):
             response = self._patch_user(client, 1, user_payload)
             data = response.json()
@@ -275,7 +291,9 @@ class TestPatchUsers:
     @allure.title("Verify response headers")
     @allure.description("Verifies response headers step by step.")
     @pytest.mark.positive
-    def test_headers_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_headers_step_by_step(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ):
         with allure.step("Send PATCH request"):
             response = self._patch_user(client, 1, user_payload)
 
@@ -287,7 +305,9 @@ class TestPatchUsers:
     @allure.description("Verifies response time step by step.")
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_response_time_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_response_time_step_by_step(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ):
         with allure.step("Send PATCH request"):
             response = self._patch_user(client, 1, user_payload)
 

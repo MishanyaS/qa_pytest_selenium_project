@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
+
 class LinkPage(BasePage):
     HOME_LINK = (
         By.ID,

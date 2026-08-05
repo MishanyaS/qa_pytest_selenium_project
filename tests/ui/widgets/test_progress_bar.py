@@ -1,12 +1,14 @@
 from __future__ import annotations
 
-import allure
-import pytest
 import time
 
-from pages.widgets_page import WidgetsPage
+import allure
+import pytest
+
 from pages.home_page import HomePage
 from pages.progress_bar_page import ProgressBarPage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -15,7 +17,9 @@ from pages.progress_bar_page import ProgressBarPage
 class TestProgressBar:
     @allure.story("Progress Bar navigation")
     @allure.title("Progress Bar page opens successfully")
-    @allure.description("Verifies that the Progress Bar page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Progress Bar page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_progress_bar(self, driver):
@@ -37,7 +41,9 @@ class TestProgressBar:
 
     @allure.story("Progress Bar page")
     @allure.title("Progress Bar elements are visible")
-    @allure.description("Verifies that the progress bar and control buttons are displayed.")
+    @allure.description(
+        "Verifies that the progress bar and control buttons are displayed."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_progress_bar_elements_visible(self, driver):
@@ -162,7 +168,9 @@ class TestProgressBar:
 
     @allure.story("Progress")
     @allure.title("Progress bar has valid limits")
-    @allure.description("Verifies that minimum and maximum values are configured correctly.")
+    @allure.description(
+        "Verifies that minimum and maximum values are configured correctly."
+    )
     @pytest.mark.positive
     def test_progress_bar_limits(self, driver):
         home_page = HomePage(driver)

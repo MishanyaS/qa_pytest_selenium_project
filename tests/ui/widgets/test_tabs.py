@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.tabs_page import TabsPage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.tabs_page import TabsPage
 class TestTabs:
     @allure.story("Tabs navigation")
     @allure.title("Tabs page opens successfully")
-    @allure.description("Verifies that the Tabs page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Tabs page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_tabs(self, driver):
@@ -133,7 +136,9 @@ class TestTabs:
         with allure.step("Verify active tab is Origin"):
             assert page.active_tab() == "Origin"
 
-        with allure.step("Verify content of Origin panel contains 'Contrary to popular belief'"):
+        with allure.step(
+            "Verify content of Origin panel contains 'Contrary to popular belief'"
+        ):
             assert "Contrary to popular belief" in page.origin_panel_text()
 
     @allure.story("Tabs")
@@ -159,7 +164,9 @@ class TestTabs:
         with allure.step("Verify active tab is Use"):
             assert page.active_tab() == "Use"
 
-        with allure.step("Verify content of Use panel contains 'long established fact'"):
+        with allure.step(
+            "Verify content of Use panel contains 'long established fact'"
+        ):
             assert "long established fact" in page.use_panel_text()
 
     @allure.story("Tabs")

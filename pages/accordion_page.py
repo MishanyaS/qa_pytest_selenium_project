@@ -5,23 +5,24 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class AccordionPage(BasePage):
     SECTION_1_HEADING = (
         By.XPATH,
         "//div[@id='accordianContainer']"
-        "//button[normalize-space()='What is Lorem Ipsum?']"
+        "//button[normalize-space()='What is Lorem Ipsum?']",
     )
 
     SECTION_2_HEADING = (
         By.XPATH,
         "//div[@id='accordianContainer']"
-        "//button[normalize-space()='Where does it come from?']"
+        "//button[normalize-space()='Where does it come from?']",
     )
 
     SECTION_3_HEADING = (
         By.XPATH,
         "//div[@id='accordianContainer']"
-        "//button[normalize-space()='Why do we use it?']"
+        "//button[normalize-space()='Why do we use it?']",
     )
 
     SECTION_1_CONTENT = (
@@ -29,7 +30,7 @@ class AccordionPage(BasePage):
         "//div[@id='accordianContainer']"
         "//div[contains(@class, 'accordion-item')]"
         "[.//button[normalize-space()='What is Lorem Ipsum?']]"
-        "//div[contains(@class, 'accordion-body')]"
+        "//div[contains(@class, 'accordion-body')]",
     )
 
     SECTION_2_CONTENT = (
@@ -37,7 +38,7 @@ class AccordionPage(BasePage):
         "//div[@id='accordianContainer']"
         "//div[contains(@class, 'accordion-item')]"
         "[.//button[normalize-space()='Where does it come from?']]"
-        "//div[contains(@class, 'accordion-body')]"
+        "//div[contains(@class, 'accordion-body')]",
     )
 
     SECTION_3_CONTENT = (
@@ -45,40 +46,33 @@ class AccordionPage(BasePage):
         "//div[@id='accordianContainer']"
         "//div[contains(@class, 'accordion-item')]"
         "[.//button[normalize-space()='Why do we use it?']]"
-        "//div[contains(@class, 'accordion-body')]"
+        "//div[contains(@class, 'accordion-body')]",
     )
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                    
+
     def open_section_1(self) -> None:
         if self.attribute(self.SECTION_1_HEADING, "aria-expanded") != "true":
             self.click(self.SECTION_1_HEADING)
 
-        self._wait_for_section_content(
-            self.SECTION_1_HEADING,
-            self.SECTION_1_CONTENT
-        )
+        self._wait_for_section_content(self.SECTION_1_HEADING, self.SECTION_1_CONTENT)
 
     def open_section_2(self) -> None:
         if self.attribute(self.SECTION_2_HEADING, "aria-expanded") != "true":
             self.click(self.SECTION_2_HEADING)
 
-        self._wait_for_section_content(
-            self.SECTION_2_HEADING,
-            self.SECTION_2_CONTENT
-        )
+        self._wait_for_section_content(self.SECTION_2_HEADING, self.SECTION_2_CONTENT)
 
     def open_section_3(self) -> None:
         if self.attribute(self.SECTION_3_HEADING, "aria-expanded") != "true":
             self.click(self.SECTION_3_HEADING)
 
-        self._wait_for_section_content(
-            self.SECTION_3_HEADING,
-            self.SECTION_3_CONTENT
-        )
+        self._wait_for_section_content(self.SECTION_3_HEADING, self.SECTION_3_CONTENT)
 
-    def _wait_for_section_content(self, heading_locator: tuple[By, str], content_locator: tuple[By, str]) -> None:
+    def _wait_for_section_content(
+        self, heading_locator: tuple[By, str], content_locator: tuple[By, str]
+    ) -> None:
         self.wait.until(
             lambda _: (
                 self.attribute(heading_locator, "aria-expanded") == "true"

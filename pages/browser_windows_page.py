@@ -5,26 +5,15 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class BrowserWindowsPage(BasePage):
-    NEW_TAB_BUTTON = (
-        By.ID,
-        "tabButton"
-    )
+    NEW_TAB_BUTTON = (By.ID, "tabButton")
 
-    NEW_WINDOW_BUTTON = (
-        By.ID,
-        "windowButton"
-    )
+    NEW_WINDOW_BUTTON = (By.ID, "windowButton")
 
-    NEW_WINDOW_MESSAGE_BUTTON = (
-        By.ID,
-        "messageWindowButton"
-    )
+    NEW_WINDOW_MESSAGE_BUTTON = (By.ID, "messageWindowButton")
 
-    SAMPLE_HEADING = (
-        By.ID,
-        "sampleHeading"
-    )
+    SAMPLE_HEADING = (By.ID, "sampleHeading")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)

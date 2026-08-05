@@ -5,55 +5,29 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class WidgetsPage(BasePage):
-    ACCORDION_SECTION = (
-        By.XPATH,
-        "//span[text()='Accordian']"
-    )
+    ACCORDION_SECTION = (By.XPATH, "//span[text()='Accordian']")
 
-    AUTO_COMPLETE_SECTION = (
-        By.XPATH,
-        "//span[text()='Auto Complete']"
-    )
+    AUTO_COMPLETE_SECTION = (By.XPATH, "//span[text()='Auto Complete']")
 
-    DATE_PICKER_SECTION = (
-        By.XPATH,
-        "//span[text()='Date Picker']"
-    )
+    DATE_PICKER_SECTION = (By.XPATH, "//span[text()='Date Picker']")
 
-    SLIDER_SECTION = (
-        By.XPATH,
-        "//span[text()='Slider']"
-    )
+    SLIDER_SECTION = (By.XPATH, "//span[text()='Slider']")
 
-    PROGRESS_BAR_SECTION = (
-        By.XPATH,
-        "//span[text()='Progress Bar']"
-    )
+    PROGRESS_BAR_SECTION = (By.XPATH, "//span[text()='Progress Bar']")
 
-    TABS_SECTION = (
-        By.XPATH,
-        "//span[text()='Tabs']"
-    )
+    TABS_SECTION = (By.XPATH, "//span[text()='Tabs']")
 
-    TOOL_TIPS_SECTION = (
-        By.XPATH,
-        "//span[text()='Tool Tips']"
-    )
+    TOOL_TIPS_SECTION = (By.XPATH, "//span[text()='Tool Tips']")
 
-    MENU_SECTION = (
-        By.XPATH,
-        "//span[text()='Menu']"
-    )
+    MENU_SECTION = (By.XPATH, "//span[text()='Menu']")
 
-    SELECT_MENU_SECTION = (
-        By.XPATH,
-        "//span[text()='Select Menu']"
-    )
+    SELECT_MENU_SECTION = (By.XPATH, "//span[text()='Select Menu']")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                
+
     def open_accordion(self) -> None:
         self.scroll_to(self.ACCORDION_SECTION)
         self.click_with_fallback(self.ACCORDION_SECTION)
@@ -116,4 +90,3 @@ class WidgetsPage(BasePage):
 
     def select_menu_visible(self) -> bool:
         return self.is_visible(self.SELECT_MENU_SECTION)
-

@@ -1,12 +1,14 @@
+from typing import Any
+
 import allure
 import pytest
 import requests
 from jsonschema import validate
-from typing import Any
 
 from schemas.user_schema import USER_SCHEMA
 from utils.api_client import ApiClient
 from utils.validators import validate_status_code
+
 
 @allure.epic("API")
 @allure.feature("Users")
@@ -170,7 +172,9 @@ class TestGetUsers:
 
     @allure.story("Pagination")
     @allure.title("Limit parameter works")
-    @allure.description("Verify that the limit parameter restricts the number of returned users.")
+    @allure.description(
+        "Verify that the limit parameter restricts the number of returned users."
+    )
     @pytest.mark.parametrize(
         "limit",
         [
@@ -192,7 +196,9 @@ class TestGetUsers:
 
     @allure.story("Pagination")
     @allure.title("Skip parameter works")
-    @allure.description("Verify that the skip parameter skips the expected number of users.")
+    @allure.description(
+        "Verify that the skip parameter skips the expected number of users."
+    )
     @pytest.mark.parametrize(
         "skip",
         [
@@ -212,7 +218,9 @@ class TestGetUsers:
 
     @allure.story("Pagination")
     @allure.title("Limit and skip together")
-    @allure.description("Verify that limit and skip parameters work correctly together.")
+    @allure.description(
+        "Verify that limit and skip parameters work correctly together."
+    )
     @pytest.mark.parametrize(
         "limit, skip",
         [
@@ -236,7 +244,12 @@ class TestGetUsers:
     @allure.description("Verify that the search endpoint returns HTTP 200 status code.")
     @pytest.mark.positive
     def test_search_status_code(self, client: ApiClient):
-        response = client.get("/users/search", params={"q": "John",})
+        response = client.get(
+            "/users/search",
+            params={
+                "q": "John",
+            },
+        )
 
         assert response.status_code == 200
 
@@ -245,13 +258,17 @@ class TestGetUsers:
     @allure.description("Verify that the search returns users matching the query.")
     @pytest.mark.positive
     def test_search_contains_query(self, client: ApiClient):
-        response = client.get("/users/search", params={"q": "John",})
+        response = client.get(
+            "/users/search",
+            params={
+                "q": "John",
+            },
+        )
 
         users = response.json()["users"]
 
         assert any(
-            "john" in user["firstName"].lower()
-            or "john" in user["lastName"].lower()
+            "john" in user["firstName"].lower() or "john" in user["lastName"].lower()
             for user in users
         )
 
@@ -263,10 +280,7 @@ class TestGetUsers:
 
         data = response.json()
 
-        ids = [
-            user["id"]
-            for user in data["users"]
-        ]
+        ids = [user["id"] for user in data["users"]]
 
         assert len(ids) == len(set(ids))
 
@@ -278,10 +292,7 @@ class TestGetUsers:
 
         users = response.json()["users"]
 
-        assert all(
-            len(user["firstName"].strip()) > 0
-            for user in users
-        )
+        assert all(len(user["firstName"].strip()) > 0 for user in users)
 
     @allure.story("Validation")
     @allure.title("Every user has last name")
@@ -291,10 +302,7 @@ class TestGetUsers:
 
         users = response.json()["users"]
 
-        assert all(
-            len(user["lastName"].strip()) > 0
-            for user in users
-        )
+        assert all(len(user["lastName"].strip()) > 0 for user in users)
 
     @allure.story("Validation")
     @allure.title("Every age is bigger than 0")
@@ -305,10 +313,7 @@ class TestGetUsers:
 
         users = response.json()["users"]
 
-        assert all(
-            user["age"] >= 0
-            for user in users
-        )
+        assert all(user["age"] >= 0 for user in users)
 
     @allure.story("Performance")
     @allure.title("Response time is acceptable")

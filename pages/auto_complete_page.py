@@ -5,35 +5,21 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class AutoCompletePage(BasePage):
-    SINGLE_VALUE_INPUT = (
-        By.ID,
-        "autoCompleteSingleInput"
-    )
+    SINGLE_VALUE_INPUT = (By.ID, "autoCompleteSingleInput")
 
-    MULTIPLE_VALUE_INPUT = (
-        By.ID,
-        "autoCompleteMultipleInput"
-    )
+    MULTIPLE_VALUE_INPUT = (By.ID, "autoCompleteMultipleInput")
 
-    SELECTED_SINGLE_VALUE = (
-        By.CSS_SELECTOR,
-        ".auto-complete__single-value"
-    )
+    SELECTED_SINGLE_VALUE = (By.CSS_SELECTOR, ".auto-complete__single-value")
 
-    SELECTED_MULTIPLE_VALUES = (
-        By.CSS_SELECTOR,
-        ".auto-complete__multi-value__label"
-    )
+    SELECTED_MULTIPLE_VALUES = (By.CSS_SELECTOR, ".auto-complete__multi-value__label")
 
-    OPTIONS = (
-        By.CSS_SELECTOR,
-        ".auto-complete__option"
-    )
+    OPTIONS = (By.CSS_SELECTOR, ".auto-complete__option")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                        
+
     def enter_single_value(self, value: str) -> None:
         self.type(self.SINGLE_VALUE_INPUT, value)
 
@@ -56,16 +42,13 @@ class AutoCompletePage(BasePage):
         return self.exists(self.OPTIONS)
 
     def options(self) -> list[str]:
-        return [
-            option.text
-            for option in self.find_all(self.OPTIONS)
-        ]
+        return [option.text for option in self.find_all(self.OPTIONS)]
 
     def select_option(self, value: str) -> None:
         option = (
             By.XPATH,
             f"//div[contains(@class, 'auto-complete__option') "
-            f"and normalize-space()='{value}']"
+            f"and normalize-space()='{value}']",
         )
 
         self.click(option)
@@ -83,8 +66,7 @@ class AutoCompletePage(BasePage):
 
     def selected_multiple_value(self) -> list[str]:
         return [
-            element.text
-            for element in self.find_all(self.SELECTED_MULTIPLE_VALUES)
+            element.text for element in self.find_all(self.SELECTED_MULTIPLE_VALUES)
         ]
 
     def selected_single_value_visible(self) -> bool:

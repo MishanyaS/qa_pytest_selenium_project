@@ -3,8 +3,9 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.home_page import HomePage
 from pages.book_store_page import BookStorePage
+from pages.home_page import HomePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Alerts, Frame & Windows")
@@ -13,7 +14,9 @@ from pages.book_store_page import BookStorePage
 class TestBookStore:
     @allure.story("Book Store navigation")
     @allure.title("Book Store page opens successfully")
-    @allure.description("Verifies that the Book Store page can be opened successfully from the home page.")
+    @allure.description(
+        "Verifies that the Book Store page can be opened successfully from the home page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_book_store(self, driver):
@@ -122,14 +125,13 @@ class TestBookStore:
             page.search("Git")
 
         with allure.step("Verify filtered results"):
-            assert all(
-                "Git" in title
-                for title in page.book_titles()
-            )
+            assert all("Git" in title for title in page.book_titles())
 
     @allure.story("Search")
     @allure.title("Search value is stored")
-    @allure.description("Verifies that the entered search value is displayed in the search field.")
+    @allure.description(
+        "Verifies that the entered search value is displayed in the search field."
+    )
     @pytest.mark.positive
     def test_search_value(self, driver):
         home_page = HomePage(driver)

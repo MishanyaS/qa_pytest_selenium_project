@@ -5,30 +5,19 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class NestedFramesPage(BasePage):
-    PARENT_FRAME = (
-        By.ID,
-        "frame1"
-    )
+    PARENT_FRAME = (By.ID, "frame1")
 
-    CHILD_FRAME = (
-        By.TAG_NAME,
-        "iframe"
-    )
+    CHILD_FRAME = (By.TAG_NAME, "iframe")
 
-    PARENT_FRAME_TEXT = (
-        By.TAG_NAME,
-        "body"
-    )
+    PARENT_FRAME_TEXT = (By.TAG_NAME, "body")
 
-    CHILD_FRAME_TEXT = (
-        By.TAG_NAME,
-        "p"
-    )
+    CHILD_FRAME_TEXT = (By.TAG_NAME, "p")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-        
+
     def parent_frame_visible(self) -> bool:
         return self.is_visible(self.PARENT_FRAME)
 

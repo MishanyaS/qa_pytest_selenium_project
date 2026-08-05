@@ -1,6 +1,5 @@
-import sqlite3
 import logging
-from pathlib import Path
+import sqlite3
 
 import allure
 import pytest
@@ -10,8 +9,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
-from utils.api_client import ApiClient
 
 from config import (
     ALLURE_REPORT,
@@ -25,6 +22,7 @@ from config import (
     REQUEST_TIMEOUT,
     SCREENSHOTS_DIR,
 )
+from utils.api_client import ApiClient
 
 DIRECTORIES = (
     DATABASE_DIR,
@@ -38,9 +36,11 @@ DIRECTORIES = (
 for directory in DIRECTORIES:
     directory.mkdir(parents=True, exist_ok=True)
 
+
 @pytest.fixture(scope="session")
 def faker() -> Faker:
     return Faker()
+
 
 @pytest.fixture(scope="session")
 def api_session() -> requests.Session:
@@ -57,9 +57,11 @@ def api_session() -> requests.Session:
 
     session.close()
 
+
 @pytest.fixture(scope="session")
 def timeout() -> int:
     return REQUEST_TIMEOUT
+
 
 @pytest.fixture(scope="session")
 def sqlite_connection():
@@ -68,6 +70,7 @@ def sqlite_connection():
     yield connection
 
     connection.close()
+
 
 @pytest.fixture(scope="session")
 def db_cursor(sqlite_connection):
@@ -78,6 +81,7 @@ def db_cursor(sqlite_connection):
     sqlite_connection.commit()
 
     cursor.close()
+
 
 @pytest.fixture(scope="session")
 def driver():
@@ -113,6 +117,7 @@ def driver():
 
     driver.quit()
 
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
@@ -121,7 +126,7 @@ def pytest_runtest_makereport(item, call):
 
     if report.when != "call":
         return
-    
+
     if report.failed:
         driver = item.funcargs.get("driver")
 
@@ -129,14 +134,20 @@ def pytest_runtest_makereport(item, call):
             screenshot = driver.get_screenshot_as_png()
 
             allure.attach(
-                screenshot, 
-                name="Failure Screenshot", 
-                attachment_type=allure.attachment_type.PNG
+                screenshot,
+                name="Failure Screenshot",
+                attachment_type=allure.attachment_type.PNG,
             )
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(message)s%", datefmt="%H:%M:%S")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)-8s | %(message)s%",
+    datefmt="%H:%M:%S",
+)
 
 logger = logging.getLogger(__name__)
+
 
 @pytest.fixture(autouse=True)
 def test_logget(request):
@@ -147,6 +158,7 @@ def test_logget(request):
 
     logger.info("END TEST -> %s", request.node.name)
     logger.info("=" * 80)
+
 
 @pytest.fixture(scope="session")
 def client(api_session) -> ApiClient:

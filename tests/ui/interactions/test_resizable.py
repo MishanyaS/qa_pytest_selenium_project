@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.interactions_page import InteractionsPage
 from pages.home_page import HomePage
+from pages.interactions_page import InteractionsPage
 from pages.resizable_page import ResizablePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Interactions")
@@ -14,7 +15,9 @@ from pages.resizable_page import ResizablePage
 class TestResizable:
     @allure.story("Resizable navigation")
     @allure.title("Resizable page opens successfully")
-    @allure.description("Verifies that the Resizable page can be opened successfully from the Interactions section.")
+    @allure.description(
+        "Verifies that the Resizable page can be opened successfully from the Interactions section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_resizable(self, driver):
@@ -54,7 +57,9 @@ class TestResizable:
 
     @allure.story("Resizable element")
     @allure.title("Resizable element has default size")
-    @allure.description("Verifies that the resizable element has the expected default dimension.")
+    @allure.description(
+        "Verifies that the resizable element has the expected default dimension."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_resizable_default_size(self, driver):
@@ -72,7 +77,9 @@ class TestResizable:
 
     @allure.story("Resizable element")
     @allure.title("Resizable width has default value")
-    @allure.description("Verifies that the resizable element has the expected default width.")
+    @allure.description(
+        "Verifies that the resizable element has the expected default width."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_resizable_default_width(self, driver):
@@ -90,7 +97,9 @@ class TestResizable:
 
     @allure.story("Resizable element")
     @allure.title("Resizable height has default value")
-    @allure.description("Verifies that the resizable element has the expected default height.")
+    @allure.description(
+        "Verifies that the resizable element has the expected default height."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_resizable_default_height(self, driver):

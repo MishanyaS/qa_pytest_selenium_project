@@ -1,25 +1,20 @@
 from __future__ import annotations
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
-class SliderPage(BasePage):
-    SLIDER = (
-        By.CSS_SELECTOR,
-        "input[type='range']"
-    )
 
-    SLIDER_VALUE = (
-        By.ID,
-        "sliderValue"
-    )
+class SliderPage(BasePage):
+    SLIDER = (By.CSS_SELECTOR, "input[type='range']")
+
+    SLIDER_VALUE = (By.ID, "sliderValue")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                            
+
     def slider_visible(self) -> bool:
         return self.is_visible(self.SLIDER)
 
@@ -63,7 +58,7 @@ class SliderPage(BasePage):
             );
             """,
             self.wait_visible(self.SLIDER),
-            value
+            value,
         )
 
     def increase_slider(self, steps: int = 1) -> None:
@@ -74,7 +69,7 @@ class SliderPage(BasePage):
 
     def decrease_slider(self, steps: int = 1) -> None:
         slider = self.wait_visible(self.SLIDER)
-        
+
         for _ in range(steps):
             slider.send_keys(Keys.ARROW_LEFT)
 
@@ -93,4 +88,3 @@ class SliderPage(BasePage):
             raise ValueError("Slider maximum value is not defined")
 
         self.set_slider_value(int(maximum))
-    

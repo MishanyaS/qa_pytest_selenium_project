@@ -7,6 +7,7 @@ from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
 from pages.links_page import LinkPage
 
+
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
 @pytest.mark.ui
@@ -14,7 +15,9 @@ from pages.links_page import LinkPage
 class TestLinks:
     @allure.story("Links navigation")
     @allure.title("Links page opens successfully")
-    @allure.description("Verifies that the Links page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Links page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_links(self, driver):
@@ -36,7 +39,9 @@ class TestLinks:
 
     @allure.story("Links page")
     @allure.title("All required links are visible")
-    @allure.description("Verifies that navigation links and response links are displayed on the links page.")
+    @allure.description(
+        "Verifies that navigation links and response links are displayed on the links page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_links_are_visible(self, driver):
@@ -78,7 +83,9 @@ class TestLinks:
 
     @allure.story("Home link")
     @allure.title("Home link opens DemoQA home page")
-    @allure.description("Verifies that clicking the Home link opens the DemoQA home page in a new browser tab.")
+    @allure.description(
+        "Verifies that clicking the Home link opens the DemoQA home page in a new browser tab."
+    )
     @pytest.mark.positive
     def test_home_links(self, driver):
         home_page = HomePage(driver)
@@ -103,9 +110,7 @@ class TestLinks:
 
         with allure.step("Switch to new browser tab"):
             new_window = next(
-                window
-                for window in driver.window_handles
-                if window != original_window
+                window for window in driver.window_handles if window != original_window
             )
             driver.switch_to.window(new_window)
 
@@ -114,7 +119,9 @@ class TestLinks:
 
     @allure.story("Dynamic Home link")
     @allure.title("Dynamic Home link opens DemoQA home page")
-    @allure.description("Verifies that clicking the dynamically generated Home link opens the DemoQA home page in a new browser tab.")
+    @allure.description(
+        "Verifies that clicking the dynamically generated Home link opens the DemoQA home page in a new browser tab."
+    )
     @pytest.mark.positive
     def test_dynamic_home_links(self, driver):
         home_page = HomePage(driver)
@@ -139,9 +146,7 @@ class TestLinks:
 
         with allure.step("Switch to new browser tab"):
             new_window = next(
-                window
-                for window in driver.window_handles
-                if window != original_window
+                window for window in driver.window_handles if window != original_window
             )
             driver.switch_to.window(new_window)
 
@@ -150,7 +155,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Created link returns 201 response")
-    @allure.description("Verifies that clicking the Created link displays a successful HTTP 201 Created response.")
+    @allure.description(
+        "Verifies that clicking the Created link displays a successful HTTP 201 Created response."
+    )
     @pytest.mark.positive
     def test_created_link(self, driver):
         home_page = HomePage(driver)
@@ -173,7 +180,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("No Content link returns 204 response")
-    @allure.description("Verifies that clicking the No Content link displays an HTTP 204 No Content response.")
+    @allure.description(
+        "Verifies that clicking the No Content link displays an HTTP 204 No Content response."
+    )
     @pytest.mark.positive
     def test_no_content_link(self, driver):
         home_page = HomePage(driver)
@@ -196,7 +205,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Moved link returns 301 response")
-    @allure.description("Verifies that clicking the Moved link displays an HTTP 301 Moved response.")
+    @allure.description(
+        "Verifies that clicking the Moved link displays an HTTP 301 Moved response."
+    )
     @pytest.mark.positive
     def test_moved_link(self, driver):
         home_page = HomePage(driver)
@@ -219,7 +230,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Bad Request link returns 400 response")
-    @allure.description("Verifies that clicking the Bad Request link displays an HTTP 400 Bad Request response.")
+    @allure.description(
+        "Verifies that clicking the Bad Request link displays an HTTP 400 Bad Request response."
+    )
     @pytest.mark.positive
     def test_bad_request_link(self, driver):
         home_page = HomePage(driver)
@@ -242,7 +255,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Unauthorized link returns 401 response")
-    @allure.description("Verifies that clicking the Unauthorized link displays an HTTP 401 Unauthorized response.")
+    @allure.description(
+        "Verifies that clicking the Unauthorized link displays an HTTP 401 Unauthorized response."
+    )
     @pytest.mark.positive
     def test_unauthorized_link(self, driver):
         home_page = HomePage(driver)
@@ -265,7 +280,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Forbidden link returns 403 response")
-    @allure.description("Verifies that clicking the Forbidden link displays an HTTP 403 Forbidden response.")
+    @allure.description(
+        "Verifies that clicking the Forbidden link displays an HTTP 403 Forbidden response."
+    )
     @pytest.mark.positive
     def test_forbidden_link(self, driver):
         home_page = HomePage(driver)
@@ -288,7 +305,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Not Found link returns 404 response")
-    @allure.description("Verifies that clicking the Not Found link displays an HTTP 404 Not Found response.")
+    @allure.description(
+        "Verifies that clicking the Not Found link displays an HTTP 404 Not Found response."
+    )
     @pytest.mark.positive
     def test_not_found_link(self, driver):
         home_page = HomePage(driver)
@@ -311,7 +330,9 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("All response links return expected status codes")
-    @allure.description("Verifies that all HTTP response links display their expected HTTP status code.")
+    @allure.description(
+        "Verifies that all HTTP response links display their expected HTTP status code."
+    )
     @pytest.mark.positive
     def test_all_response_links(self, driver):
         home_page = HomePage(driver)
@@ -337,7 +358,9 @@ class TestLinks:
             with allure.step(f"Click {link_name} link"):
                 click_action()
 
-            with allure.step(f"Verify {link_name} response status is {expected_status}"):
+            with allure.step(
+                f"Verify {link_name} response status is {expected_status}"
+            ):
                 page.wait_for_response_status(expected_status)
                 assert page.response_visible()
                 assert expected_status in page.response_text()

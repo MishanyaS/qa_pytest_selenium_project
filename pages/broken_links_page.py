@@ -5,16 +5,11 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
-class BrokenLinksPage(BasePage):
-    VALID_LINK = (
-        By.XPATH,
-        "//a[text()='Click Here for Valid Link']"
-    )
 
-    BROKEN_LINK = (
-        By.XPATH,
-        "//a[text()='Click Here for Broken Link']"
-    )
+class BrokenLinksPage(BasePage):
+    VALID_LINK = (By.XPATH, "//a[text()='Click Here for Valid Link']")
+
+    BROKEN_LINK = (By.XPATH, "//a[text()='Click Here for Broken Link']")
 
     VALID_IMAGE = (
         By.XPATH,

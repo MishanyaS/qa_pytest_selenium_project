@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+from urllib.parse import urlparse
+
 import allure
 import pytest
 
+from pages.broken_links_page import BrokenLinksPage
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
-from pages.broken_links_page import BrokenLinksPage
 
-from urllib.parse import urlparse
 
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
@@ -16,7 +17,9 @@ from urllib.parse import urlparse
 class TestButtons:
     @allure.story("Broken Links navigation")
     @allure.title("Broken Links page opens successfully")
-    @allure.description("Verifies that the Broken Links page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Broken Links page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_broken_links(self, driver):
@@ -38,7 +41,9 @@ class TestButtons:
 
     @allure.story("Broken Links page")
     @allure.title("Broken Links page elements are visible")
-    @allure.description("Verifies that both valid and broken links and images are displayed on the Broken Links - Images page.")
+    @allure.description(
+        "Verifies that both valid and broken links and images are displayed on the Broken Links - Images page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_broken_links_elements_visible(self, driver):
@@ -86,7 +91,9 @@ class TestButtons:
 
     @allure.story("Links")
     @allure.title("Broken Link has a valid href")
-    @allure.description("Verifies that the broken link contains an HTTP(S) destination even though the destination itself is expected to be unavailable.")
+    @allure.description(
+        "Verifies that the broken link contains an HTTP(S) destination even though the destination itself is expected to be unavailable."
+    )
     @pytest.mark.positive
     def test_broken_link_href(self, driver):
         home_page = HomePage(driver)
@@ -107,7 +114,9 @@ class TestButtons:
 
     @allure.story("Links")
     @allure.title("Valid link opens successfully")
-    @allure.description("Verifies that clicking the valid link navigates to the expected DemoQA page.")
+    @allure.description(
+        "Verifies that clicking the valid link navigates to the expected DemoQA page."
+    )
     @pytest.mark.positive
     def test_click_valid_link(self, driver):
         home_page = HomePage(driver)
@@ -127,7 +136,9 @@ class TestButtons:
 
     @allure.story("Links")
     @allure.title("Broken Link leads to an unavailable page")
-    @allure.description("Verifies that clicking the broken link navigates to its configured broken destination.")
+    @allure.description(
+        "Verifies that clicking the broken link navigates to its configured broken destination."
+    )
     @pytest.mark.negative
     def test_click_broken_link(self, driver):
         home_page = HomePage(driver)
@@ -157,7 +168,9 @@ class TestButtons:
 
     @allure.story("Images")
     @allure.title("Valid image element is displayed")
-    @allure.description("Verifies that the valid image element is displayed and contains a configured image source.")
+    @allure.description(
+        "Verifies that the valid image element is displayed and contains a configured image source."
+    )
     @pytest.mark.positive
     def test_valid_image_loaded(self, driver):
         home_page = HomePage(driver)
@@ -183,7 +196,9 @@ class TestButtons:
 
     @allure.story("Images")
     @allure.title("Broken image is not loaded")
-    @allure.description("Verifies that the broken image is present on the page but its naturalWidth is zero.")
+    @allure.description(
+        "Verifies that the broken image is present on the page but its naturalWidth is zero."
+    )
     @pytest.mark.negative
     def test_broken_image_not_loaded(self, driver):
         home_page = HomePage(driver)
@@ -203,7 +218,9 @@ class TestButtons:
 
     @allure.story("Images")
     @allure.title("Valid and broken image elements have different sources")
-    @allure.description("Verifies that the valid and broken image elements are displayed and reference different image resources.")
+    @allure.description(
+        "Verifies that the valid and broken image elements are displayed and reference different image resources."
+    )
     @pytest.mark.regression
     @pytest.mark.positive
     def test_images_load_states(self, driver):
@@ -220,16 +237,14 @@ class TestButtons:
             valid_image = page.find(page.VALID_IMAGE)
 
             valid_src = page.execute_script(
-                "return arguments[0].getAttribute('src');",
-                valid_image
+                "return arguments[0].getAttribute('src');", valid_image
             )
 
         with allure.step("Get broken image source"):
             broken_image = page.find(page.BROKEN_IMAGE)
 
             broken_src = page.execute_script(
-                "return arguments[0].getAttribute('src');",
-                broken_image
+                "return arguments[0].getAttribute('src');", broken_image
             )
 
         with allure.step("Verify valid image source"):
@@ -245,7 +260,9 @@ class TestButtons:
 
     @allure.story("Links")
     @allure.title("Both links have different destinations")
-    @allure.description("Verifies that the valid and broken links point to different URLs.")
+    @allure.description(
+        "Verifies that the valid and broken links point to different URLs."
+    )
     @pytest.mark.positive
     def test_links_have_different_destinations(self, driver):
         home_page = HomePage(driver)
@@ -269,4 +286,3 @@ class TestButtons:
 
         with allure.step("Verify link destinations are different"):
             assert valid_href != broken_href
-        

@@ -1,8 +1,10 @@
-import allure
-import pytest
 from pathlib import Path
 
+import allure
+import pytest
+
 import config
+
 
 @allure.epic("Unit")
 @allure.feature("Config")
@@ -78,7 +80,9 @@ class TestConfig:
 
     @allure.story("Timeout")
     @allure.title("Page load timeout")
-    @allure.description("Verifies that the page load timeout matches the expected value.")
+    @allure.description(
+        "Verifies that the page load timeout matches the expected value."
+    )
     @pytest.mark.positive
     def test_page_load_timeout(self):
         assert config.PAGE_LOAD_TIMEOUT == 30
@@ -94,7 +98,9 @@ class TestConfig:
 
     @allure.story("Timeout")
     @allure.title("Page load timeout is the greatest")
-    @allure.description("Verifies that timeout values are configured in the expected order.")
+    @allure.description(
+        "Verifies that timeout values are configured in the expected order."
+    )
     @pytest.mark.positive
     def test_timeout_order(self):
         assert config.PAGE_LOAD_TIMEOUT > config.REQUEST_TIMEOUT
@@ -110,7 +116,9 @@ class TestConfig:
 
     @allure.story("Database")
     @allure.title("Database name")
-    @allure.description("Verifies that the database filename matches the expected value.")
+    @allure.description(
+        "Verifies that the database filename matches the expected value."
+    )
     @pytest.mark.db
     @pytest.mark.positive
     def test_database_name(self):
@@ -126,7 +134,9 @@ class TestConfig:
 
     @allure.story("Database")
     @allure.title("Database path contains filename")
-    @allure.description("Verifies that the database path contains the expected filename.")
+    @allure.description(
+        "Verifies that the database path contains the expected filename."
+    )
     @pytest.mark.db
     @pytest.mark.positive
     def test_database_path_name(self):
@@ -134,7 +144,9 @@ class TestConfig:
 
     @allure.story("Database")
     @allure.title("Database parent directory")
-    @allure.description("Verifies that the database path belongs to the database directory.")
+    @allure.description(
+        "Verifies that the database path belongs to the database directory."
+    )
     @pytest.mark.db
     @pytest.mark.positive
     def test_database_parent(self):
@@ -177,35 +189,45 @@ class TestConfig:
 
     @allure.story("Directories")
     @allure.title("Screenshots inside project")
-    @allure.description("Verifies that the screenshots directory is located inside the project root.")
+    @allure.description(
+        "Verifies that the screenshots directory is located inside the project root."
+    )
     @pytest.mark.positive
     def test_screenshots_inside_project(self):
         assert config.SCREENSHOTS_DIR.parent == config.PROJECT_ROOT
 
     @allure.story("Directories")
     @allure.title("Logs inside project")
-    @allure.description("Verifies that the logs directory is located inside the project root.")
+    @allure.description(
+        "Verifies that the logs directory is located inside the project root."
+    )
     @pytest.mark.positive
     def test_logs_inside_project(self):
         assert config.LOGS_DIR.parent == config.PROJECT_ROOT
 
     @allure.story("Directories")
     @allure.title("Downloads inside project")
-    @allure.description("Verifies that the downloads directory is located inside the project root.")
+    @allure.description(
+        "Verifies that the downloads directory is located inside the project root."
+    )
     @pytest.mark.positive
     def test_downloads_inside_project(self):
         assert config.DOWNLOADS_DIR.parent == config.PROJECT_ROOT
 
     @allure.story("Directories")
     @allure.title("Allure results inside project")
-    @allure.description("Verifies that the Allure results directory is located inside the project root.")
+    @allure.description(
+        "Verifies that the Allure results directory is located inside the project root."
+    )
     @pytest.mark.positive
     def test_allure_results_inside_project(self):
         assert config.ALLURE_RESULTS.parent == config.PROJECT_ROOT
 
     @allure.story("Directories")
     @allure.title("Allure report inside project")
-    @allure.description("Verifies that the Allure report directory is located inside the project root.")
+    @allure.description(
+        "Verifies that the Allure report directory is located inside the project root."
+    )
     @pytest.mark.positive
     def test_allure_report_inside_project(self):
         assert config.ALLURE_REPORT.parent == config.PROJECT_ROOT
@@ -242,8 +264,8 @@ class TestConfig:
             config.LOGS_DIR,
             config.ALLURE_RESULTS,
             config.ALLURE_REPORT,
-            config.DOWNLOADS_DIR
-        ]
+            config.DOWNLOADS_DIR,
+        ],
     )
     @allure.description("Verifies that all directory constants are Path objects.")
     @pytest.mark.positive

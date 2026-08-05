@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class ButtonsPage(BasePage):
     DOUBLE_CLICK_BUTTON = (
         By.ID,
@@ -16,10 +17,7 @@ class ButtonsPage(BasePage):
         "rightClickBtn",
     )
 
-    CLICK_ME_BUTTON = (
-        By.XPATH,
-        "//button[text()='Click Me']"
-    )
+    CLICK_ME_BUTTON = (By.XPATH, "//button[text()='Click Me']")
 
     DOUBLE_CLICK_MESSAGE = (
         By.ID,

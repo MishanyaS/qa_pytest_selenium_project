@@ -5,60 +5,31 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class DatePickerPage(BasePage):
-    SELECT_DATE_INPUT = (
-        By.ID,
-        "datePickerMonthYearInput"
-    )
+    SELECT_DATE_INPUT = (By.ID, "datePickerMonthYearInput")
 
-    DATE_AND_TIME_INPUT = (
-        By.ID,
-        "dateAndTimePickerInput"
-    )
+    DATE_AND_TIME_INPUT = (By.ID, "dateAndTimePickerInput")
 
-    MONTH_SELECT = (
-        By.CLASS_NAME,
-        "react-datepicker__month-select"
-    )
+    MONTH_SELECT = (By.CLASS_NAME, "react-datepicker__month-select")
 
-    YEAR_SELECT = (
-        By.CLASS_NAME,
-        "react-datepicker__year-select"
-    )
+    YEAR_SELECT = (By.CLASS_NAME, "react-datepicker__year-select")
 
-    PREVIOUS_MONTH_BUTTON = (
-        By.CSS_SELECTOR,
-        ".react-datepicker__navigation--previous"
-    )
+    PREVIOUS_MONTH_BUTTON = (By.CSS_SELECTOR, ".react-datepicker__navigation--previous")
 
-    NEXT_MONTH_BUTTON = (
-        By.CSS_SELECTOR,
-        ".react-datepicker__navigation--next"
-    )
+    NEXT_MONTH_BUTTON = (By.CSS_SELECTOR, ".react-datepicker__navigation--next")
 
-    DATE_PICKER = (
-        By.CLASS_NAME,
-        "react-datepicker"
-    )
+    DATE_PICKER = (By.CLASS_NAME, "react-datepicker")
 
-    DATE_AND_TIME_PICKER = (
-        By.CLASS_NAME,
-        "react-datepicker"
-    )
+    DATE_AND_TIME_PICKER = (By.CLASS_NAME, "react-datepicker")
 
-    SELECTED_DATE = (
-        By.CSS_SELECTOR,
-        ".react-datepicker__day--selected"
-    )
+    SELECTED_DATE = (By.CSS_SELECTOR, ".react-datepicker__day--selected")
 
-    TIME_LIST = (
-        By.CSS_SELECTOR,
-        ".react-datepicker__time-list-item"
-    )
+    TIME_LIST = (By.CSS_SELECTOR, ".react-datepicker__time-list-item")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                            
+
     def open_date_picker(self) -> None:
         self.click(self.SELECT_DATE_INPUT)
 
@@ -123,10 +94,7 @@ class DatePickerPage(BasePage):
         self.select_time(time)
 
     def time_options(self) -> list[str]:
-        return [
-            option.text
-            for option in self.find_all(self.TIME_LIST)
-        ]
+        return [option.text for option in self.find_all(self.TIME_LIST)]
 
     def select_time(self, time: str) -> None:
         time_option = (

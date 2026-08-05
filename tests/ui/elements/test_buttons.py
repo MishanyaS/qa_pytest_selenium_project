@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
+from pages.buttons_page import ButtonsPage
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
-from pages.buttons_page import ButtonsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
@@ -14,7 +15,9 @@ from pages.buttons_page import ButtonsPage
 class TestButtons:
     @allure.story("Buttons navigation")
     @allure.title("Buttons page opens successfully")
-    @allure.description("Verifies that the Buttons page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Buttons page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_buttons(self, driver):
@@ -36,7 +39,9 @@ class TestButtons:
 
     @allure.story("Buttons page")
     @allure.title("Buttons are visible")
-    @allure.description("Verifies that all buttons and their corresponding result message elements are available on the Buttons page.")
+    @allure.description(
+        "Verifies that all buttons and their corresponding result message elements are available on the Buttons page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_buttons_are_visible(self, driver):
@@ -69,7 +74,9 @@ class TestButtons:
 
     @allure.story("Double Click")
     @allure.title("Double Click action displays success message")
-    @allure.description("Verifies that performing a double click on the Double Click button displays the corresponding success message.")
+    @allure.description(
+        "Verifies that performing a double click on the Double Click button displays the corresponding success message."
+    )
     @pytest.mark.positive
     def test_double_click(self, driver):
         home_page = HomePage(driver)
@@ -92,7 +99,9 @@ class TestButtons:
 
     @allure.story("Right Click")
     @allure.title("Right Click action displays success message")
-    @allure.description("Verifies that performing a right click on the Right Click button displays the corresponding success message.")
+    @allure.description(
+        "Verifies that performing a right click on the Right Click button displays the corresponding success message."
+    )
     @pytest.mark.positive
     def test_right_click(self, driver):
         home_page = HomePage(driver)
@@ -115,7 +124,9 @@ class TestButtons:
 
     @allure.story("Dynamic Click")
     @allure.title("Dynamic Click action displays success message")
-    @allure.description("Verifies that clicking the dynamically located Click Me button displays the corresponding success message.")
+    @allure.description(
+        "Verifies that clicking the dynamically located Click Me button displays the corresponding success message."
+    )
     @pytest.mark.positive
     def test_dynamic_click(self, driver):
         home_page = HomePage(driver)
@@ -138,7 +149,9 @@ class TestButtons:
 
     @allure.story("Buttons actions")
     @allure.title("All button actions display corresponding messages")
-    @allure.description("Verifies that double click, right click, and dynamic click actions each produce the expected success message.")
+    @allure.description(
+        "Verifies that double click, right click, and dynamic click actions each produce the expected success message."
+    )
     @pytest.mark.positive
     def test_all_button_actions(self, driver):
         home_page = HomePage(driver)
@@ -170,4 +183,3 @@ class TestButtons:
         with allure.step("Verify Dynamic Click result"):
             assert page.click_message_visible() is True
             assert page.click_message() == "You have done a dynamic click"
-        

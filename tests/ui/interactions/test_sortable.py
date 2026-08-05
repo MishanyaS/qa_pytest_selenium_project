@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.interactions_page import InteractionsPage
 from pages.home_page import HomePage
+from pages.interactions_page import InteractionsPage
 from pages.sortable_page import SortablePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Interactions")
@@ -14,7 +15,9 @@ from pages.sortable_page import SortablePage
 class TestSortable:
     @allure.story("Sortable navigation")
     @allure.title("Sortable page opens successfully")
-    @allure.description("Verifies that the Sortable page can be opened successfully from the Interactions section.")
+    @allure.description(
+        "Verifies that the Sortable page can be opened successfully from the Interactions section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_sortable(self, driver):
@@ -64,7 +67,7 @@ class TestSortable:
         interactions_page = InteractionsPage(driver)
         page = SortablePage(driver)
 
-        expected = [ "One", "Two", "Three", "Four", "Five", "Six" ]
+        expected = ["One", "Two", "Three", "Four", "Five", "Six"]
 
         with allure.step("Open Sortable page"):
             home_page.open()
@@ -76,7 +79,9 @@ class TestSortable:
 
     @allure.story("Sortable items")
     @allure.title("Sortable item text is correct")
-    @allure.description("Verifies that the specified sortable item contains the expected text.")
+    @allure.description(
+        "Verifies that the specified sortable item contains the expected text."
+    )
     @pytest.mark.positive
     def test_sortable_item_text(self, driver):
         home_page = HomePage(driver)
@@ -93,7 +98,9 @@ class TestSortable:
 
     @allure.story("Sortable items")
     @allure.title("Sortable item can be reordered")
-    @allure.description("Verifies that dragging one sortable item onto another changes the order.")
+    @allure.description(
+        "Verifies that dragging one sortable item onto another changes the order."
+    )
     @pytest.mark.positive
     def test_drag_sortable_item(self, driver):
         home_page = HomePage(driver)
@@ -109,11 +116,20 @@ class TestSortable:
             page.drag_item(1, 3)
 
         with allure.step("Verify third item text"):
-            assert page.sortable_items() != [ "One", "Two", "Three", "Four", "Five", "Six" ]
+            assert page.sortable_items() != [
+                "One",
+                "Two",
+                "Three",
+                "Four",
+                "Five",
+                "Six",
+            ]
 
     @allure.story("Sortable items")
     @allure.title("Sortable items can be reordered using locators")
-    @allure.description("Verifies that sortable items can be reordered using locator arguments.")
+    @allure.description(
+        "Verifies that sortable items can be reordered using locator arguments."
+    )
     @pytest.mark.positive
     def test_drag_sortable_item_by_locator(self, driver):
         home_page = HomePage(driver)
@@ -126,7 +142,16 @@ class TestSortable:
             interactions_page.open_sortable()
 
         with allure.step("Drag first item to sixth position"):
-            page.drag_item_by_locator(interactions_page.SORTABLE_ITEM_1, interactions_page.SORTABLE_ITEM_6)
+            page.drag_item_by_locator(
+                interactions_page.SORTABLE_ITEM_1, interactions_page.SORTABLE_ITEM_6
+            )
 
         with allure.step("Verify order changed"):
-            assert page.sortable_items() != [ "One", "Two", "Three", "Four", "Five", "Six" ]
+            assert page.sortable_items() != [
+                "One",
+                "Two",
+                "Three",
+                "Four",
+                "Five",
+                "Six",
+            ]

@@ -6,6 +6,7 @@ import pytest
 
 from utils.helpers import is_positive, random_email, random_string, remove_none
 
+
 @allure.epic("Unit")
 @allure.feature("Helpers")
 @pytest.mark.unit
@@ -35,9 +36,11 @@ class TestHelpers:
             10,
             25,
             100,
-        ]
+        ],
     )
-    @allure.description("Verifies that random_string() returns strings of the requested length.")
+    @allure.description(
+        "Verifies that random_string() returns strings of the requested length."
+    )
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_random_string_custom_length(self, length: int):
@@ -45,7 +48,9 @@ class TestHelpers:
 
     @allure.story("random_string")
     @allure.title("Contains only letters and digits")
-    @allure.description("Verifies that the generated string contains only letters and digits.")
+    @allure.description(
+        "Verifies that the generated string contains only letters and digits."
+    )
     @pytest.mark.positive
     def test_random_string_characters(self):
         result = random_string(100)
@@ -88,7 +93,9 @@ class TestHelpers:
 
     @allure.story("random_email")
     @allure.title("Uses example.com domain")
-    @allure.description("Verifies that the generated email uses the example.com domain.")
+    @allure.description(
+        "Verifies that the generated email uses the example.com domain."
+    )
     @pytest.mark.positive
     def test_random_email_domain(self):
         assert random_email().endswith("@example.com")
@@ -104,7 +111,9 @@ class TestHelpers:
 
     @allure.story("random_email")
     @allure.title("Matches email pattern")
-    @allure.description("Verifies that the generated email matches the expected pattern.")
+    @allure.description(
+        "Verifies that the generated email matches the expected pattern."
+    )
     @pytest.mark.positive
     def test_random_email_pattern(self):
         email = random_email()
@@ -145,7 +154,9 @@ class TestHelpers:
 
     @allure.story("is_positive")
     @allure.title("Negative integer")
-    @allure.description("Verifies that a negative integer is not recognized as positive.")
+    @allure.description(
+        "Verifies that a negative integer is not recognized as positive."
+    )
     @pytest.mark.negative
     def test_negative_integer(self):
         assert is_positive(-5) is False
@@ -168,9 +179,11 @@ class TestHelpers:
             (0, False),
             (-1, False),
             (-100.5, False),
-        ]
+        ],
     )
-    @allure.description("Verifies that is_positive() returns the expected result for multiple values.")
+    @allure.description(
+        "Verifies that is_positive() returns the expected result for multiple values."
+    )
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_is_positive_parametrize(self, value: int | float, expected: bool):
@@ -194,7 +207,9 @@ class TestHelpers:
 
     @allure.story("remove_none")
     @allure.title("Keeps all values if no None")
-    @allure.description("Verifies that dictionaries without None values remain unchanged.")
+    @allure.description(
+        "Verifies that dictionaries without None values remain unchanged."
+    )
     @pytest.mark.positive
     def test_remove_none_without_none(self):
         data = {
@@ -279,4 +294,11 @@ class TestHelpers:
     @allure.description("Verifies that remove_none() returns a dictionary.")
     @pytest.mark.positive
     def test_return_type(self):
-        assert isinstance(remove_none({"a": 1,}), dict)
+        assert isinstance(
+            remove_none(
+                {
+                    "a": 1,
+                }
+            ),
+            dict,
+        )

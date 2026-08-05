@@ -6,6 +6,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from config import BASE_UI_URL
 from pages.base_page import BasePage
 
+
 class HomePage(BasePage):
     URL = BASE_UI_URL
 

@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.interactions_page import InteractionsPage
-from pages.home_page import HomePage
 from pages.droppable_page import DroppablePage
+from pages.home_page import HomePage
+from pages.interactions_page import InteractionsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Interactions")
@@ -14,7 +15,9 @@ from pages.droppable_page import DroppablePage
 class TestDroppable:
     @allure.story("Droppable navigation")
     @allure.title("Droppable page opens successfully")
-    @allure.description("Verifies that the Droppable page can be opened successfully from the Interactions section.")
+    @allure.description(
+        "Verifies that the Droppable page can be opened successfully from the Interactions section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_droppable(self, driver):
@@ -126,7 +129,9 @@ class TestDroppable:
 
     @allure.story("Drag and Drop")
     @allure.title("Droppable text changes after drop")
-    @allure.description("Verifies that the drop area text changes after a successful drop.")
+    @allure.description(
+        "Verifies that the drop area text changes after a successful drop."
+    )
     @pytest.mark.positive
     def test_droppable_text_after_drop(self, driver):
         home_page = HomePage(driver)
@@ -146,7 +151,9 @@ class TestDroppable:
 
     @allure.story("Drag and Drop")
     @allure.title("Droppable text is correct")
-    @allure.description("Verifies that the draggable element displays the expected text before dragging.")
+    @allure.description(
+        "Verifies that the draggable element displays the expected text before dragging."
+    )
     @pytest.mark.positive
     def test_draggable_text(self, driver):
         home_page = HomePage(driver)

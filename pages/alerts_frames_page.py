@@ -5,31 +5,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class AlertsFramesPage(BasePage):
-    BROWSER_WINDOWS_SECTION = (
-        By.XPATH,
-        "//span[text()='Browser Windows']"
-    )
+    BROWSER_WINDOWS_SECTION = (By.XPATH, "//span[text()='Browser Windows']")
 
-    ALERTS_SECTION = (
-        By.XPATH,
-        "//span[text()='Alerts']"
-    )
+    ALERTS_SECTION = (By.XPATH, "//span[text()='Alerts']")
 
-    FRAMES_SECTION = (
-        By.XPATH,
-        "//span[text()='Frames']"
-    )
+    FRAMES_SECTION = (By.XPATH, "//span[text()='Frames']")
 
-    NESTED_FRAMES_SECTION = (
-        By.XPATH,
-        "//span[text()='Nested Frames']"
-    )
+    NESTED_FRAMES_SECTION = (By.XPATH, "//span[text()='Nested Frames']")
 
-    MODAL_DIALOGS_SECTION = (
-        By.XPATH,
-        "//span[text()='Modal Dialogs']"
-    )
+    MODAL_DIALOGS_SECTION = (By.XPATH, "//span[text()='Modal Dialogs']")
 
     SIMPLE_ALERT_BUTTON = (
         By.ID,

@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
-from pages.home_page import HomePage
 from pages.date_picker_page import DatePickerPage
+from pages.home_page import HomePage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.date_picker_page import DatePickerPage
 class TestDatePicker:
     @allure.story("Date Picker navigation")
     @allure.title("Date Picker page opens successfully")
-    @allure.description("Verifies that the Date Picker page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Date Picker page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_date_picker(self, driver):
@@ -157,4 +160,3 @@ class TestDatePicker:
 
         with allure.step("Verify time options list is not empty"):
             assert page.time_options()
-        

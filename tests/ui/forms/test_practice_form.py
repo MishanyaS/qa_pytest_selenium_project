@@ -5,10 +5,10 @@ from pathlib import Path
 import allure
 import pytest
 
-from config import BASE_UI_URL
 from pages.forms_page import FormsPage
 from pages.home_page import HomePage
 from pages.practice_form_page import PracticeFormPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Forms")
@@ -17,7 +17,9 @@ from pages.practice_form_page import PracticeFormPage
 class TestPracticeForm:
     @allure.story("Practice Form navigation")
     @allure.title("Practice Form page opens successfully")
-    @allure.description("Verifies that the DemoQA Practice Form page can be opened from the Forms section.")
+    @allure.description(
+        "Verifies that the DemoQA Practice Form page can be opened from the Forms section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_practice_form(self, driver):
@@ -93,7 +95,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form initial state")
     @allure.title("Gender radio buttons are initially unselected")
-    @allure.description("Verifies that no gender option is selected when the Practice Form is opened.")
+    @allure.description(
+        "Verifies that no gender option is selected when the Practice Form is opened."
+    )
     @pytest.mark.positive
     def test_gender_radio_buttons_initial_state(self, driver):
         home_page = HomePage(driver)
@@ -116,7 +120,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form initial state")
     @allure.title("Hobby checkboxes are initially unselected")
-    @allure.description("Verifies that no hobby checkbox is selected when the Practice Form is opened.")
+    @allure.description(
+        "Verifies that no hobby checkbox is selected when the Practice Form is opened."
+    )
     @pytest.mark.positive
     def test_hobby_checkboxes_initial_state(self, driver):
         home_page = HomePage(driver)
@@ -139,7 +145,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form text fields")
     @allure.title("User can enter personal information")
-    @allure.description("Verifies that First Name, Last Name, Email and Mobile fields accept and preserve entered values.")
+    @allure.description(
+        "Verifies that First Name, Last Name, Email and Mobile fields accept and preserve entered values."
+    )
     @pytest.mark.positive
     def test_enter_personal_information(self, driver, faker):
         home_page = HomePage(driver)
@@ -182,7 +190,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form gender")
     @allure.title("User can select Mail gender")
-    @allure.description("Verifies that the Male gender option can be selected and that the other gender options remain unselected.")
+    @allure.description(
+        "Verifies that the Male gender option can be selected and that the other gender options remain unselected."
+    )
     @pytest.mark.positive
     def test_select_male_gender(self, driver):
         home_page = HomePage(driver)
@@ -208,7 +218,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form gender")
     @allure.title("User can select Femail gender")
-    @allure.description("Verifies that the Female gender option can be selected and that the other gender options remain unselected.")
+    @allure.description(
+        "Verifies that the Female gender option can be selected and that the other gender options remain unselected."
+    )
     @pytest.mark.positive
     def test_select_female_gender(self, driver):
         home_page = HomePage(driver)
@@ -234,7 +246,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form gender")
     @allure.title("User can select Other gender")
-    @allure.description("Verifies that the Other gender option can be selected and that the other gender options remain unselected.")
+    @allure.description(
+        "Verifies that the Other gender option can be selected and that the other gender options remain unselected."
+    )
     @pytest.mark.positive
     def test_select_other_gender(self, driver):
         home_page = HomePage(driver)
@@ -260,7 +274,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form gender")
     @allure.title("Selecting another gender changes selected option")
-    @allure.description("Verifies that selecting another gender option clears the previously selected gender option.")
+    @allure.description(
+        "Verifies that selecting another gender option clears the previously selected gender option."
+    )
     @pytest.mark.positive
     def test_gender_selection_is_exclusive(self, driver):
         home_page = HomePage(driver)
@@ -298,7 +314,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form date of birth")
     @allure.title("User can enter date of birth")
-    @allure.description("Verifies that the Date of Birth field accepts and preserves the entered date.")
+    @allure.description(
+        "Verifies that the Date of Birth field accepts and preserves the entered date."
+    )
     @pytest.mark.positive
     def test_enter_date_of_birth(self, driver):
         home_page = HomePage(driver)
@@ -320,7 +338,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form subjects")
     @allure.title("User can select a subject")
-    @allure.description("Verifies that a subject can be entered and selected from the Subjects autocomplete list.")
+    @allure.description(
+        "Verifies that a subject can be entered and selected from the Subjects autocomplete list."
+    )
     @pytest.mark.positive
     def test_select_subject(self, driver):
         home_page = HomePage(driver)
@@ -341,10 +361,9 @@ class TestPracticeForm:
             selected_subject = page.attribute(
                 (
                     "xpath",
-                    f"//div[@id='subjectsContainer']"
-                    f"//*[normalize-space()='{subject}']"
+                    f"//div[@id='subjectsContainer']//*[normalize-space()='{subject}']",
                 ),
-                "textContent"
+                "textContent",
             )
 
             assert selected_subject.strip() == subject
@@ -429,7 +448,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form hobbies")
     @allure.title("User can select multiple hobbies")
-    @allure.description("Verifies that multiple hobby checkboxes can be selected simultaneously.")
+    @allure.description(
+        "Verifies that multiple hobby checkboxes can be selected simultaneously."
+    )
     @pytest.mark.positive
     def test_select_multiple_hobbies(self, driver):
         home_page = HomePage(driver)
@@ -458,7 +479,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form address")
     @allure.title("User can enter current address")
-    @allure.description("Verifies that the Current Address textarea accepts and preserves entered text.")
+    @allure.description(
+        "Verifies that the Current Address textarea accepts and preserves entered text."
+    )
     @pytest.mark.positive
     def test_enter_current_address(self, driver, faker):
         home_page = HomePage(driver)
@@ -480,7 +503,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form state and city")
     @allure.title("User can select state and city")
-    @allure.description("Verifies that a state can be selected and that the corresponding city can subsequently be selected.")
+    @allure.description(
+        "Verifies that a state can be selected and that the corresponding city can subsequently be selected."
+    )
     @pytest.mark.positive
     def test_select_state_and_city(self, driver):
         home_page = HomePage(driver)
@@ -503,29 +528,25 @@ class TestPracticeForm:
 
         with allure.step("Verify selected state is displayed"):
             state_value = page.attribute(
-                (
-                    "xpath",
-                    "//div[@id='state']//div[contains(@class, 'singleValue')]"
-                ),
-                "textContent"
+                ("xpath", "//div[@id='state']//div[contains(@class, 'singleValue')]"),
+                "textContent",
             )
 
             assert state_value == "NCR"
 
         with allure.step("Verify selected city is displayed"):
             city_value = page.attribute(
-                (
-                    "xpath",
-                    "//div[@id='city']//div[contains(@class, 'singleValue')]"
-                ),
-                "textContent"
+                ("xpath", "//div[@id='city']//div[contains(@class, 'singleValue')]"),
+                "textContent",
             )
 
             assert city_value == "Delhi"
 
     @allure.story("Practice Form picture upload")
     @allure.title("User can upload a picture")
-    @allure.description("Verifies that a picture file can be uploaded through the Picture input.")
+    @allure.description(
+        "Verifies that a picture file can be uploaded through the Picture input."
+    )
     @pytest.mark.positive
     def test_upload_picture(self, driver, tmp_path: Path):
         home_page = HomePage(driver)
@@ -551,7 +572,9 @@ class TestPracticeForm:
 
     @allure.story("Practice Form submission")
     @allure.title("Practice Form can be submitted with valid data")
-    @allure.description("Verifies that the Practice Form accepts valid data and displays the submission result modal.")
+    @allure.description(
+        "Verifies that the Practice Form accepts valid data and displays the submission result modal."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_submit_practice_form(self, driver, faker, tmp_path: Path):
@@ -622,9 +645,13 @@ class TestPracticeForm:
 
     @allure.story("Practice Form submission")
     @allure.title("Submitted form contains entered personal information")
-    @allure.description("Verifies that the submission result contains the entered name, email, gender and mobile number.")
+    @allure.description(
+        "Verifies that the submission result contains the entered name, email, gender and mobile number."
+    )
     @pytest.mark.positive
-    def test_submitted_form_contains_personal_information(self, driver, faker, tmp_path: Path):
+    def test_submitted_form_contains_personal_information(
+        self, driver, faker, tmp_path: Path
+    ):
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -694,9 +721,13 @@ class TestPracticeForm:
 
     @allure.story("Practice Form submission")
     @allure.title("Submitted form contains selected options")
-    @allure.description("Verifies that selected date of birth, subject, hobby, picture, address, state and city are displayed in the submission result.")
+    @allure.description(
+        "Verifies that selected date of birth, subject, hobby, picture, address, state and city are displayed in the submission result."
+    )
     @pytest.mark.positive
-    def test_submitted_form_contains_selected_options(self, driver, faker, tmp_path: Path):
+    def test_submitted_form_contains_selected_options(
+        self, driver, faker, tmp_path: Path
+    ):
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -778,9 +809,13 @@ class TestPracticeForm:
 
     @allure.story("Practice Form submission result")
     @allure.title("Practice Form submission result contains expected rows")
-    @allure.description("Verifies that the submission result table contains the expected field names after a successful form submission.")
+    @allure.description(
+        "Verifies that the submission result table contains the expected field names after a successful form submission."
+    )
     @pytest.mark.positive
-    def test_submission_result_contains_expected_rows(self, driver, faker, tmp_path: Path):
+    def test_submission_result_contains_expected_rows(
+        self, driver, faker, tmp_path: Path
+    ):
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import allure
 import pytest
-
 from faker import Faker
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,6 +10,7 @@ from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
 from pages.web_tables_page import WebTablesPage
 
+
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
 @pytest.mark.ui
@@ -18,7 +18,9 @@ from pages.web_tables_page import WebTablesPage
 class TestWebTables:
     @allure.story("Web Tables navigation")
     @allure.title("Web Tables page opens successfully")
-    @allure.description("Verifies that the Web Tables page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Web Tables page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_web_tables(self, driver):
@@ -40,7 +42,9 @@ class TestWebTables:
 
     @allure.story("Web Tables page")
     @allure.title("Web Tables elements are visible")
-    @allure.description("Verifies that the Web Tables page contains the Add button, Search field, table, and default records.")
+    @allure.description(
+        "Verifies that the Web Tables page contains the Add button, Search field, table, and default records."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_web_tables_elements_visible(self, driver):
@@ -71,7 +75,9 @@ class TestWebTables:
 
     @allure.story("Web Tables page")
     @allure.title("Default records are displayed")
-    @allure.description("Verifies that the Web Tables page displays the three default records.")
+    @allure.description(
+        "Verifies that the Web Tables page displays the three default records."
+    )
     @pytest.mark.positive
     def test_default_records_are_displayed(self, driver):
         home_page = HomePage(driver)
@@ -88,9 +94,7 @@ class TestWebTables:
             elements_page.open_web_tables()
 
         with allure.step("Wait for default records to be displayed"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: len(page.row_texts()) == 3
-            )
+            WebDriverWait(driver, 10).until(lambda driver: len(page.row_texts()) == 3)
 
         with allure.step("Get default table records"):
             rows = page.row_texts()
@@ -109,7 +113,9 @@ class TestWebTables:
 
     @allure.story("Registration form")
     @allure.title("Registration form opens")
-    @allure.description("Verifies that clicking the Add button opens the registration form with all required input fields.")
+    @allure.description(
+        "Verifies that clicking the Add button opens the registration form with all required input fields."
+    )
     @pytest.mark.positive
     def test_open_registration_form(self, driver):
         home_page = HomePage(driver)
@@ -154,7 +160,9 @@ class TestWebTables:
 
     @allure.story("Record creation")
     @allure.title("New record can be added")
-    @allure.description("Verifies that a new record can be created using valid data and displayed in the Web Tables.")
+    @allure.description(
+        "Verifies that a new record can be created using valid data and displayed in the Web Tables."
+    )
     @pytest.mark.positive
     def test_add_record(self, driver, faker: Faker):
         home_page = HomePage(driver)
@@ -170,7 +178,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-        
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -178,7 +186,14 @@ class TestWebTables:
             elements_page.open_web_tables()
 
         with allure.step("Add new record"):
-            page.add_record(first_name=first_name, last_name=last_name, email=email, age=age, salary=salary, department=department)
+            page.add_record(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                age=age,
+                salary=salary,
+                department=department,
+            )
 
         with allure.step("Wait for new record to appear"):
             page.wait_until_record_exists(email)
@@ -206,7 +221,9 @@ class TestWebTables:
 
     @allure.story("Search")
     @allure.title("Existing record can be searched")
-    @allure.description("Verifies that entering an existing user's name into the search field filters the table to the matching record.")
+    @allure.description(
+        "Verifies that entering an existing user's name into the search field filters the table to the matching record."
+    )
     @pytest.mark.positive
     def test_search_record(self, driver):
         home_page = HomePage(driver)
@@ -217,7 +234,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -228,9 +245,7 @@ class TestWebTables:
             page.search(search_value)
 
         with allure.step("Wait for search results"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: len(page.row_texts()) == 1
-            )
+            WebDriverWait(driver, 10).until(lambda driver: len(page.row_texts()) == 1)
 
         with allure.step("Verify search field value"):
             assert page.search_value() == search_value
@@ -249,7 +264,9 @@ class TestWebTables:
 
     @allure.story("Search")
     @allure.title("Unknown record is not found")
-    @allure.description("Verifies that searching for a value that does not exist returns no table records.")
+    @allure.description(
+        "Verifies that searching for a value that does not exist returns no table records."
+    )
     @pytest.mark.negative
     def test_search_unknown_record(self, driver):
         home_page = HomePage(driver)
@@ -260,7 +277,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -271,9 +288,7 @@ class TestWebTables:
             page.search(search_value)
 
         with allure.step("Wait for table to become empty"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: page.row_texts() == []
-            )
+            WebDriverWait(driver, 10).until(lambda driver: page.row_texts() == [])
 
         with allure.step("Verify search field value"):
             assert page.search_value() == search_value
@@ -286,7 +301,9 @@ class TestWebTables:
 
     @allure.story("Search")
     @allure.title("Search can be cleared")
-    @allure.description("Verifies that clearing the search field restores all default records.")
+    @allure.description(
+        "Verifies that clearing the search field restores all default records."
+    )
     @pytest.mark.positive
     def test_clear_search(self, driver):
         home_page = HomePage(driver)
@@ -295,7 +312,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -306,9 +323,7 @@ class TestWebTables:
             page.search("Cierra")
 
         with allure.step("Wait for filtered result"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: len(page.row_texts()) == 1
-            )
+            WebDriverWait(driver, 10).until(lambda driver: len(page.row_texts()) == 1)
 
         with allure.step("Verify search value"):
             assert page.search_value() == "Cierra"
@@ -320,9 +335,7 @@ class TestWebTables:
             page.clear_search()
 
         with allure.step("Wait for all default records to return"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: len(page.row_texts()) == 3
-            )
+            WebDriverWait(driver, 10).until(lambda driver: len(page.row_texts()) == 3)
 
         with allure.step("Verify search field is empty"):
             assert page.search_value() == ""
@@ -341,7 +354,9 @@ class TestWebTables:
 
     @allure.story("Record editing")
     @allure.title("Search can be edited")
-    @allure.description("Verifies that clicking the Edit button opens the registration form populated with the selected record.")
+    @allure.description(
+        "Verifies that clicking the Edit button opens the registration form populated with the selected record."
+    )
     @pytest.mark.positive
     def test_edit_record(self, driver):
         home_page = HomePage(driver)
@@ -350,7 +365,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -386,7 +401,9 @@ class TestWebTables:
 
     @allure.story("Record deletion")
     @allure.title("Record can be deleted")
-    @allure.description("Verifies that an existing record can be deleted and the number of table rows decreases by one.")
+    @allure.description(
+        "Verifies that an existing record can be deleted and the number of table rows decreases by one."
+    )
     @pytest.mark.positive
     def test_delete_record(self, driver):
         home_page = HomePage(driver)
@@ -397,7 +414,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -428,7 +445,9 @@ class TestWebTables:
 
     @allure.story("Record lifecycle")
     @allure.title("Record can be created and deleted")
-    @allure.description("Verifies the complete lifecycle of a record: creation, search, verification, and deletion.")
+    @allure.description(
+        "Verifies the complete lifecycle of a record: creation, search, verification, and deletion."
+    )
     @pytest.mark.positive
     def test_create_and_delete_record(self, driver, faker: Faker):
         home_page = HomePage(driver)
@@ -444,7 +463,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -452,7 +471,14 @@ class TestWebTables:
             elements_page.open_web_tables()
 
         with allure.step("Create a new record"):
-            page.add_record(first_name=first_name, last_name=last_name, email=email, age=age, salary=salary, department=department)
+            page.add_record(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                age=age,
+                salary=salary,
+                department=department,
+            )
 
         with allure.step("Wait for created record"):
             page.wait_until_record_exists(email)
@@ -464,9 +490,7 @@ class TestWebTables:
             page.search(email)
 
         with allure.step("Wait for search result"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: len(page.row_texts()) == 1
-            )
+            WebDriverWait(driver, 10).until(lambda driver: len(page.row_texts()) == 1)
 
         with allure.step("Verify exactly one matching row"):
             assert page.rows_count() == 1
@@ -482,7 +506,9 @@ class TestWebTables:
 
     @allure.story("Row actions")
     @allure.title("Every row has Edit and Delete buttons")
-    @allure.description("Verifies that every displayed table row contains both Edit and Delete action buttons.")
+    @allure.description(
+        "Verifies that every displayed table row contains both Edit and Delete action buttons."
+    )
     @pytest.mark.positive
     def test_row_action_buttons_are_available(self, driver):
         home_page = HomePage(driver)
@@ -491,7 +517,7 @@ class TestWebTables:
 
         with allure.step("Open DemoQA home page"):
             home_page.open()
-                
+
         with allure.step("Open Elements section"):
             home_page.open_elements()
 
@@ -499,9 +525,7 @@ class TestWebTables:
             elements_page.open_web_tables()
 
         with allure.step("Wait for default rows"):
-            WebDriverWait(driver, 10).until(
-                lambda driver: len(page.rows()) == 3
-            )
+            WebDriverWait(driver, 10).until(lambda driver: len(page.rows()) == 3)
 
         with allure.step("Get table rows"):
             rows = page.rows()
@@ -523,5 +547,9 @@ class TestWebTables:
 
         with allure.step("Verify action buttons inside every row"):
             for row in rows:
-                assert row.find_element(By.CSS_SELECTOR, "[title='Edit']").is_displayed()
-                assert row.find_element(By.CSS_SELECTOR, "[title='Delete']").is_displayed()
+                assert row.find_element(
+                    By.CSS_SELECTOR, "[title='Edit']"
+                ).is_displayed()
+                assert row.find_element(
+                    By.CSS_SELECTOR, "[title='Delete']"
+                ).is_displayed()

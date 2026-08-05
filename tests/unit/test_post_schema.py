@@ -4,6 +4,7 @@ from jsonschema import ValidationError, validate
 
 from schemas.post_schema import POST_SCHEMA
 
+
 @allure.epic("Unit")
 @allure.feature("Post Schema")
 @pytest.mark.unit
@@ -161,7 +162,10 @@ class TestPostSchema:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_likes_minimum(self):
-        assert POST_SCHEMA["properties"]["reactions"]["properties"]["likes"]["minimum"] == 0
+        assert (
+            POST_SCHEMA["properties"]["reactions"]["properties"]["likes"]["minimum"]
+            == 0
+        )
 
     @allure.story("Schema")
     @allure.title("Dislikes minimum")
@@ -170,7 +174,10 @@ class TestPostSchema:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_dislikes_minimum(self):
-        assert POST_SCHEMA["properties"]["reactions"]["properties"]["dislikes"]["minimum"] == 0
+        assert (
+            POST_SCHEMA["properties"]["reactions"]["properties"]["dislikes"]["minimum"]
+            == 0
+        )
 
     @allure.story("Validation")
     @allure.title("Valid post passes validation")
@@ -335,7 +342,7 @@ class TestPostSchema:
             100,
             1000,
             100000,
-        ]
+        ],
     )
     @allure.description("Verifies that different valid views values pass validation.")
     @pytest.mark.schema
@@ -355,9 +362,11 @@ class TestPostSchema:
             ["python"],
             ["python", "pytest"],
             ["api", "json", "schema"],
-        ]
+        ],
     )
-    @allure.description("Verifies that different valid tag collections pass validation.")
+    @allure.description(
+        "Verifies that different valid tag collections pass validation."
+    )
     @pytest.mark.schema
     @pytest.mark.positive
     @pytest.mark.boundary

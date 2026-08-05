@@ -5,30 +5,19 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class ProgressBarPage(BasePage):
-    PROGRESS_BAR = (
-        By.ID,
-        "progressBar"
-    )
+    PROGRESS_BAR = (By.ID, "progressBar")
 
-    PROGRESS_BAR_VALUE = (
-        By.CSS_SELECTOR,
-        "#progressBar .progress-bar"
-    )
+    PROGRESS_BAR_VALUE = (By.CSS_SELECTOR, "#progressBar .progress-bar")
 
-    START_STOP_BUTTON = (
-        By.ID,
-        "startStopButton"
-    )
+    START_STOP_BUTTON = (By.ID, "startStopButton")
 
-    RESET_BUTTON = (
-        By.ID,
-        "resetButton"
-    )
+    RESET_BUTTON = (By.ID, "resetButton")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                                
+
     def progress_bar_visible(self) -> bool:
         return self.is_visible(self.PROGRESS_BAR)
 

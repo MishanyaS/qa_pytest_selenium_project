@@ -1,18 +1,20 @@
+from typing import Any
+
 import allure
 import pytest
 import requests
 from faker import Faker
 from jsonschema import validate
-from typing import Any
 
 from schemas.user_schema import USER_SCHEMA
 from utils.api_client import ApiClient
+
 
 @allure.epic("API")
 @allure.feature("Create Users")
 @pytest.mark.api
 @pytest.mark.regression
-class TestCreateUsers:    
+class TestCreateUsers:
     @pytest.fixture(scope="function")
     def user_payload(self, faker: Faker) -> dict[str, Any]:
         return {
@@ -29,19 +31,23 @@ class TestCreateUsers:
         }
 
     @allure.step("Create user")
-    def _create_user(self, client: ApiClient, user_payload: dict[str, Any]) -> requests.Response:
+    def _create_user(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> requests.Response:
         return client.post("/users/add", json=user_payload)
-    
+
     @allure.story("Create user")
     @allure.title("POST /users/add returns 201")
     @allure.description("Verifies that POST /users/add returns HTTP 201.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_create_user_status_code(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_create_user_status_code(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ):
         response = self._create_user(client, user_payload)
 
         assert response.status_code == 201
-    
+
     @allure.story("Create user")
     @allure.title("Response is JSON")
     @allure.description("Verifies that the response is returned in JSON format.")
@@ -50,7 +56,7 @@ class TestCreateUsers:
         response = self._create_user(client, user_payload)
 
         assert response.headers["Content-Type"].startswith("application/json")
-    
+
     @allure.story("Create user")
     @allure.title("Created user matches schema")
     @allure.description("Verifies that the created user matches the JSON schema.")
@@ -60,19 +66,23 @@ class TestCreateUsers:
         response = self._create_user(client, user_payload)
 
         validate(instance=response.json(), schema=USER_SCHEMA)
-    
+
     @allure.story("Create user")
     @allure.title("Returned firstName equals sent firstName")
-    @allure.description("Verifies that the returned firstName matches the submitted value.")
+    @allure.description(
+        "Verifies that the returned firstName matches the submitted value."
+    )
     @pytest.mark.positive
     def test_created_first_name(self, client: ApiClient, user_payload: dict[str, Any]):
         response = self._create_user(client, user_payload)
 
         assert response.json()["firstName"] == user_payload["firstName"]
-    
+
     @allure.story("Create user")
     @allure.title("Returned lastName equals sent lastName")
-    @allure.description("Verifies that the returned lastName matches the submitted value.")
+    @allure.description(
+        "Verifies that the returned lastName matches the submitted value."
+    )
     @pytest.mark.positive
     def test_created_last_name(self, client: ApiClient, user_payload: dict[str, Any]):
         response = self._create_user(client, user_payload)
@@ -99,13 +109,15 @@ class TestCreateUsers:
 
     @allure.story("Create user")
     @allure.title("Returned gender equals sent gender")
-    @allure.description("Verifies that the returned gender matches the submitted value.")
+    @allure.description(
+        "Verifies that the returned gender matches the submitted value."
+    )
     @pytest.mark.positive
     def test_created_gender(self, client: ApiClient, user_payload: dict[str, Any]):
         response = self._create_user(client, user_payload)
 
         assert response.json()["gender"] == user_payload["gender"]
-    
+
     @allure.story("Validation")
     @allure.title("Returned id is integer")
     @allure.description("Verifies that the returned user ID is an integer.")
@@ -168,7 +180,7 @@ class TestCreateUsers:
         response = self._create_user(client, user_payload)
 
         assert "gender" in response.json()
-    
+
     @allure.story("Validation")
     @allure.title("Create users with different ages")
     @allure.description("Verifies that users can be created with different age values.")
@@ -199,7 +211,9 @@ class TestCreateUsers:
 
     @allure.story("Validation")
     @allure.title("Create users with different genders")
-    @allure.description("Verifies that users can be created with different gender values.")
+    @allure.description(
+        "Verifies that users can be created with different gender values."
+    )
     @pytest.mark.parametrize(
         "gender",
         [
@@ -208,7 +222,9 @@ class TestCreateUsers:
         ],
     )
     @pytest.mark.positive
-    def test_create_with_various_genders(self, client: ApiClient, faker: Faker, gender: str):
+    def test_create_with_various_genders(
+        self, client: ApiClient, faker: Faker, gender: str
+    ):
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -224,7 +240,9 @@ class TestCreateUsers:
 
     @allure.story("Validation")
     @allure.title("Create users with different email domains")
-    @allure.description("Verifies that users can be created with different email domains.")
+    @allure.description(
+        "Verifies that users can be created with different email domains."
+    )
     @pytest.mark.parametrize(
         "domain",
         [
@@ -235,7 +253,9 @@ class TestCreateUsers:
         ],
     )
     @pytest.mark.positive
-    def test_create_with_various_domains(self, client: ApiClient, faker: Faker, domain: str):
+    def test_create_with_various_domains(
+        self, client: ApiClient, faker: Faker, domain: str
+    ):
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -248,16 +268,18 @@ class TestCreateUsers:
 
         assert response.status_code == 201
         assert response.json()["email"] == payload["email"]
-    
+
     @allure.story("Negative")
     @allure.title("Empty JSON")
-    @allure.description("Verifies the API behavior when an empty JSON payload is submitted.")
+    @allure.description(
+        "Verifies the API behavior when an empty JSON payload is submitted."
+    )
     @pytest.mark.negative
     def test_empty_json(self, client: ApiClient):
         response = self._create_user(client, {})
 
         assert response.status_code in (200, 201, 400)
-    
+
     @allure.story("Negative")
     @allure.title("Missing firstName")
     @allure.description("Verifies the API behavior when firstName is missing.")
@@ -305,7 +327,7 @@ class TestCreateUsers:
         response = self._create_user(client, payload)
 
         assert response.status_code in (200, 201, 400)
-    
+
     @allure.story("Negative")
     @allure.title("Invalid email")
     @allure.description("Verifies the API behavior when an invalid email is submitted.")

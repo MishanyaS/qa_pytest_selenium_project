@@ -5,70 +5,65 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class CheckBoxPage(BasePage):
-    HOME_CHECKBOX = (
-        By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Home']"
-    )
+    HOME_CHECKBOX = (By.XPATH, "//span[@role='checkbox' and @aria-label='Select Home']")
 
     DESKTOP_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Desktop']"
+        "//span[@role='checkbox' and @aria-label='Select Desktop']",
     )
 
     DOCUMENTS_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Documents']"
+        "//span[@role='checkbox' and @aria-label='Select Documents']",
     )
 
     DOWNLOADS_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Downloads']"
+        "//span[@role='checkbox' and @aria-label='Select Downloads']",
     )
 
     NOTES_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Notes']"
+        "//span[@role='checkbox' and @aria-label='Select Notes']",
     )
 
     COMMANDS_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Commands']"
+        "//span[@role='checkbox' and @aria-label='Select Commands']",
     )
 
     WORKSPACE_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select WorkSpace']"
+        "//span[@role='checkbox' and @aria-label='Select WorkSpace']",
     )
 
     REACT_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select React']"
+        "//span[@role='checkbox' and @aria-label='Select React']",
     )
 
     ANGULAR_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Angular']"
+        "//span[@role='checkbox' and @aria-label='Select Angular']",
     )
 
-    VEU_CHECKBOX = (
-        By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Veu']"
-    )
+    VEU_CHECKBOX = (By.XPATH, "//span[@role='checkbox' and @aria-label='Select Veu']")
 
     GENERAL_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select General']"
+        "//span[@role='checkbox' and @aria-label='Select General']",
     )
 
     WORD_FILE_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Word File.doc']"
+        "//span[@role='checkbox' and @aria-label='Select Word File.doc']",
     )
 
     EXCEL_FILE_CHECKBOX = (
         By.XPATH,
-        "//span[@role='checkbox' and @aria-label='Select Excel File.doc']"
+        "//span[@role='checkbox' and @aria-label='Select Excel File.doc']",
     )
 
     RESULT_SECTION = (
@@ -84,25 +79,25 @@ class CheckBoxPage(BasePage):
     HOME_SWITCHER = (
         By.XPATH,
         "//div[@role='treeitem'][.//span[@title='Home']]"
-        "//span[contains(@class, 'rc-tree-switcher')]"
+        "//span[contains(@class, 'rc-tree-switcher')]",
     )
 
     DOCUMENTS_SWITCHER = (
         By.XPATH,
         "//div[@role='treeitem'][.//span[@title='Documents']]"
-        "//span[contains(@class, 'rc-tree-switcher')]"
+        "//span[contains(@class, 'rc-tree-switcher')]",
     )
 
     WORKSPACE_SWITCHER = (
         By.XPATH,
         "//div[@role='treeitem'][.//span[@title='WorkSpace']]"
-        "//span[contains(@class, 'rc-tree-switcher')]"
+        "//span[contains(@class, 'rc-tree-switcher')]",
     )
 
     OFFICE_SWITCHER = (
         By.XPATH,
         "//div[@role='treeitem'][.//span[@title='Office']]"
-        "//span[contains(@class, 'rc-tree-switcher')]"
+        "//span[contains(@class, 'rc-tree-switcher')]",
     )
 
     def __init__(self, driver: WebDriver):

@@ -1,12 +1,14 @@
+from typing import Any
+
 import allure
 import pytest
 import requests
 from faker import Faker
 from jsonschema import validate
-from typing import Any
 
 from schemas.comment_schema import COMMENT_SCHEMA
 from utils.api_client import ApiClient
+
 
 @allure.epic("API")
 @allure.feature("Patch Comments")
@@ -20,7 +22,9 @@ class TestPatchComments:
         }
 
     @allure.step("Patch comment")
-    def _patch_comment(self, client: ApiClient, comment_id: int, comment_payload: dict[str, Any]) -> requests.Response:
+    def _patch_comment(
+        self, client: ApiClient, comment_id: int, comment_payload: dict[str, Any]
+    ) -> requests.Response:
         return client.patch(f"/comments/{comment_id}", json=comment_payload)
 
     @allure.story("Patch comment")
@@ -28,7 +32,9 @@ class TestPatchComments:
     @allure.description("Verifies that PATCH /comments/{id} returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_patch_comment_status_code(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_patch_comment_status_code(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         response = self._patch_comment(client, 1, comment_payload)
 
         assert response.status_code == 200
@@ -56,16 +62,22 @@ class TestPatchComments:
     @allure.title("Returned id is positive")
     @allure.description("Verifies that the returned comment id is positive.")
     @pytest.mark.positive
-    def test_comment_id_positive(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_comment_id_positive(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         response = self._patch_comment(client, 1, comment_payload)
 
         assert response.json()["id"] > 0
 
     @allure.story("Validation")
     @allure.title("Returned field types are correct")
-    @allure.description("Verifies that all returned fields have the expected data types.")
+    @allure.description(
+        "Verifies that all returned fields have the expected data types."
+    )
     @pytest.mark.positive
-    def test_returned_field_types(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_returned_field_types(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         response = self._patch_comment(client, 1, comment_payload)
 
         data = response.json()
@@ -78,9 +90,13 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Nested user object contains required fields")
-    @allure.description("Verifies that the nested user object contains all required fields.")
+    @allure.description(
+        "Verifies that the nested user object contains all required fields."
+    )
     @pytest.mark.positive
-    def test_nested_user_fields(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_nested_user_fields(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         response = self._patch_comment(client, 1, comment_payload)
 
         user = response.json()["user"]
@@ -90,7 +106,9 @@ class TestPatchComments:
 
     @allure.story("Validation")
     @allure.title("Patch comment with different body values")
-    @allure.description("Verifies that different comment body values are updated successfully.")
+    @allure.description(
+        "Verifies that different comment body values are updated successfully."
+    )
     @pytest.mark.parametrize(
         "body",
         [
@@ -99,7 +117,7 @@ class TestPatchComments:
             "Very long updated comment",
             "QA Automation",
             "Python",
-        ]
+        ],
     )
     @pytest.mark.positive
     def test_patch_various_bodies(self, client: ApiClient, body: str):
@@ -123,10 +141,12 @@ class TestPatchComments:
             3,
             5,
             10,
-        ]
+        ],
     )
     @pytest.mark.positive
-    def test_patch_multiple_comments(self, client: ApiClient, faker: Faker, comment_id: int):
+    def test_patch_multiple_comments(
+        self, client: ApiClient, faker: Faker, comment_id: int
+    ):
         payload = {
             "body": faker.sentence(),
         }
@@ -150,7 +170,7 @@ class TestPatchComments:
             25,
             50,
             100,
-        ]
+        ],
     )
     @pytest.mark.positive
     def test_patch_post_id(self, client: ApiClient, post_id: int):
@@ -206,10 +226,14 @@ class TestPatchComments:
 
     @allure.story("Performance")
     @allure.title("Patch response time")
-    @allure.description("Verifies that the PATCH request completes within the acceptable time.")
+    @allure.description(
+        "Verifies that the PATCH request completes within the acceptable time."
+    )
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_patch_response_time(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_patch_response_time(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         response = self._patch_comment(client, 1, comment_payload)
 
         assert response.elapsed.total_seconds() < 2
@@ -228,7 +252,9 @@ class TestPatchComments:
         ],
     )
     @pytest.mark.positive
-    def test_patch_multiple_comments_step_by_step(self, client: ApiClient, faker: Faker, comment_id: int):
+    def test_patch_multiple_comments_step_by_step(
+        self, client: ApiClient, faker: Faker, comment_id: int
+    ):
         payload = {
             "body": faker.sentence(),
         }
@@ -246,7 +272,9 @@ class TestPatchComments:
     @allure.description("Verifies comment patching step by step.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_update_comment_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_update_comment_step_by_step(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         with allure.step("Send PATCH request"):
             response = self._patch_comment(client, 1, comment_payload)
             data = response.json()
@@ -264,7 +292,9 @@ class TestPatchComments:
     @allure.title("Verify response headers")
     @allure.description("Verifies response headers step by step.")
     @pytest.mark.positive
-    def test_headers_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_headers_step_by_step(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         with allure.step("Send PATCH request"):
             response = self._patch_comment(client, 1, comment_payload)
 
@@ -276,7 +306,9 @@ class TestPatchComments:
     @allure.description("Verifies response time step by step.")
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_response_time_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_response_time_step_by_step(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ):
         with allure.step("Send PATCH request"):
             response = self._patch_comment(client, 1, comment_payload)
 

@@ -5,25 +5,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class FramesPage(BasePage):
-    FRAME_1 = (
-        By.ID,
-        "frame1"
-    )
+    FRAME_1 = (By.ID, "frame1")
 
-    FRAME_2 = (
-        By.ID,
-        "frame2"
-    )
+    FRAME_2 = (By.ID, "frame2")
 
-    FRAME_HEADING = (
-        By.ID,
-        "sampleHeading"
-    )
+    FRAME_HEADING = (By.ID, "sampleHeading")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-    
+
     def frame_1_visible(self) -> bool:
         return self.is_visible(self.FRAME_1)
 

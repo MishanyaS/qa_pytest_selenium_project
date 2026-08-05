@@ -4,6 +4,7 @@ from jsonschema import ValidationError, validate
 
 from schemas.user_schema import USER_SCHEMA
 
+
 @allure.epic("Unit")
 @allure.feature("User Schema")
 @pytest.mark.unit
@@ -264,7 +265,7 @@ class TestUserSchema:
             18,
             50,
             100,
-        ]
+        ],
     )
     @allure.description("Verifies that different valid age values pass validation.")
     @pytest.mark.schema

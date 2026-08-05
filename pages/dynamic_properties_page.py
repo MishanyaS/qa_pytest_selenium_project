@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class DynamicPropertiesPage(BasePage):
     ENABLE_AFTER_BUTTON = (
         By.ID,
@@ -44,9 +45,7 @@ class DynamicPropertiesPage(BasePage):
 
     def wait_enable_after_enabled(self) -> bool:
         return self.wait.until(
-            lambda driver: driver.find_element(
-                *self.ENABLE_AFTER_BUTTON
-            ).is_enabled()
+            lambda driver: driver.find_element(*self.ENABLE_AFTER_BUTTON).is_enabled()
         )
 
     def wait_visible_after_visible(self) -> bool:

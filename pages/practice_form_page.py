@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class PracticeFormPage(BasePage):
     FIRST_NAME_INPUT = (
         By.ID,
@@ -148,28 +149,13 @@ class PracticeFormPage(BasePage):
         self.click(self.OTHER_RADIO)
 
     def male_selected(self) -> bool:
-        return self.is_selected(
-            (
-                By.ID,
-                "gender-radio-1"
-            )
-        )
+        return self.is_selected((By.ID, "gender-radio-1"))
 
     def female_selected(self) -> bool:
-        return self.is_selected(
-            (
-                By.ID,
-                "gender-radio-2"
-            )
-        )
+        return self.is_selected((By.ID, "gender-radio-2"))
 
     def other_selected(self) -> bool:
-        return self.is_selected(
-            (
-                By.ID,
-                "gender-radio-3"
-            )
-        )
+        return self.is_selected((By.ID, "gender-radio-3"))
 
     def enter_date_of_birth(self, date: str) -> None:
         self.click(self.DATE_OF_BIRTH_INPUT)
@@ -209,10 +195,7 @@ class PracticeFormPage(BasePage):
         self.click(option)
 
     def subjects_value(self) -> str | None:
-        return self.attribute(
-            self.SUBJECTS_INPUT,
-            "value"
-        )
+        return self.attribute(self.SUBJECTS_INPUT, "value")
 
     def select_sports(self) -> None:
         self.click(self.SPORTS_CHECKBOX)
@@ -264,8 +247,7 @@ class PracticeFormPage(BasePage):
 
         option = (
             By.XPATH,
-            f"//div[contains(@class, 'option') "
-            f"and normalize-space()='{state}']",
+            f"//div[contains(@class, 'option') and normalize-space()='{state}']",
         )
 
         self.click(option)
@@ -275,8 +257,7 @@ class PracticeFormPage(BasePage):
 
         option = (
             By.XPATH,
-            f"//div[contains(@class, 'option') "
-            f"and normalize-space()='{city}']",
+            f"//div[contains(@class, 'option') and normalize-space()='{city}']",
         )
 
         self.click(option)
@@ -294,28 +275,25 @@ class PracticeFormPage(BasePage):
         return self.is_visible(self.RESULT_TABLE)
 
     def result_rows(self) -> list[str]:
-        return [
-            row.text
-            for row in self.wait_all_present(self.RESULT_ROWS)
-        ]
+        return [row.text for row in self.wait_all_present(self.RESULT_ROWS)]
 
     def result_text(self) -> str:
         return self.text(self.RESULT_TABLE)
 
     def fill_form(
-            self,
-            first_name: str,
-            last_name: str,
-            email: str,
-            gender: str,
-            mobile: str,
-            date_of_birth: str,
-            subject: str,
-            hobby: str,
-            picture_path: str,
-            current_address: str,
-            state: str,
-            city: str
+        self,
+        first_name: str,
+        last_name: str,
+        email: str,
+        gender: str,
+        mobile: str,
+        date_of_birth: str,
+        subject: str,
+        hobby: str,
+        picture_path: str,
+        current_address: str,
+        state: str,
+        city: str,
     ) -> None:
         self.enter_first_name(first_name)
         self.enter_last_name(last_name)
@@ -347,19 +325,19 @@ class PracticeFormPage(BasePage):
         self.select_city(city)
 
     def submit_form(
-            self,
-            first_name: str,
-            last_name: str,
-            email: str,
-            gender: str,
-            mobile: str,
-            date_of_birth: str,
-            subject: str,
-            hobby: str,
-            picture_path: str,
-            current_address: str,
-            state: str,
-            city: str
+        self,
+        first_name: str,
+        last_name: str,
+        email: str,
+        gender: str,
+        mobile: str,
+        date_of_birth: str,
+        subject: str,
+        hobby: str,
+        picture_path: str,
+        current_address: str,
+        state: str,
+        city: str,
     ) -> None:
         self.fill_form(
             first_name=first_name,

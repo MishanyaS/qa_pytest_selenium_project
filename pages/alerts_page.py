@@ -5,31 +5,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class AlertsPage(BasePage):
-    BROWSER_WINDOWS_ITEM = (
-        By.XPATH,
-        "//span[text()='Browser Windows']"
-    )
+    BROWSER_WINDOWS_ITEM = (By.XPATH, "//span[text()='Browser Windows']")
 
-    ALERTS_ITEM = (
-        By.XPATH,
-        "//span[text()='Alerts']"
-    )
+    ALERTS_ITEM = (By.XPATH, "//span[text()='Alerts']")
 
-    FRAMES_ITEM = (
-        By.XPATH,
-        "//span[text()='Frames']"
-    )
+    FRAMES_ITEM = (By.XPATH, "//span[text()='Frames']")
 
-    NESTED_FRAMES_ITEM = (
-        By.XPATH,
-        "//span[text()='Nested Frames']"
-    )
+    NESTED_FRAMES_ITEM = (By.XPATH, "//span[text()='Nested Frames']")
 
-    MODAL_DIALOGS_ITEM = (
-        By.XPATH,
-        "//span[text()='Modal Dialogs']"
-    )
+    MODAL_DIALOGS_ITEM = (By.XPATH, "//span[text()='Modal Dialogs']")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)

@@ -4,8 +4,9 @@ import allure
 import pytest
 
 from pages.alerts_frames_page import AlertsFramesPage
-from pages.home_page import HomePage
 from pages.frames_page import FramesPage
+from pages.home_page import HomePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Alerts, Frame & Windows")
@@ -14,7 +15,9 @@ from pages.frames_page import FramesPage
 class TestFrames:
     @allure.story("Frames navigation")
     @allure.title("Frame page opens successfully")
-    @allure.description("Verifies that the Frame page can be opened successfully from the Alerts, Frame & Windows section.")
+    @allure.description(
+        "Verifies that the Frame page can be opened successfully from the Alerts, Frame & Windows section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_frames(self, driver):
@@ -57,7 +60,9 @@ class TestFrames:
 
     @allure.story("Frame 1")
     @allure.title("Frame 1 contains expected heading")
-    @allure.description("Verifies that Frame 1 can be accessed and contains the expected sample heading.")
+    @allure.description(
+        "Verifies that Frame 1 can be accessed and contains the expected sample heading."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_frame_1_heading(self, driver):
@@ -78,7 +83,9 @@ class TestFrames:
 
     @allure.story("Frame 2")
     @allure.title("Frame 2 contains expected heading")
-    @allure.description("Verifies that Frame 2 can be accessed and contains the expected sample heading.")
+    @allure.description(
+        "Verifies that Frame 2 can be accessed and contains the expected sample heading."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_frame_2_heading(self, driver):

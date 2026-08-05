@@ -4,8 +4,9 @@ import allure
 import pytest
 
 from pages.alerts_frames_page import AlertsFramesPage
-from pages.home_page import HomePage
 from pages.browser_windows_page import BrowserWindowsPage
+from pages.home_page import HomePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Alerts, Frame & Windows")
@@ -14,7 +15,9 @@ from pages.browser_windows_page import BrowserWindowsPage
 class TestBrowserWindows:
     @allure.story("Browser Windows navigation")
     @allure.title("Browser Windows page opens successfully")
-    @allure.description("Verifies that the Browser Windows page can be opened successfully from the Alerts, Frame & Windows section.")
+    @allure.description(
+        "Verifies that the Browser Windows page can be opened successfully from the Alerts, Frame & Windows section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_browser_windows(self, driver):
@@ -58,10 +61,11 @@ class TestBrowserWindows:
         with allure.step("Verify New Window Message button is visible"):
             assert page.new_window_message_visible()
 
-
     @allure.story("Browser Windows page")
     @allure.title("Opening a new tab creates a new browser window handle")
-    @allure.description("Verifies that clicking the New Tab button opens a new browser tab without closing the original browser window.")
+    @allure.description(
+        "Verifies that clicking the New Tab button opens a new browser tab without closing the original browser window."
+    )
     @pytest.mark.positive
     def test_open_new_tab_creates_new_window_handle(self, driver):
         home_page = HomePage(driver)
@@ -90,7 +94,9 @@ class TestBrowserWindows:
 
     @allure.story("Browser Windows")
     @allure.title("New Tab displays the sample page")
-    @allure.description("Verifies that the new tab opened by the New Tab button displays the expected DemoQA simple page.")
+    @allure.description(
+        "Verifies that the new tab opened by the New Tab button displays the expected DemoQA simple page."
+    )
     @pytest.mark.positive
     def test_new_tab_contains_sample_heading(self, driver):
         home_page = HomePage(driver)
@@ -116,7 +122,9 @@ class TestBrowserWindows:
 
     @allure.story("Browser Windows")
     @allure.title("Opening a new window creates a new browser window handle")
-    @allure.description("Verifies that clicking the New Window button opens a new browser window without closing the original browser window.")
+    @allure.description(
+        "Verifies that clicking the New Window button opens a new browser window without closing the original browser window."
+    )
     @pytest.mark.positive
     def test_open_new_window_creates_new_window_handle(self, driver):
         home_page = HomePage(driver)
@@ -145,7 +153,9 @@ class TestBrowserWindows:
 
     @allure.story("Browser Windows")
     @allure.title("New window displays the sample page")
-    @allure.description("Verifies that the new browser window opened by the New Window button displays the expected DemoQA sample page.")
+    @allure.description(
+        "Verifies that the new browser window opened by the New Window button displays the expected DemoQA sample page."
+    )
     @pytest.mark.positive
     def test_new_window_contains_sample_heading(self, driver):
         home_page = HomePage(driver)
@@ -171,7 +181,9 @@ class TestBrowserWindows:
 
     @allure.story("Browser Windows")
     @allure.title("Opening a new tab changes the current window handle")
-    @allure.description("Verifies that the browser switches to the newly opened tab after the New Tab button is clicked.")
+    @allure.description(
+        "Verifies that the browser switches to the newly opened tab after the New Tab button is clicked."
+    )
     @pytest.mark.positive
     def test_new_tab_becomes_current_window(self, driver):
         home_page = HomePage(driver)
@@ -200,7 +212,9 @@ class TestBrowserWindows:
 
     @allure.story("Browser Windows")
     @allure.title("User can switch back to the original browser window")
-    @allure.description("Verifies that the user can return from the newly opened tab to the original Browser Windows page.")
+    @allure.description(
+        "Verifies that the user can return from the newly opened tab to the original Browser Windows page."
+    )
     @pytest.mark.positive
     def test_switch_back_to_original_window(self, driver):
         home_page = HomePage(driver)
@@ -237,7 +251,9 @@ class TestBrowserWindows:
 
     @allure.story("Browser Windows")
     @allure.title("User can close the newly opened browser window")
-    @allure.description("Verifies that the newly opened browser window can be closed and that the original browser window remains available.")
+    @allure.description(
+        "Verifies that the newly opened browser window can be closed and that the original browser window remains available."
+    )
     @pytest.mark.positive
     def test_close_new_window(self, driver):
         home_page = HomePage(driver)

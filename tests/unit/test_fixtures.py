@@ -5,6 +5,7 @@ import pytest
 import requests
 from faker import Faker
 
+
 @allure.epic("Unit")
 @allure.feature("Fixtures")
 @pytest.mark.unit
@@ -67,7 +68,9 @@ class TestFixtures:
 
     @allure.story("sqlite")
     @allure.title("SQLite connection is opened")
-    @allure.description("Verifies that the SQLite connection is open and accepts queries.")
+    @allure.description(
+        "Verifies that the SQLite connection is open and accepts queries."
+    )
     @pytest.mark.db
     @pytest.mark.positive
     def test_sqlite_connection_open(self, sqlite_connection: sqlite3.Connection):
@@ -83,7 +86,9 @@ class TestFixtures:
 
     @allure.story("sqlite")
     @allure.title("Cursor executes SQL")
-    @allure.description("Verifies that the cursor executes SQL statements successfully.")
+    @allure.description(
+        "Verifies that the cursor executes SQL statements successfully."
+    )
     @pytest.mark.db
     @pytest.mark.positive
     def test_cursor_execute(self, db_cursor: sqlite3.Cursor):
@@ -93,7 +98,9 @@ class TestFixtures:
 
     @allure.story("sqlite")
     @allure.title("Cursor description exists")
-    @allure.description("Verifies that the cursor provides column metadata after executing a query.")
+    @allure.description(
+        "Verifies that the cursor provides column metadata after executing a query."
+    )
     @pytest.mark.db
     @pytest.mark.positive
     def test_cursor_description(self, db_cursor: sqlite3.Cursor):
@@ -133,21 +140,33 @@ class TestFixtures:
 
     @allure.story("fixtures")
     @allure.title("api_session and sqlite fixtures coexist")
-    @allure.description("Verifies that API session and SQLite fixtures can be used together.")
+    @allure.description(
+        "Verifies that API session and SQLite fixtures can be used together."
+    )
     @pytest.mark.api
     @pytest.mark.db
     @pytest.mark.positive
-    def test_multiple_fixtures(self, api_session: requests.Session, sqlite_connection: sqlite3.Connection):
+    def test_multiple_fixtures(
+        self, api_session: requests.Session, sqlite_connection: sqlite3.Connection
+    ):
         assert isinstance(api_session, requests.Session)
         assert isinstance(sqlite_connection, sqlite3.Connection)
 
     @allure.story("fixtures")
     @allure.title("Several fixtures available together")
-    @allure.description("Verifies that all basic fixtures are available in a single test.")
+    @allure.description(
+        "Verifies that all basic fixtures are available in a single test."
+    )
     @pytest.mark.api
     @pytest.mark.db
     @pytest.mark.positive
-    def test_all_basic_fixtures(self, faker: Faker, timeout: int, api_session: requests.Session, sqlite_connection: sqlite3.Connection):
+    def test_all_basic_fixtures(
+        self,
+        faker: Faker,
+        timeout: int,
+        api_session: requests.Session,
+        sqlite_connection: sqlite3.Connection,
+    ):
         assert faker is not None
         assert timeout > 0
         assert api_session is not None

@@ -4,6 +4,7 @@ from jsonschema import ValidationError, validate
 
 from schemas.comment_schema import COMMENT_SCHEMA
 
+
 @allure.epic("Unit")
 @allure.feature("Comment Schema")
 @pytest.mark.unit
@@ -47,7 +48,9 @@ class TestCommentSchema:
 
     @allure.story("Schema")
     @allure.title("Required fields count")
-    @allure.description("Verifies that the schema defines the expected number of required fields.")
+    @allure.description(
+        "Verifies that the schema defines the expected number of required fields."
+    )
     @pytest.mark.positive
     @pytest.mark.schema
     def test_required_fields_count(self):
@@ -69,7 +72,9 @@ class TestCommentSchema:
 
     @allure.story("Schema")
     @allure.title("Properties count")
-    @allure.description("Verifies that the schema defines the expected number of properties.")
+    @allure.description(
+        "Verifies that the schema defines the expected number of properties."
+    )
     @pytest.mark.positive
     @pytest.mark.schema
     def test_properties_count(self):
@@ -140,7 +145,10 @@ class TestCommentSchema:
     @pytest.mark.positive
     @pytest.mark.schema
     def test_user_id_type(self):
-        assert COMMENT_SCHEMA["properties"]["user"]["properties"]["id"]["type"] == "integer"
+        assert (
+            COMMENT_SCHEMA["properties"]["user"]["properties"]["id"]["type"]
+            == "integer"
+        )
 
     @allure.story("Schema")
     @allure.title("Username type")
@@ -148,7 +156,10 @@ class TestCommentSchema:
     @pytest.mark.positive
     @pytest.mark.schema
     def test_username_type(self):
-        assert COMMENT_SCHEMA["properties"]["user"]["properties"]["username"]["type"] == "string"
+        assert (
+            COMMENT_SCHEMA["properties"]["user"]["properties"]["username"]["type"]
+            == "string"
+        )
 
     @allure.story("Validation")
     @allure.title("Valid comment passes validation")
@@ -160,7 +171,9 @@ class TestCommentSchema:
 
     @allure.story("Validation")
     @allure.title("Additional properties are allowed")
-    @allure.description("Verifies that additional properties are accepted by the schema.")
+    @allure.description(
+        "Verifies that additional properties are accepted by the schema."
+    )
     @pytest.mark.positive
     @pytest.mark.schema
     def test_additional_properties(self, valid_comment: dict):
@@ -181,7 +194,9 @@ class TestCommentSchema:
 
     @allure.story("Validation")
     @allure.title("Missing body")
-    @allure.description("Verifies that validation fails when the body field is missing.")
+    @allure.description(
+        "Verifies that validation fails when the body field is missing."
+    )
     @pytest.mark.negative
     @pytest.mark.schema
     def test_missing_body(self, valid_comment: dict):
@@ -192,7 +207,9 @@ class TestCommentSchema:
 
     @allure.story("Validation")
     @allure.title("Missing user")
-    @allure.description("Verifies that validation fails when the user field is missing.")
+    @allure.description(
+        "Verifies that validation fails when the user field is missing."
+    )
     @pytest.mark.negative
     @pytest.mark.schema
     def test_missing_user(self, valid_comment: dict):
@@ -203,7 +220,9 @@ class TestCommentSchema:
 
     @allure.story("Validation")
     @allure.title("Missing username")
-    @allure.description("Verifies that validation fails when the username field is missing.")
+    @allure.description(
+        "Verifies that validation fails when the username field is missing."
+    )
     @pytest.mark.negative
     @pytest.mark.schema
     def test_missing_username(self, valid_comment: dict):
@@ -281,7 +300,9 @@ class TestCommentSchema:
 
     @allure.story("Validation")
     @allure.title("User id must be integer")
-    @allure.description("Verifies that validation fails when user id is not an integer.")
+    @allure.description(
+        "Verifies that validation fails when user id is not an integer."
+    )
     @pytest.mark.negative
     @pytest.mark.schema
     def test_invalid_user_id_type(self, valid_comment: dict):
@@ -311,7 +332,7 @@ class TestCommentSchema:
             10,
             100,
             1000,
-        ]
+        ],
     )
     @allure.description("Verifies that valid likes values pass schema validation.")
     @pytest.mark.positive
@@ -331,7 +352,7 @@ class TestCommentSchema:
             10,
             100,
             999,
-        ]
+        ],
     )
     @allure.description("Verifies that valid postId values pass schema validation.")
     @pytest.mark.positive

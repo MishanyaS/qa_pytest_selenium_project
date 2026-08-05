@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
-from pages.home_page import HomePage
 from pages.auto_complete_page import AutoCompletePage
+from pages.home_page import HomePage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.auto_complete_page import AutoCompletePage
 class TestAutoComplete:
     @allure.story("Auto Complete navigation")
     @allure.title("Auto Complete page opens successfully")
-    @allure.description("Verifies that the Auto Complete page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Auto Complete page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_auto_complete(self, driver):
@@ -36,7 +39,9 @@ class TestAutoComplete:
 
     @allure.story("Auto Complete page")
     @allure.title("Auto Complete input fields are visible")
-    @allure.description("Verifies that both Single Value and Multiple Values Auto Complete input fields are displayed.")
+    @allure.description(
+        "Verifies that both Single Value and Multiple Values Auto Complete input fields are displayed."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_auto_complete_input_visible(self, driver):
@@ -57,7 +62,9 @@ class TestAutoComplete:
 
     @allure.story("Single Value Auto Complete")
     @allure.title("Single Value input accepts text")
-    @allure.description("Verifies that text can be entered into the Single Value Auto Complete input.")
+    @allure.description(
+        "Verifies that text can be entered into the Single Value Auto Complete input."
+    )
     @pytest.mark.positive
     def test_enter_single_value(self, driver):
         home_page = HomePage(driver)
@@ -79,7 +86,9 @@ class TestAutoComplete:
 
     @allure.story("Multiple Value Auto Complete")
     @allure.title("Multiple Values input accepts text")
-    @allure.description("Verifies that text can be entered into the Multiple Values Auto Complete input.")
+    @allure.description(
+        "Verifies that text can be entered into the Multiple Values Auto Complete input."
+    )
     @pytest.mark.positive
     def test_enter_multiple_value(self, driver):
         home_page = HomePage(driver)
@@ -101,7 +110,9 @@ class TestAutoComplete:
 
     @allure.story("Auto Complete suggestions")
     @allure.title("Suggestions are displayed after entering a value")
-    @allure.description("Verifies that Auto Complete suggestions are displayed after entering a color value.")
+    @allure.description(
+        "Verifies that Auto Complete suggestions are displayed after entering a color value."
+    )
     @pytest.mark.positive
     def test_options_are_displayed(self, driver):
         home_page = HomePage(driver)
@@ -126,7 +137,9 @@ class TestAutoComplete:
 
     @allure.story("Single Value Auto Complete")
     @allure.title("Single Value can be selected")
-    @allure.description("Verifies that a color can be selected from the Single Value Auto Complete suggestions.")
+    @allure.description(
+        "Verifies that a color can be selected from the Single Value Auto Complete suggestions."
+    )
     @pytest.mark.positive
     def test_select_single_value(self, driver):
         home_page = HomePage(driver)
@@ -151,7 +164,9 @@ class TestAutoComplete:
 
     @allure.story("Multiple Values Auto Complete")
     @allure.title("Multiple values can be selected")
-    @allure.description("Verifies that a color can be selected from the Multiple Values Auto Complete suggestions.")
+    @allure.description(
+        "Verifies that a color can be selected from the Multiple Values Auto Complete suggestions."
+    )
     @pytest.mark.positive
     def test_select_multiple_values(self, driver):
         home_page = HomePage(driver)
@@ -183,7 +198,9 @@ class TestAutoComplete:
 
     @allure.story("Multiple Values Auto Complete")
     @allure.title("Selected multiple value can be removed")
-    @allure.description("Verifies that a selected color can be removed from the Multiple Values Auto Complete field.")
+    @allure.description(
+        "Verifies that a selected color can be removed from the Multiple Values Auto Complete field."
+    )
     @pytest.mark.positive
     def test_remove_multiple_value(self, driver):
         home_page = HomePage(driver)
@@ -217,7 +234,9 @@ class TestAutoComplete:
 
     @allure.story("Single Value Auto Complete")
     @allure.title("Single Value input can be cleared")
-    @allure.description("Verifies that the Single Value Auto Complete input can be cleared.")
+    @allure.description(
+        "Verifies that the Single Value Auto Complete input can be cleared."
+    )
     @pytest.mark.positive
     def test_clear_single_value(self, driver):
         home_page = HomePage(driver)
@@ -242,7 +261,9 @@ class TestAutoComplete:
 
     @allure.story("Multiple Values Auto Complete")
     @allure.title("Multiple Values input can be cleared")
-    @allure.description("Verifies that the Multiple Values Auto Complete input can be cleared.")
+    @allure.description(
+        "Verifies that the Multiple Values Auto Complete input can be cleared."
+    )
     @pytest.mark.positive
     def test_clear_multiple_value_input(self, driver):
         home_page = HomePage(driver)
@@ -264,4 +285,3 @@ class TestAutoComplete:
 
         with allure.step("Verify input is empty"):
             assert page.multiple_value_input_value() == ""
-        

@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import allure
 import pytest
-
 from selenium.webdriver.support.ui import WebDriverWait
 
+from pages.dynamic_properties_page import DynamicPropertiesPage
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
-from pages.dynamic_properties_page import DynamicPropertiesPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
@@ -16,7 +16,9 @@ from pages.dynamic_properties_page import DynamicPropertiesPage
 class TestDynamicProperties:
     @allure.story("Dynamic Properties navigation")
     @allure.title("Dynamic Properties page opens successfully")
-    @allure.description("Verifies that the Dynamic Properties page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Dynamic Properties page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_dynamic_properties(self, driver):
@@ -38,7 +40,9 @@ class TestDynamicProperties:
 
     @allure.story("Dynamic Properties page")
     @allure.title("Dynamic Properties elements are visible")
-    @allure.description("Verifies that all dynamic property controls are visible on the page.")
+    @allure.description(
+        "Verifies that all dynamic property controls are visible on the page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_dynamic_properties_elements_visible(self, driver):
@@ -62,7 +66,9 @@ class TestDynamicProperties:
 
     @allure.story("Enable After dynamic property")
     @allure.title("Enable After button is initially disabled")
-    @allure.description("Verifies that the Enable After button is displayed but disabled immediately after opening the Dynamic Properties page.")
+    @allure.description(
+        "Verifies that the Enable After button is displayed but disabled immediately after opening the Dynamic Properties page."
+    )
     @pytest.mark.positive
     def test_enable_after_button_initially_disabled(self, driver):
         home_page = HomePage(driver)
@@ -82,7 +88,9 @@ class TestDynamicProperties:
 
     @allure.story("Enable After dynamic property")
     @allure.title("Enable After button becomes enabled")
-    @allure.description("Verifies that the Enable After button becomes enabled automatically after the configured delay.")
+    @allure.description(
+        "Verifies that the Enable After button becomes enabled automatically after the configured delay."
+    )
     @pytest.mark.positive
     def test_enable_after_button_becomes_enabled(self, driver):
         home_page = HomePage(driver)
@@ -105,7 +113,9 @@ class TestDynamicProperties:
 
     @allure.story("Visible After dynamic property")
     @allure.title("Visible After button is visible")
-    @allure.description("Verifies that the Visible After button becomes visible after the configured delay.")
+    @allure.description(
+        "Verifies that the Visible After button becomes visible after the configured delay."
+    )
     @pytest.mark.positive
     def test_visible_after_button_appears(self, driver):
         home_page = HomePage(driver)
@@ -128,7 +138,9 @@ class TestDynamicProperties:
 
     @allure.story("Color Change dynamic property")
     @allure.title("Color Change button has initial primary color")
-    @allure.description("Verifies that the Color Change button initially has the primary Bootstrap button class.")
+    @allure.description(
+        "Verifies that the Color Change button initially has the primary Bootstrap button class."
+    )
     @pytest.mark.positive
     def test_color_change_initial_color(self, driver):
         home_page = HomePage(driver)
@@ -150,7 +162,9 @@ class TestDynamicProperties:
 
     @allure.story("Color Change dynamic property")
     @allure.title("Color Change button changes color after delay")
-    @allure.description("Verifies that the Color Change button changes its computed text color after the configured delay.")
+    @allure.description(
+        "Verifies that the Color Change button changes its computed text color after the configured delay."
+    )
     @pytest.mark.positive
     def test_color_change_button_changes_color(self, driver):
         home_page = HomePage(driver)
@@ -170,7 +184,7 @@ class TestDynamicProperties:
                 """
                 return window.getComputedStyle(arguments[0]).color;
                 """,
-                color_change_button
+                color_change_button,
             )
 
         with allure.step("Verify initial computed color is available"):
@@ -183,7 +197,7 @@ class TestDynamicProperties:
                         """
                         return window.getComputedStyle(arguments[0]).color;
                         """,
-                        color_change_button
+                        color_change_button,
                     )
                     != initial_color
                 )
@@ -194,7 +208,7 @@ class TestDynamicProperties:
                 """
                 return window.getComputedStyle(arguments[0]).color;
                 """,
-                color_change_button
+                color_change_button,
             )
 
         with allure.step("Verify color has changed"):
@@ -231,7 +245,7 @@ class TestDynamicProperties:
                 """
                 return window.getComputedStyle(arguments[0]).color;
                 """,
-                color_change_button
+                color_change_button,
             )
 
         with allure.step("Verify initial Color Change color"):
@@ -250,7 +264,7 @@ class TestDynamicProperties:
                         """
                         return window.getComputedStyle(arguments[0]).color;
                         """,
-                        color_change_button
+                        color_change_button,
                     )
                     != initial_color
                 )
@@ -267,8 +281,8 @@ class TestDynamicProperties:
                 """
                 return window.getComputedStyle(arguments[0]).color;
                 """,
-                color_change_button
+                color_change_button,
             )
-            
+
             assert final_color
             assert final_color != initial_color

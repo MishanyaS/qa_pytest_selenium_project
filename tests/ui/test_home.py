@@ -6,6 +6,7 @@ import pytest
 from config import BASE_UI_URL
 from pages.home_page import HomePage
 
+
 @allure.epic("DemoQA UI")
 @allure.feature("Home Page")
 @pytest.mark.ui
@@ -13,7 +14,9 @@ from pages.home_page import HomePage
 class TestHomePage:
     @allure.story("Home Page")
     @allure.title("Home page opens successfully")
-    @allure.description("Verifies that the DemoQA home page openes successfully and the expected URL is displayed")
+    @allure.description(
+        "Verifies that the DemoQA home page openes successfully and the expected URL is displayed"
+    )
     @pytest.mark.positive
     def test_home_page_opens(self, driver):
         page = HomePage(driver)
@@ -26,7 +29,9 @@ class TestHomePage:
 
     @allure.story("Home Page cards")
     @allure.title("All main category cards are visible")
-    @allure.description("Verifies that all six main DemoQA category cards are displayed on the home page.")
+    @allure.description(
+        "Verifies that all six main DemoQA category cards are displayed on the home page."
+    )
     @pytest.mark.positive
     def test_all_category_cards_visible(self, driver):
         page = HomePage(driver)
@@ -54,7 +59,9 @@ class TestHomePage:
 
     @allure.story("Elements navigation")
     @allure.title("Elements card opens Elements section")
-    @allure.description("Verifies navigation from the Home page to the Elements section.")
+    @allure.description(
+        "Verifies navigation from the Home page to the Elements section."
+    )
     @pytest.mark.positive
     def test_open_elements(self, driver):
         page = HomePage(driver)
@@ -86,7 +93,9 @@ class TestHomePage:
 
     @allure.story("Alerts navigation")
     @allure.title("Alerts, Frame & Windows card opens corresponding section")
-    @allure.description("Verifies navigation from the Home page to the Alerts, Frame & Windows section.")
+    @allure.description(
+        "Verifies navigation from the Home page to the Alerts, Frame & Windows section."
+    )
     @pytest.mark.positive
     def test_open_alerts(self, driver):
         page = HomePage(driver)
@@ -102,7 +111,9 @@ class TestHomePage:
 
     @allure.story("Widgets navigation")
     @allure.title("Widgets card opens Widgets section")
-    @allure.description("Verifies navigation from the Home page to the Widgets section.")
+    @allure.description(
+        "Verifies navigation from the Home page to the Widgets section."
+    )
     @pytest.mark.positive
     def test_open_widgets(self, driver):
         page = HomePage(driver)
@@ -118,7 +129,9 @@ class TestHomePage:
 
     @allure.story("Interactions navigation")
     @allure.title("Interactions card opens Interactions section")
-    @allure.description("Verifies navigation from the Home page to the Interactions section.")
+    @allure.description(
+        "Verifies navigation from the Home page to the Interactions section."
+    )
     @pytest.mark.positive
     def test_open_interactions(self, driver):
         page = HomePage(driver)
@@ -134,7 +147,9 @@ class TestHomePage:
 
     @allure.story("Book Store navigation")
     @allure.title("Book Store Application card opens Book Store section")
-    @allure.description("Verifies navigation from the Home page to the Book Store Application section.")
+    @allure.description(
+        "Verifies navigation from the Home page to the Book Store Application section."
+    )
     @pytest.mark.positive
     def test_open_book_store(self, driver):
         page = HomePage(driver)

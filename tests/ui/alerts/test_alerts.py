@@ -4,8 +4,9 @@ import allure
 import pytest
 
 from pages.alerts_frames_page import AlertsFramesPage
-from pages.home_page import HomePage
 from pages.alerts_page import AlertsPage
+from pages.home_page import HomePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Alerts, Frame & Windows")
@@ -14,7 +15,9 @@ from pages.alerts_page import AlertsPage
 class TestAlerts:
     @allure.story("Alerts navigation")
     @allure.title("Alerts page opens successfully")
-    @allure.description("Verifies that the Alerts page can be opened successfully from the Alerts, Frame & Windows section.")
+    @allure.description(
+        "Verifies that the Alerts page can be opened successfully from the Alerts, Frame & Windows section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_alerts(self, driver):
@@ -36,7 +39,9 @@ class TestAlerts:
 
     @allure.story("Alerts page")
     @allure.title("Alerts controls are visible")
-    @allure.description("Verifies that all alert controls are displayed on the Alerts page.")
+    @allure.description(
+        "Verifies that all alert controls are displayed on the Alerts page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_alert_controls_visible(self, driver):
@@ -63,7 +68,9 @@ class TestAlerts:
 
     @allure.story("Simple Alert")
     @allure.title("Simple alert opens with expected message")
-    @allure.description("Verifies that clicking the Simple Alert button opens a browser alert containing the expected message.")
+    @allure.description(
+        "Verifies that clicking the Simple Alert button opens a browser alert containing the expected message."
+    )
     @pytest.mark.positive
     def test_simple_alert_text(self, driver):
         home_page = HomePage(driver)
@@ -112,7 +119,9 @@ class TestAlerts:
 
     @allure.story("Timer Alert")
     @allure.title("Timer Alert appears with expected message")
-    @allure.description("Verifies that the Timer Alert appears after the configured delay and contains the expected message.")
+    @allure.description(
+        "Verifies that the Timer Alert appears after the configured delay and contains the expected message."
+    )
     @pytest.mark.positive
     @pytest.mark.slow
     def test_timer_alert_text(self, driver):
@@ -139,7 +148,9 @@ class TestAlerts:
 
     @allure.story("Confirm Alert")
     @allure.title("Confirm Alert opens with expected message")
-    @allure.description("Verifies that the Confirm Alert opens with the expected message.")
+    @allure.description(
+        "Verifies that the Confirm Alert opens with the expected message."
+    )
     @pytest.mark.positive
     def test_confirm_alert_text(self, driver):
         home_page = HomePage(driver)
@@ -165,7 +176,9 @@ class TestAlerts:
 
     @allure.story("Confirm Alert")
     @allure.title("Accepting confirm alert displays success result")
-    @allure.description("Verifies that accepting the Confirm Alert displays the expected confirmation result.")
+    @allure.description(
+        "Verifies that accepting the Confirm Alert displays the expected confirmation result."
+    )
     @pytest.mark.positive
     def test_accept_confirm_alert(self, driver):
         home_page = HomePage(driver)
@@ -179,7 +192,7 @@ class TestAlerts:
 
         with allure.step("Open Confirm Alert"):
             page.open_confirm_alert()
-        
+
         with allure.step("Accept Confirm Alert"):
             page.accept_current_alert()
 
@@ -191,7 +204,9 @@ class TestAlerts:
 
     @allure.story("Confirm Alert")
     @allure.title("Dismissing confirm alert displays cancellation result")
-    @allure.description("Verifies that dismissing the Confirm Alert displays the expected cancellation result.")
+    @allure.description(
+        "Verifies that dismissing the Confirm Alert displays the expected cancellation result."
+    )
     @pytest.mark.positive
     def test_dismiss_confirm_alert(self, driver):
         home_page = HomePage(driver)
@@ -217,7 +232,9 @@ class TestAlerts:
 
     @allure.story("Prompt Alert")
     @allure.title("Prompt alert opens with expected message")
-    @allure.description("Verifies that the Prompt Alert opens with the expected message.")
+    @allure.description(
+        "Verifies that the Prompt Alert opens with the expected message."
+    )
     @pytest.mark.positive
     def test_prompt_alert_text(self, driver):
         home_page = HomePage(driver)
@@ -263,4 +280,3 @@ class TestAlerts:
 
         with allure.step("Verify Prompt Alert result is not displayed"):
             assert page.prompt_result_visible() is False
-        

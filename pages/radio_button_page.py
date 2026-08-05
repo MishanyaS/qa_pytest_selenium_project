@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class RadioButtonPage(BasePage):
     YES_RADIO = (
         By.XPATH,
@@ -45,19 +46,25 @@ class RadioButtonPage(BasePage):
         return self.text(self.RESULT_SECTION)
 
     def yes_selected(self) -> bool:
-        return self.is_selected((
-            By.ID,
-            "yesRadio",
-        ))
+        return self.is_selected(
+            (
+                By.ID,
+                "yesRadio",
+            )
+        )
 
     def impressive_selected(self) -> bool:
-        return self.is_selected((
-            By.ID,
-            "impressiveRadio",
-        ))
+        return self.is_selected(
+            (
+                By.ID,
+                "impressiveRadio",
+            )
+        )
 
     def no_selected(self) -> bool:
-        return self.is_selected((
-            By.ID,
-            "noRadio",
-        ))
+        return self.is_selected(
+            (
+                By.ID,
+                "noRadio",
+            )
+        )

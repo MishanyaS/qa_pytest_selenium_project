@@ -1,12 +1,14 @@
+from typing import Any
+
 import allure
 import pytest
 import requests
 from faker import Faker
 from jsonschema import validate
-from typing import Any
 
 from schemas.post_schema import CREATE_POST_SCHEMA
 from utils.api_client import ApiClient
+
 
 @allure.epic("API")
 @allure.feature("Patch Posts")
@@ -22,7 +24,9 @@ class TestPatchPosts:
         }
 
     @allure.step("Patch post")
-    def _patch_post(self, client: ApiClient, post_id: int, post_payload: dict[str, Any]) -> requests.Response:
+    def _patch_post(
+        self, client: ApiClient, post_id: int, post_payload: dict[str, Any]
+    ) -> requests.Response:
         return client.patch(f"/posts/{post_id}", json=post_payload)
 
     @allure.story("Patch post")
@@ -30,7 +34,9 @@ class TestPatchPosts:
     @allure.description("Verifies that PATCH /posts/{id} returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_patch_post_status_code(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_patch_post_status_code(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ):
         response = self._patch_post(client, 1, post_payload)
 
         assert response.status_code == 200
@@ -225,7 +231,9 @@ class TestPatchPosts:
 
     @allure.story("Performance")
     @allure.title("Response time is acceptable")
-    @allure.description("Verifies that the PATCH request completes within the acceptable time.")
+    @allure.description(
+        "Verifies that the PATCH request completes within the acceptable time."
+    )
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient, post_payload: dict[str, Any]):

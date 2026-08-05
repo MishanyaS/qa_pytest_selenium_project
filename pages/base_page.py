@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    TimeoutException,
+)
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.alert import Alert
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.expected_conditions import (
     alert_is_present,
     element_to_be_clickable,
@@ -22,6 +24,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from config import PAGE_LOAD_TIMEOUT
 
 Locator = tuple[str, str]
+
 
 class BasePage:
     def __init__(self, driver: WebDriver, timeout: int = PAGE_LOAD_TIMEOUT):
@@ -55,39 +58,25 @@ class BasePage:
         return self.driver.find_elements(*locator)
 
     def wait_visible(self, locator: Locator) -> WebElement:
-        return self.wait.until(
-            visibility_of_element_located(locator)
-        )
+        return self.wait.until(visibility_of_element_located(locator))
 
     def wait_present(self, locator: Locator) -> WebElement:
-        return self.wait.until(
-            presence_of_element_located(locator)
-        )
+        return self.wait.until(presence_of_element_located(locator))
 
     def wait_all_present(self, locator: Locator) -> list[WebElement]:
-        return self.wait.until(
-            presence_of_all_elements_located(locator)
-        )
+        return self.wait.until(presence_of_all_elements_located(locator))
 
     def wait_clickable(self, locator: Locator) -> WebElement:
-        return self.wait.until(
-            element_to_be_clickable(locator)
-        )
+        return self.wait.until(element_to_be_clickable(locator))
 
     def wait_invisible(self, locator: Locator) -> bool:
-        return self.wait.until(
-            invisibility_of_element_located(locator)
-        )
+        return self.wait.until(invisibility_of_element_located(locator))
 
     def wait_text(self, locator: Locator, text: str) -> bool:
-        return self.wait.until(
-            text_to_be_present_in_element(locator, text)
-        )
+        return self.wait.until(text_to_be_present_in_element(locator, text))
 
     def wait_url_contains(self, value: str) -> bool:
-        return self.wait.until(
-            url_contains(value)
-        )
+        return self.wait.until(url_contains(value))
 
     def click(self, locator: Locator) -> None:
         self.wait_clickable(locator).click()
@@ -141,33 +130,33 @@ class BasePage:
 
     def scroll_to(self, locator: Locator) -> None:
         element = self.wait_visible(locator)
-        
+
         self.execute_script(
             "arguments[0].scrollIntoView({block: 'center'});",
             element,
         )
 
-    def scroll_top(self) -> None:        
+    def scroll_top(self) -> None:
         self.execute_script(
             "window.scrollTo(0, 0);",
         )
 
-    def scroll_bottom(self) -> None:        
+    def scroll_bottom(self) -> None:
         self.execute_script(
             "window.scrollTo(0, document.body.scrollHeight);",
         )
 
-    def hover(self, locator: Locator) -> None:       
+    def hover(self, locator: Locator) -> None:
         element = self.wait_visible(locator)
 
         ActionChains(self.driver).move_to_element(element).perform()
 
-    def double_click(self, locator: Locator) -> None:       
+    def double_click(self, locator: Locator) -> None:
         element = self.wait_visible(locator)
 
         ActionChains(self.driver).double_click(element).perform()
 
-    def right_click(self, locator: Locator) -> None:       
+    def right_click(self, locator: Locator) -> None:
         element = self.wait_visible(locator)
 
         ActionChains(self.driver).context_click(element).perform()
@@ -179,8 +168,12 @@ class BasePage:
         actions = ActionChains(self.driver)
 
         (
-            actions.click_and_hold(source_element).pause(0.2).move_to_element(target_element)
-            .pause(0.2).release().perform()
+            actions.click_and_hold(source_element)
+            .pause(0.2)
+            .move_to_element(target_element)
+            .pause(0.2)
+            .release()
+            .perform()
         )
 
     def drag_and_drop_by_hold(self, source: Locator, target: Locator) -> None:
@@ -190,29 +183,25 @@ class BasePage:
         actions = ActionChains(self.driver)
 
         (
-            actions.click_and_hold(source_element).move_to_element(target_element)
-            .move_by_offset(0, 10).pause(0.2).release().perform()
+            actions.click_and_hold(source_element)
+            .move_to_element(target_element)
+            .move_by_offset(0, 10)
+            .pause(0.2)
+            .release()
+            .perform()
         )
 
     def select_by_text(self, locator: Locator, text: str) -> None:
-        Select(
-            self.wait_visible(locator)
-        ).select_by_visible_text(text)
+        Select(self.wait_visible(locator)).select_by_visible_text(text)
 
     def select_by_value(self, locator: Locator, value: str) -> None:
-        Select(
-            self.wait_visible(locator)
-        ).select_by_value(value)
+        Select(self.wait_visible(locator)).select_by_value(value)
 
     def select_by_index(self, locator: Locator, index: int) -> None:
-        Select(
-            self.wait_visible(locator)
-        ).select_by_index(index)
+        Select(self.wait_visible(locator)).select_by_index(index)
 
     def wait_alert(self) -> Alert:
-        return self.wait.until(
-            alert_is_present()
-        )
+        return self.wait.until(alert_is_present())
 
     def accept_alert(self) -> None:
         self.wait_alert().accept()
@@ -232,9 +221,7 @@ class BasePage:
         self.driver.switch_to.default_content()
 
     def switch_to_window(self, index: int) -> None:
-        self.driver.switch_to.window(
-            self.driver.window_handles[index]
-        )
+        self.driver.switch_to.window(self.driver.window_handles[index])
 
     def close_window(self) -> None:
         self.driver.close()

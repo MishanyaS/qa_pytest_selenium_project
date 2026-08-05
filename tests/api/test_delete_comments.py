@@ -4,6 +4,7 @@ import requests
 
 from utils.api_client import ApiClient
 
+
 @allure.epic("API")
 @allure.feature("Delete Comments")
 @pytest.mark.api
@@ -43,7 +44,9 @@ class TestDeleteComments:
 
     @allure.story("Delete comment")
     @allure.title("Deleted id equals requested id")
-    @allure.description("Verifies that the returned id matches the requested comment id.")
+    @allure.description(
+        "Verifies that the returned id matches the requested comment id."
+    )
     @pytest.mark.positive
     def test_deleted_id_matches(self, client: ApiClient):
         response = self._delete_comment(client, 1)
@@ -137,7 +140,9 @@ class TestDeleteComments:
             50,
         ],
     )
-    @allure.description("Verifies that different comment ids can be deleted successfully.")
+    @allure.description(
+        "Verifies that different comment ids can be deleted successfully."
+    )
     @pytest.mark.positive
     def test_delete_various_comments(self, client: ApiClient, comment_id: int):
         response = self._delete_comment(client, comment_id)

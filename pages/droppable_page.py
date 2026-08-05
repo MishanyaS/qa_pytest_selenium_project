@@ -5,16 +5,11 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
-class DroppablePage(BasePage):
-    DRAGGABLE = (
-        By.ID,
-        "draggable"
-    )
 
-    DROPPABLE = (
-        By.ID,
-        "droppable"
-    )
+class DroppablePage(BasePage):
+    DRAGGABLE = (By.ID, "draggable")
+
+    DROPPABLE = (By.ID, "droppable")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
@@ -42,4 +37,3 @@ class DroppablePage(BasePage):
 
     def dropped(self) -> bool:
         return self.droppable_text() == "Dropped!"
-    

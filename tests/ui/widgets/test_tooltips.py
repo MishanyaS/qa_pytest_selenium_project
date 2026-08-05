@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.tool_tips_page import ToolTipsPage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.tool_tips_page import ToolTipsPage
 class TestToolTips:
     @allure.story("Tool Tips navigation")
     @allure.title("Tool Tips page opens successfully")
-    @allure.description("Verifies that the Tool Tips page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Tool Tips page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_tool_tips(self, driver):
@@ -36,7 +39,9 @@ class TestToolTips:
 
     @allure.story("Tool Tips page")
     @allure.title("Tool Tips elements are visible")
-    @allure.description("Verifies that the tooltip button and text field are displayed.")
+    @allure.description(
+        "Verifies that the tooltip button and text field are displayed."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_tooltips_elements_visible(self, driver):
@@ -80,7 +85,9 @@ class TestToolTips:
 
     @allure.story("Tool Tips")
     @allure.title("Text field tooltip is displayed")
-    @allure.description("Verifies that hovering over the text field displays the tooltip.")
+    @allure.description(
+        "Verifies that hovering over the text field displays the tooltip."
+    )
     @pytest.mark.positive
     def test_text_field_tooltip(self, driver):
         home_page = HomePage(driver)
@@ -137,7 +144,9 @@ class TestToolTips:
 
     @allure.story("Tool Tips")
     @allure.title("Hover helper returns button tooltip")
-    @allure.description("Verifies that the helper method returns the tooltip text for the button.")
+    @allure.description(
+        "Verifies that the helper method returns the tooltip text for the button."
+    )
     @pytest.mark.positive
     def test_hover_button_get_tooltip(self, driver):
         home_page = HomePage(driver)
@@ -157,7 +166,9 @@ class TestToolTips:
 
     @allure.story("Tool Tips")
     @allure.title("Hover helper returns text field tooltip")
-    @allure.description("Verifies that the helper method returns the tooltip text for the text field.")
+    @allure.description(
+        "Verifies that the helper method returns the tooltip text for the text field."
+    )
     @pytest.mark.positive
     def test_hover_text_field_get_tooltip(self, driver):
         home_page = HomePage(driver)

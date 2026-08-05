@@ -5,25 +5,17 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class ToolTipsPage(BasePage):
-    TOOLTIP_BUTTON = (
-        By.ID,
-        "toolTipButton"
-    )
+    TOOLTIP_BUTTON = (By.ID, "toolTipButton")
 
-    TOOLTIP_TEXT_FIELD = (
-        By.ID,
-        "toolTipTextField"
-    )
+    TOOLTIP_TEXT_FIELD = (By.ID, "toolTipTextField")
 
-    TOOLTIP = (
-        By.CSS_SELECTOR,
-        ".tooltip-inner"
-    )
+    TOOLTIP = (By.CSS_SELECTOR, ".tooltip-inner")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                                
+
     def hover_over_button(self) -> None:
         self.hover(self.TOOLTIP_BUTTON)
 

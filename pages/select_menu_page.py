@@ -5,56 +5,27 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class SelectMenuPage(BasePage):
-    SELECT_VALUE = (
-        By.ID,
-        "withOptGroup"
-    )
+    SELECT_VALUE = (By.ID, "withOptGroup")
 
-    SELECT_ONE = (
-        By.ID,
-        "selectOne"
-    )
+    SELECT_ONE = (By.ID, "selectOne")
 
-    OLD_STYLE_SELECT = (
-        By.ID,
-        "oldSelectMenu"
-    )
+    OLD_STYLE_SELECT = (By.ID, "oldSelectMenu")
 
-    MULTI_SELECT = (
-        By.ID,
-        "cars"
-    )
+    MULTI_SELECT = (By.ID, "cars")
 
-    REACT_SELECT_INPUT = (
-        By.ID,
-        "react-select-2-input"
-    )
+    REACT_SELECT_INPUT = (By.ID, "react-select-2-input")
 
-    REACT_SELECT_SINGLE = (
-        By.ID,
-        "react-select-2-input"
-    )
+    REACT_SELECT_SINGLE = (By.ID, "react-select-2-input")
 
-    REACT_SELECT_MULTI = (
-        By.ID,
-        "react-select-3-input"
-    )
+    REACT_SELECT_MULTI = (By.ID, "react-select-3-input")
 
-    REACT_SELECT_OPTIONS = (
-        By.CSS_SELECTOR,
-        "div[class*='option']"
-    )
+    REACT_SELECT_OPTIONS = (By.CSS_SELECTOR, "div[class*='option']")
 
-    SELECTED_OPTION = (
-        By.CSS_SELECTOR,
-        "div[class*='singleValue']"
-    )
+    SELECTED_OPTION = (By.CSS_SELECTOR, "div[class*='singleValue']")
 
-    SELECTED_OPTIONS = (
-        By.CSS_SELECTOR,
-        "div[class*='multiValue__label']"
-    )
+    SELECTED_OPTIONS = (By.CSS_SELECTOR, "div[class*='multiValue__label']")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
@@ -130,10 +101,7 @@ class SelectMenuPage(BasePage):
         return self.exists(self.REACT_SELECT_OPTIONS)
 
     def react_options(self) -> list[str]:
-        return [
-            option.text
-            for option in self.find_all(self.REACT_SELECT_OPTIONS)
-        ]
+        return [option.text for option in self.find_all(self.REACT_SELECT_OPTIONS)]
 
     def select_react_option(self, value: str) -> None:
         options = (
@@ -151,10 +119,7 @@ class SelectMenuPage(BasePage):
         return self.text(self.SELECTED_OPTION)
 
     def selected_react_options(self) -> list[str]:
-        return [
-            option.text
-            for option in self.find_all(self.SELECTED_OPTIONS)
-        ]
+        return [option.text for option in self.find_all(self.SELECTED_OPTIONS)]
 
     def selected_react_option_visible(self) -> bool:
         return self.is_visible(self.SELECTED_OPTION)

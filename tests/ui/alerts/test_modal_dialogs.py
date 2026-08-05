@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import allure
 import pytest
-
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.alerts_frames_page import AlertsFramesPage
 from pages.home_page import HomePage
 from pages.modal_dialogs_page import ModalDialogsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Alerts, Frame & Windows")
@@ -16,7 +16,9 @@ from pages.modal_dialogs_page import ModalDialogsPage
 class TestModalDialogs:
     @allure.story("Modal Dialogs navigation")
     @allure.title("Modal Dialogs page opens successfully")
-    @allure.description("Verifies that the Modal Dialogs page can be opened successfully from the Alerts, Frame & Windows section.")
+    @allure.description(
+        "Verifies that the Modal Dialogs page can be opened successfully from the Alerts, Frame & Windows section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_modal_dialogs(self, driver):
@@ -38,7 +40,9 @@ class TestModalDialogs:
 
     @allure.story("Modal Dialogs page")
     @allure.title("Modal dialog controls are visible")
-    @allure.description("Verifies that both Small Modal and Large Modal buttons are displayed on the Modal Dialogs page.")
+    @allure.description(
+        "Verifies that both Small Modal and Large Modal buttons are displayed on the Modal Dialogs page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_modal_dialog_controls_visible(self, driver):
@@ -59,7 +63,9 @@ class TestModalDialogs:
 
     @allure.story("Small Modal")
     @allure.title("Small Modal opens successfully")
-    @allure.description("Verifies that clicking the Small Modal button opens the modal dialog.")
+    @allure.description(
+        "Verifies that clicking the Small Modal button opens the modal dialog."
+    )
     @pytest.mark.positive
     def test_open_small_modal(self, driver):
         home_page = HomePage(driver)
@@ -81,13 +87,13 @@ class TestModalDialogs:
             page.close_modal()
 
         with allure.step("Verify modal is closed"):
-            WebDriverWait(driver, 10).until(
-                lambda _: page.modal_closed()
-            )
+            WebDriverWait(driver, 10).until(lambda _: page.modal_closed())
 
     @allure.story("Small Modal")
     @allure.title("Small Modal contains expected title and body")
-    @allure.description("Verifies that the Small Modal contains the expected title and non-empty body content.")
+    @allure.description(
+        "Verifies that the Small Modal contains the expected title and non-empty body content."
+    )
     @pytest.mark.positive
     def test_small_modal_content(self, driver):
         home_page = HomePage(driver)
@@ -120,7 +126,9 @@ class TestModalDialogs:
 
     @allure.story("Large Modal")
     @allure.title("Large Modal opens successfully")
-    @allure.description("Verifies that clicking the Large Modal button opens the modal dialog.")
+    @allure.description(
+        "Verifies that clicking the Large Modal button opens the modal dialog."
+    )
     @pytest.mark.positive
     def test_open_large_modal(self, driver):
         home_page = HomePage(driver)
@@ -142,13 +150,13 @@ class TestModalDialogs:
             page.close_modal()
 
         with allure.step("Verify modal is closed"):
-            WebDriverWait(driver, 10).until(
-                lambda _: page.modal_closed()
-            )
+            WebDriverWait(driver, 10).until(lambda _: page.modal_closed())
 
     @allure.story("Large Modal")
     @allure.title("Large Modal contains expected title and body")
-    @allure.description("Verifies that the Large Modal contains the expected title and non-empty body content.")
+    @allure.description(
+        "Verifies that the Large Modal contains the expected title and non-empty body content."
+    )
     @pytest.mark.positive
     def test_large_modal_content(self, driver):
         home_page = HomePage(driver)
@@ -181,7 +189,9 @@ class TestModalDialogs:
 
     @allure.story("Modal Dialogs")
     @allure.title("Small and Large Modals contain different content")
-    @allure.description("Verifies that the Small Modal and Large Modal provide different dialog content.")
+    @allure.description(
+        "Verifies that the Small Modal and Large Modal provide different dialog content."
+    )
     @pytest.mark.positive
     def test_small_and_large_modal_content_is_different(self, driver):
         home_page = HomePage(driver)

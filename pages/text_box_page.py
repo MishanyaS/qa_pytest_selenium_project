@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class TextBoxPage(BasePage):
     FULL_NAME_INPUT = (
         By.ID,
@@ -74,14 +75,23 @@ class TextBoxPage(BasePage):
     def click_submit(self) -> None:
         self.click(self.SUBMIT_BUTTON)
 
-    def fill_form(self, full_name: str, email: str, current_address: str, permanent_address: str) -> None:
+    def fill_form(
+        self, full_name: str, email: str, current_address: str, permanent_address: str
+    ) -> None:
         self.enter_full_name(full_name)
         self.enter_email(email)
         self.enter_current_address(current_address)
         self.enter_permanent_address(permanent_address)
 
-    def submit_form(self, full_name: str, email: str, current_address: str, permanent_address: str) -> None:
-        self.fill_form(full_name=full_name, email=email, current_address=current_address, permanent_address=permanent_address)
+    def submit_form(
+        self, full_name: str, email: str, current_address: str, permanent_address: str
+    ) -> None:
+        self.fill_form(
+            full_name=full_name,
+            email=email,
+            current_address=current_address,
+            permanent_address=permanent_address,
+        )
 
         self.click_submit()
 

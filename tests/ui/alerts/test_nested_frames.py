@@ -7,6 +7,7 @@ from pages.alerts_frames_page import AlertsFramesPage
 from pages.home_page import HomePage
 from pages.nested_frames_page import NestedFramesPage
 
+
 @allure.epic("DemoQA UI")
 @allure.feature("Alerts, Frame & Windows")
 @pytest.mark.ui
@@ -14,7 +15,9 @@ from pages.nested_frames_page import NestedFramesPage
 class TestNestedFrames:
     @allure.story("Nested Frames navigation")
     @allure.title("Nested Frames page opens successfully")
-    @allure.description("Verifies that the Nested Frames page can be opened successfully from the Alerts, Frame & Windows section.")
+    @allure.description(
+        "Verifies that the Nested Frames page can be opened successfully from the Alerts, Frame & Windows section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_nested_frames(self, driver):
@@ -36,7 +39,9 @@ class TestNestedFrames:
 
     @allure.story("Nested Frames page")
     @allure.title("Parent Frame is visible")
-    @allure.description("Verifies that the parent frame is displayed on the Nested Frames page.")
+    @allure.description(
+        "Verifies that the parent frame is displayed on the Nested Frames page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_parent_frame_visible(self, driver):
@@ -74,7 +79,9 @@ class TestNestedFrames:
 
     @allure.story("Child frame")
     @allure.title("Child frame contains expected text")
-    @allure.description("Verifies that the nested child frame can be accessed and contains the expected text.")
+    @allure.description(
+        "Verifies that the nested child frame can be accessed and contains the expected text."
+    )
     @pytest.mark.positive
     def test_child_frame_text(self, driver):
         home_page = HomePage(driver)
@@ -94,7 +101,9 @@ class TestNestedFrames:
 
     @allure.story("Nested frame")
     @allure.title("Parent and child frames contain different content")
-    @allure.description("Verifies that the parent and child nested frames contain their respective content.")
+    @allure.description(
+        "Verifies that the parent and child nested frames contain their respective content."
+    )
     @pytest.mark.positive
     def test_parent_and_child_frame_text(self, driver):
         home_page = HomePage(driver)
@@ -120,4 +129,3 @@ class TestNestedFrames:
 
         with allure.step("Verify frame contents are different"):
             assert parent_text != child_text
-        

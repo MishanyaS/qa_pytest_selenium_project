@@ -5,36 +5,19 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class BookStorePage(BasePage):
-    SEARCH_BOX = (
-        By.ID,
-        "searchBox"
-    )
+    SEARCH_BOX = (By.ID, "searchBox")
 
-    BOOK_ROWS = (
-        By.CSS_SELECTOR,
-        "table tbody tr"
-    )
+    BOOK_ROWS = (By.CSS_SELECTOR, "table tbody tr")
 
-    BOOK_TITLE = (
-        By.XPATH,
-        "//div[@id='title-wrapper']//div[2]/label"
-    )
+    BOOK_TITLE = (By.XPATH, "//div[@id='title-wrapper']//div[2]/label")
 
-    BOOK_TITLES = (
-        By.CSS_SELECTOR,
-        "table tbody tr td:nth-child(2) a"
-    )
+    BOOK_TITLES = (By.CSS_SELECTOR, "table tbody tr td:nth-child(2) a")
 
-    FIRST_BOOK = (
-        By.CSS_SELECTOR,
-        "table tbody tr:first-child td:nth-child(2) a"
-    )
+    FIRST_BOOK = (By.CSS_SELECTOR, "table tbody tr:first-child td:nth-child(2) a")
 
-    LOGIN_BUTTON = (
-        By.ID,
-        "login"
-    )
+    LOGIN_BUTTON = (By.ID, "login")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
@@ -52,16 +35,12 @@ class BookStorePage(BasePage):
         return self.text(self.BOOK_TITLE) == title
 
     def book_titles(self) -> list[str]:
-        return [
-            book.text
-            for book in self.find_all(self.BOOK_TITLES)
-            if book.text
-        ]
+        return [book.text for book in self.find_all(self.BOOK_TITLES) if book.text]
 
     def book_title(self, index: int) -> str:
         locator = (
             By.CSS_SELECTOR,
-            f"table tbody tr:nth-child({index}) td:nth-child(2) a"
+            f"table tbody tr:nth-child({index}) td:nth-child(2) a",
         )
 
         return self.text(locator)
@@ -69,7 +48,7 @@ class BookStorePage(BasePage):
     def book_visible(self, index: int) -> bool:
         locator = (
             By.CSS_SELECTOR,
-            f"table tbody tr:nth-child({index}) td:nth-child(2) a"
+            f"table tbody tr:nth-child({index}) td:nth-child(2) a",
         )
 
         return self.is_visible(locator)
@@ -89,7 +68,7 @@ class BookStorePage(BasePage):
     def open_book(self, index: int) -> None:
         locator = (
             By.CSS_SELECTOR,
-            f"table tbody tr:nth-child({index}) td:nth-child(2) a"
+            f"table tbody tr:nth-child({index}) td:nth-child(2) a",
         )
 
         self.click(locator)

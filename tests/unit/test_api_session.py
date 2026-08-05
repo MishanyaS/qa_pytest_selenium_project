@@ -2,20 +2,25 @@ import allure
 import pytest
 import requests
 
+
 @allure.epic("Unit")
 @allure.feature("API Session")
 @pytest.mark.unit
 class TestApiSession:
     @allure.story("Session")
     @allure.title("Fixture returns request.Session")
-    @allure.description("Verifies that the fixture returns a requests.Session instance.")
+    @allure.description(
+        "Verifies that the fixture returns a requests.Session instance."
+    )
     @pytest.mark.positive
     def test_session_instance(self, api_session):
         assert isinstance(api_session, requests.Session)
 
     @allure.story("Headers")
     @allure.title("Content-Type header is application/json")
-    @allure.description("Verifies that the Content-Type header is set to application/json.")
+    @allure.description(
+        "Verifies that the Content-Type header is set to application/json."
+    )
     @pytest.mark.positive
     def test_content_type_header(self, api_session):
         assert api_session.headers["Content-Type"] == "application/json"
@@ -29,7 +34,9 @@ class TestApiSession:
 
     @allure.story("Headers")
     @allure.title("Session contains required headers")
-    @allure.description("Verifies that the session contains the required default headers.")
+    @allure.description(
+        "Verifies that the session contains the required default headers."
+    )
     @pytest.mark.positive
     def test_required_headers_exist(self, api_session):
         assert "Content-Type" in api_session.headers
@@ -79,7 +86,9 @@ class TestApiSession:
 
     @allure.story("Session")
     @allure.title("Headers are included into prepared request")
-    @allure.description("Verifies that session headers are included in the prepared requests.")
+    @allure.description(
+        "Verifies that session headers are included in the prepared requests."
+    )
     @pytest.mark.positive
     def test_headers_in_prepared_request(self, api_session):
         request = requests.Request("GET", "https://dummyjson.com/users")

@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.interactions_page import InteractionsPage
 from pages.home_page import HomePage
+from pages.interactions_page import InteractionsPage
 from pages.selectable_page import SelectablePage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Interactions")
@@ -14,7 +15,9 @@ from pages.selectable_page import SelectablePage
 class TestSelectable:
     @allure.story("Selectable navigation")
     @allure.title("Selectable page opens successfully")
-    @allure.description("Verifies that the Selectable page can be opened successfully from the Interactions section.")
+    @allure.description(
+        "Verifies that the Selectable page can be opened successfully from the Interactions section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_selectable(self, driver):
@@ -68,7 +71,7 @@ class TestSelectable:
             "Cras justo odio",
             "Dapibus ac facilisis in",
             "Morbi leo risus",
-            "Porta ac consectetur ac"
+            "Porta ac consectetur ac",
         ]
 
         with allure.step("Open Selectable page"):
@@ -137,7 +140,7 @@ class TestSelectable:
             page.select_item(2)
 
         with allure.step("Verify selected text"):
-            assert page.selected_items() == [ "Dapibus ac facilisis in" ]
+            assert page.selected_items() == ["Dapibus ac facilisis in"]
 
     @allure.story("Selectable items")
     @allure.title("Selection can be cleared")
@@ -161,4 +164,3 @@ class TestSelectable:
 
         with allure.step("Verify no selected items"):
             assert page.selected_items_count() == 0
-        

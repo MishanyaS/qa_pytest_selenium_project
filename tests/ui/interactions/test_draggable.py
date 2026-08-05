@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.interactions_page import InteractionsPage
-from pages.home_page import HomePage
 from pages.draggable_page import DraggablePage
+from pages.home_page import HomePage
+from pages.interactions_page import InteractionsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Interactions")
@@ -14,7 +15,9 @@ from pages.draggable_page import DraggablePage
 class TestDraggable:
     @allure.story("Draggable navigation")
     @allure.title("Draggable page opens successfully")
-    @allure.description("Verifies that the Draggable page can be opened successfully from the Interactions section.")
+    @allure.description(
+        "Verifies that the Draggable page can be opened successfully from the Interactions section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_draggable(self, driver):
@@ -71,7 +74,9 @@ class TestDraggable:
 
     @allure.story("Draggable element")
     @allure.title("Draggable text is correct")
-    @allure.description("Verifies that the draggable element contains the expected text.")
+    @allure.description(
+        "Verifies that the draggable element contains the expected text."
+    )
     @pytest.mark.positive
     def test_draggable_text(self, driver):
         home_page = HomePage(driver)
@@ -88,7 +93,9 @@ class TestDraggable:
 
     @allure.story("Drag")
     @allure.title("Draggable position changes after dragging")
-    @allure.description("Verifies that the draggable element changes its position after being dragged.")
+    @allure.description(
+        "Verifies that the draggable element changes its position after being dragged."
+    )
     @pytest.mark.positive
     def test_drag_changes_position(self, driver):
         home_page = HomePage(driver)

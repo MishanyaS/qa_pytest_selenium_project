@@ -5,45 +5,25 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class MenuPage(BasePage):
-    HOME_ITEM = (
-        By.XPATH,
-        "//ul[@id='nav']/li[1]/a"
-    )
+    HOME_ITEM = (By.XPATH, "//ul[@id='nav']/li[1]/a")
 
-    MAIN_ITEM_2 = (
-        By.XPATH,
-        "//ul[@id='nav']/li[2]/a"
-    )
+    MAIN_ITEM_2 = (By.XPATH, "//ul[@id='nav']/li[2]/a")
 
-    MAIN_ITEM_3 = (
-        By.XPATH,
-        "//ul[@id='nav']/li[3]/a"
-    )
+    MAIN_ITEM_3 = (By.XPATH, "//ul[@id='nav']/li[3]/a")
 
-    SUB_SUB_LIST = (
-        By.XPATH,
-        "//ul[@id='nav']//a[normalize-space()='SUB SUB LIST »']"
-    )
+    SUB_SUB_LIST = (By.XPATH, "//ul[@id='nav']//a[normalize-space()='SUB SUB LIST »']")
 
-    SUB_SUB_ITEM_1 = (
-        By.XPATH,
-        "//a[normalize-space()='Sub Sub Item 1']"
-    )
+    SUB_SUB_ITEM_1 = (By.XPATH, "//a[normalize-space()='Sub Sub Item 1']")
 
-    SUB_SUB_ITEM_2 = (
-        By.XPATH,
-        "//a[normalize-space()='Sub Sub Item 2']"
-    )
+    SUB_SUB_ITEM_2 = (By.XPATH, "//a[normalize-space()='Sub Sub Item 2']")
 
-    MENU = (
-        By.ID,
-        "nav"
-    )
+    MENU = (By.ID, "nav")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                                
+
     def menu_visible(self) -> bool:
         return self.is_visible(self.MENU)
 

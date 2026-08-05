@@ -5,40 +5,26 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class ModalDialogsPage(BasePage):
-    SMALL_MODAL_BUTTON = (
-        By.ID,
-        "showSmallModal"
-    )
+    SMALL_MODAL_BUTTON = (By.ID, "showSmallModal")
 
-    LARGE_MODAL_BUTTON = (
-        By.ID,
-        "showLargeModal"
-    )
+    LARGE_MODAL_BUTTON = (By.ID, "showLargeModal")
 
-    MODAL = (
-        By.CLASS_NAME,
-        "modal-content"
-    )
+    MODAL = (By.CLASS_NAME, "modal-content")
 
-    MODAL_TITLE = (
-        By.CLASS_NAME,
-        "modal-title"
-    )
+    MODAL_TITLE = (By.CLASS_NAME, "modal-title")
 
-    MODAL_BODY = (
-        By.CLASS_NAME,
-        "modal-body"
-    )
+    MODAL_BODY = (By.CLASS_NAME, "modal-body")
 
     CLOSE_MODAL_BUTTON = (
         By.XPATH,
-        "//div[contains(@class, 'modal-content')]//button"# "//button[@class='close']"
+        "//div[contains(@class, 'modal-content')]//button",  # "//button[@class='close']"
     )
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-            
+
     def open_small_modal(self) -> None:
         self.click(self.SMALL_MODAL_BUTTON)
 

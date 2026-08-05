@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.select_menu_page import SelectMenuPage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.select_menu_page import SelectMenuPage
 class TestSelectMenu:
     @allure.story("Select Menu navigation")
     @allure.title("Select Menu page opens successfully")
-    @allure.description("Verifies that the Select Menu page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Select Menu page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_select_menu(self, driver):
@@ -63,7 +66,9 @@ class TestSelectMenu:
 
     @allure.story("Select Menu")
     @allure.title("Old Style Select Menu selection works")
-    @allure.description("Verifies that an option can be selected from the old style select menu.")
+    @allure.description(
+        "Verifies that an option can be selected from the old style select menu."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_old_style_select(self, driver):
@@ -126,7 +131,9 @@ class TestSelectMenu:
 
     @allure.story("React Select")
     @allure.title("React Select options are displayed")
-    @allure.description("Verifies that opening the React Select displays available options.")
+    @allure.description(
+        "Verifies that opening the React Select displays available options."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_react_select_options_visible(self, driver):
@@ -189,7 +196,9 @@ class TestSelectMenu:
 
     @allure.story("Multi Select")
     @allure.title("Standard multi select works")
-    @allure.description("Verifies that an option can be selected in the standard multi select.")
+    @allure.description(
+        "Verifies that an option can be selected in the standard multi select."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_multi_select_option(self, driver):
@@ -207,4 +216,3 @@ class TestSelectMenu:
 
         with allure.step("Verify selected value"):
             assert page.selected_value(page.MULTI_SELECT) == "volvo"
-        

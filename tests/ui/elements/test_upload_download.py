@@ -7,6 +7,7 @@ from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
 from pages.upload_download_page import UploadDownloadPage
 
+
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
 @pytest.mark.ui
@@ -14,7 +15,9 @@ from pages.upload_download_page import UploadDownloadPage
 class TestUploadDownload:
     @allure.story("Upload and Download navigation")
     @allure.title("Upload and Download page opens successfully")
-    @allure.description("Verifies that the Upload and Download page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Upload and Download page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_upload_download(self, driver):
@@ -36,7 +39,9 @@ class TestUploadDownload:
 
     @allure.story("Upload and Download page")
     @allure.title("Upload and Download elements are visible")
-    @allure.description("Verifies that the Download link and Upload file input are displayed on the Upload and Download page.")
+    @allure.description(
+        "Verifies that the Download link and Upload file input are displayed on the Upload and Download page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_upload_download_elements_visible(self, driver):
@@ -57,7 +62,9 @@ class TestUploadDownload:
 
     @allure.story("Download")
     @allure.title("Download link contains a valid href")
-    @allure.description("Verifies that the Download link contains a non-empty destination URL.")
+    @allure.description(
+        "Verifies that the Download link contains a non-empty destination URL."
+    )
     @pytest.mark.positive
     def test_download_href(self, driver):
         home_page = HomePage(driver)
@@ -78,7 +85,9 @@ class TestUploadDownload:
 
     @allure.story("Download")
     @allure.title("File can be downloaded")
-    @allure.description("Verifies that the Download link can be clicked without errors.")
+    @allure.description(
+        "Verifies that the Download link can be clicked without errors."
+    )
     @pytest.mark.positive
     def test_download_file(self, driver):
         home_page = HomePage(driver)
@@ -104,7 +113,9 @@ class TestUploadDownload:
 
     @allure.story("Upload")
     @allure.title("User can upload a file")
-    @allure.description("Verifies that a file can be selected through the Upload file input and that the uploaded file path is displayed.")
+    @allure.description(
+        "Verifies that a file can be selected through the Upload file input and that the uploaded file path is displayed."
+    )
     @pytest.mark.positive
     def test_upload_file(self, driver, tmp_path):
         home_page = HomePage(driver)
@@ -134,7 +145,9 @@ class TestUploadDownload:
 
     @allure.story("Upload")
     @allure.title("Uploaded file name is displayed correctly")
-    @allure.description("Verifies that the file name displayed after upload matches the selected file name.")
+    @allure.description(
+        "Verifies that the file name displayed after upload matches the selected file name."
+    )
     @pytest.mark.positive
     def test_uploaded_file_name(self, driver, tmp_path):
         home_page = HomePage(driver)
@@ -160,7 +173,9 @@ class TestUploadDownload:
 
     @allure.story("Upload")
     @allure.title("Different files can be uploaded")
-    @allure.description("Verifies that the Upload file input accepts different files and displays the currently selected file.")
+    @allure.description(
+        "Verifies that the Upload file input accepts different files and displays the currently selected file."
+    )
     @pytest.mark.positive
     @pytest.mark.parametrize(
         "file_name",
@@ -168,7 +183,7 @@ class TestUploadDownload:
             "first_file.txt",
             "second_file.txt",
             "report.txt",
-        ]
+        ],
     )
     def test_uploaded_different_files(self, driver, tmp_path, file_name):
         home_page = HomePage(driver)
@@ -186,9 +201,8 @@ class TestUploadDownload:
         with allure.step(f"Upload {file_name}"):
             page.upload_file(str(file_path))
 
-        with allure.step(f"Verify uploaded file path"):
+        with allure.step("Verify uploaded file path"):
             assert page.uploaded_file_path_visible()
 
-        with allure.step(f"Verify uploaded file name"):
+        with allure.step("Verify uploaded file name"):
             assert page.uploaded_file_path().endswith(file_name)
-    

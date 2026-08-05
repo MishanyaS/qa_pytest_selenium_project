@@ -4,6 +4,7 @@ import requests
 
 from utils.api_client import ApiClient
 
+
 @allure.epic("API")
 @allure.feature("Delete Users")
 @pytest.mark.api
@@ -34,7 +35,9 @@ class TestDeleteUsers:
 
     @allure.story("Delete user")
     @allure.title("Deleted user contains id")
-    @allure.description("Verifies that the deleted user response contains the id field.")
+    @allure.description(
+        "Verifies that the deleted user response contains the id field."
+    )
     @pytest.mark.positive
     def test_deleted_user_has_id(self, client: ApiClient):
         response = self._delete_user(client, 1)
@@ -124,7 +127,9 @@ class TestDeleteUsers:
 
     @allure.story("Delete user")
     @allure.title("Delete different user ids")
-    @allure.description("Verifies that different existing users can be deleted successfully.")
+    @allure.description(
+        "Verifies that different existing users can be deleted successfully."
+    )
     @pytest.mark.parametrize(
         "user_id",
         [
@@ -165,7 +170,9 @@ class TestDeleteUsers:
 
     @allure.story("Performance")
     @allure.title("Response time is acceptable")
-    @allure.description("Verifies that the DELETE request completes within the expected time.")
+    @allure.description(
+        "Verifies that the DELETE request completes within the expected time."
+    )
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient):
@@ -175,7 +182,9 @@ class TestDeleteUsers:
 
     @allure.story("Step by step")
     @allure.title("Delete several users")
-    @allure.description("Verifies successful deletion of multiple users using different ids.")
+    @allure.description(
+        "Verifies successful deletion of multiple users using different ids."
+    )
     @pytest.mark.parametrize(
         "user_id",
         [

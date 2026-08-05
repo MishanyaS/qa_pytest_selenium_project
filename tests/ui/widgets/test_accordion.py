@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
-from pages.home_page import HomePage
 from pages.accordion_page import AccordionPage
+from pages.home_page import HomePage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.accordion_page import AccordionPage
 class TestAccordion:
     @allure.story("Accordion navigation")
     @allure.title("Accordion page opens successfully")
-    @allure.description("Verifies that the Accordion page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Accordion page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_accordion(self, driver):
@@ -36,7 +39,9 @@ class TestAccordion:
 
     @allure.story("Accordion page")
     @allure.title("Accordion section headers are visible")
-    @allure.description("Verifies that all three Accordion section headers are displayed on the Accordion page.")
+    @allure.description(
+        "Verifies that all three Accordion section headers are displayed on the Accordion page."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_accordion_sections_visible(self, driver):
@@ -60,7 +65,9 @@ class TestAccordion:
 
     @allure.story("Accordion Section 1")
     @allure.title("Section 1 opens and contains content")
-    @allure.description("Verifies that the first Accordion section can be opened and contains non-empty content.")
+    @allure.description(
+        "Verifies that the first Accordion section can be opened and contains non-empty content."
+    )
     @pytest.mark.positive
     def test_open_section_1(self, driver):
         home_page = HomePage(driver)
@@ -86,7 +93,9 @@ class TestAccordion:
 
     @allure.story("Accordion Section 2")
     @allure.title("Section 2 opens and contains content")
-    @allure.description("Verifies that the second Accordion section can be opened and contains non-empty content.")
+    @allure.description(
+        "Verifies that the second Accordion section can be opened and contains non-empty content."
+    )
     @pytest.mark.positive
     def test_open_section_2(self, driver):
         home_page = HomePage(driver)
@@ -112,7 +121,9 @@ class TestAccordion:
 
     @allure.story("Accordion Section 3")
     @allure.title("Section 3 opens and contains content")
-    @allure.description("Verifies that the third Accordion section can be opened and contains non-empty content.")
+    @allure.description(
+        "Verifies that the third Accordion section can be opened and contains non-empty content."
+    )
     @pytest.mark.positive
     def test_open_section_3(self, driver):
         home_page = HomePage(driver)
@@ -138,7 +149,9 @@ class TestAccordion:
 
     @allure.story("Accordion content")
     @allure.title("All Accordion sections contain content")
-    @allure.description("Verifies that each Accordion section provides non-empty content.")
+    @allure.description(
+        "Verifies that each Accordion section provides non-empty content."
+    )
     @pytest.mark.positive
     def test_all_sections_contain_content(self, driver):
         home_page = HomePage(driver)
@@ -170,7 +183,9 @@ class TestAccordion:
 
     @allure.story("Accordion content")
     @allure.title("Accordion sections contain different content")
-    @allure.description("Verifies that the three Accordion sections provide different content.")
+    @allure.description(
+        "Verifies that the three Accordion sections provide different content."
+    )
     @pytest.mark.positive
     def test_sections_contain_different_content(self, driver):
         home_page = HomePage(driver)
@@ -198,7 +213,7 @@ class TestAccordion:
 
         with allure.step("Verify Section 1 differs from Section 2"):
             assert section_1_content != section_2_content
-        
+
         with allure.step("Verify Section 1 differs from Section 3"):
             assert section_1_content != section_3_content
 

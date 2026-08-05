@@ -5,55 +5,29 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class TabsPage(BasePage):
-    WHAT_TAB = (
-        By.ID,
-        "demo-tab-what"
-    )
+    WHAT_TAB = (By.ID, "demo-tab-what")
 
-    ORIGIN_TAB = (
-        By.ID,
-        "demo-tab-origin"
-    )
+    ORIGIN_TAB = (By.ID, "demo-tab-origin")
 
-    USE_TAB = (
-        By.ID,
-        "demo-tab-use"
-    )
+    USE_TAB = (By.ID, "demo-tab-use")
 
-    MORE_TAB = (
-        By.ID,
-        "demo-tab-more"
-    )
+    MORE_TAB = (By.ID, "demo-tab-more")
 
-    WHAT_PANEL = (
-        By.ID,
-        "demo-tabpane-what"
-    )
+    WHAT_PANEL = (By.ID, "demo-tabpane-what")
 
-    ORIGIN_PANEL = (
-        By.ID,
-        "demo-tabpane-origin"
-    )
+    ORIGIN_PANEL = (By.ID, "demo-tabpane-origin")
 
-    USE_PANEL = (
-        By.ID,
-        "demo-tabpane-use"
-    )
+    USE_PANEL = (By.ID, "demo-tabpane-use")
 
-    MORE_PANEL = (
-        By.ID,
-        "demo-tabpane-more"
-    )
+    MORE_PANEL = (By.ID, "demo-tabpane-more")
 
-    ACTIVE_TAB = (
-        By.CSS_SELECTOR,
-        ".nav-link.active"
-    )
+    ACTIVE_TAB = (By.CSS_SELECTOR, ".nav-link.active")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-                                
+
     def open_what_tab(self) -> None:
         self.scroll_to(self.WHAT_TAB)
         self.click_with_fallback(self.WHAT_TAB)

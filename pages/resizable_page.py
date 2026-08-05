@@ -5,16 +5,11 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
-class ResizablePage(BasePage):
-    RESIZABLE = (
-        By.ID,
-        "resizable"
-    )
 
-    RESIZABLE_HANDLE = (
-        By.CSS_SELECTOR,
-        "#resizable .react-resizable-handle-se"
-    )
+class ResizablePage(BasePage):
+    RESIZABLE = (By.ID, "resizable")
+
+    RESIZABLE_HANDLE = (By.CSS_SELECTOR, "#resizable .react-resizable-handle-se")
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)

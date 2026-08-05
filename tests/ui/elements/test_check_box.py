@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
+from pages.check_box_page import CheckBoxPage
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
-from pages.check_box_page import CheckBoxPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Elements")
@@ -14,7 +15,9 @@ from pages.check_box_page import CheckBoxPage
 class TestCheckBox:
     @allure.story("Check Box navigation")
     @allure.title("Check Box page opens successfully")
-    @allure.description("Verifies that the Check Box page can be opened from the Elements section.")
+    @allure.description(
+        "Verifies that the Check Box page can be opened from the Elements section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_check_box(self, driver):
@@ -36,7 +39,9 @@ class TestCheckBox:
 
     @allure.story("Check Box page")
     @allure.title("Check Box elements are visible")
-    @allure.description("Verifies that the main Check Box elements are displayed when the page is opened.")
+    @allure.description(
+        "Verifies that the main Check Box elements are displayed when the page is opened."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_check_box_elements_visible(self, driver):
@@ -57,7 +62,9 @@ class TestCheckBox:
 
     @allure.story("Check Box initial state")
     @allure.title("No items are selected initially")
-    @allure.description("Verifies that the Check Box tree starts with no selected items.")
+    @allure.description(
+        "Verifies that the Check Box tree starts with no selected items."
+    )
     @pytest.mark.positive
     def test_no_items_selected_initially(self, driver):
         home_page = HomePage(driver)
@@ -74,7 +81,9 @@ class TestCheckBox:
 
     @allure.story("Check Box initial state")
     @allure.title("Home checkbox is initially unchecked")
-    @allure.description("Verifies that the Home checkbox has aria-checked=false before selection.")
+    @allure.description(
+        "Verifies that the Home checkbox has aria-checked=false before selection."
+    )
     @pytest.mark.positive
     def test_home_checkbox_initially_unchecked(self, driver):
         home_page = HomePage(driver)
@@ -94,7 +103,9 @@ class TestCheckBox:
 
     @allure.story("Check Box selection")
     @allure.title("Home checkbox selects the Home tree")
-    @allure.description("Verifies that selecting Home selects Home and its child items.")
+    @allure.description(
+        "Verifies that selecting Home selects Home and its child items."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_select_home(self, driver):
@@ -127,7 +138,9 @@ class TestCheckBox:
 
     @allure.story("Check Box selection")
     @allure.title("Selected Home checkbox can be deselected")
-    @allure.description("Verifies that the Home checkbox can be selected and then deselected.")
+    @allure.description(
+        "Verifies that the Home checkbox can be selected and then deselected."
+    )
     @pytest.mark.positive
     def test_deselect_home(self, driver):
         home_page = HomePage(driver)
@@ -216,7 +229,9 @@ class TestCheckBox:
 
     @allure.story("Check Box selection")
     @allure.title("Multiple checkboxes can be selected")
-    @allure.description("Verifies that multiple independent checkboxes can be selected and all selected items are displayed in the results.")
+    @allure.description(
+        "Verifies that multiple independent checkboxes can be selected and all selected items are displayed in the results."
+    )
     @pytest.mark.positive
     def test_select_multiple_checkboxes(self, driver):
         home_page = HomePage(driver)
@@ -244,4 +259,3 @@ class TestCheckBox:
             assert "desktop" in selected_items
             assert "documents" in selected_items
             assert "downloads" in selected_items
-    

@@ -3,9 +3,10 @@ from __future__ import annotations
 import allure
 import pytest
 
-from pages.widgets_page import WidgetsPage
 from pages.home_page import HomePage
 from pages.menu_page import MenuPage
+from pages.widgets_page import WidgetsPage
+
 
 @allure.epic("DemoQA UI")
 @allure.feature("Widgets")
@@ -14,7 +15,9 @@ from pages.menu_page import MenuPage
 class TestMenu:
     @allure.story("Menu navigation")
     @allure.title("Menu page opens successfully")
-    @allure.description("Verifies that the Menu page can be opened successfully from the Widgets section.")
+    @allure.description(
+        "Verifies that the Menu page can be opened successfully from the Widgets section."
+    )
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_menu(self, driver):
@@ -106,7 +109,9 @@ class TestMenu:
 
     @allure.story("Menu")
     @allure.title("Nested submenu becomes visible")
-    @allure.description("Verifies that hovering over SUB SUB LIST displays nested items.")
+    @allure.description(
+        "Verifies that hovering over SUB SUB LIST displays nested items."
+    )
     @pytest.mark.positive
     def test_nested_sub_menu_visible(self, driver):
         home_page = HomePage(driver)
@@ -178,7 +183,9 @@ class TestMenu:
 
     @allure.story("Menu")
     @allure.title("Sub Sub Item 1 is enabled")
-    @allure.description("Verifies that Sub Sub Item 1 is enabled after opening the nested menu.")
+    @allure.description(
+        "Verifies that Sub Sub Item 1 is enabled after opening the nested menu."
+    )
     @pytest.mark.positive
     def test_sub_sub_item_1_enabled(self, driver):
         home_page = HomePage(driver)

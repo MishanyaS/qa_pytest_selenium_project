@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.base_page import BasePage
 
+
 class ElementsPage(BasePage):
     TEXT_BOX_ITEM = (
         By.XPATH,
