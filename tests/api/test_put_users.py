@@ -250,6 +250,7 @@ class TestUpdateUsers:
     @allure.title("User update response time")
     @allure.description("Verifies that the user update response time is within the acceptable limit.")
     @pytest.mark.slow
+    @pytest.mark.positive
     def test_response_time(self, client: ApiClient, user_payload: dict[str, Any]):
         response = self._put_user(client, 1, user_payload)
 
@@ -298,6 +299,7 @@ class TestUpdateUsers:
     @allure.title("Verifies response time")
     @allure.description("Verifies the response time step by step.")
     @pytest.mark.slow
+    @pytest.mark.positive
     def test_response_time_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
         with allure.step("Send PUT request"):
             response = self._put_user(client, 1, user_payload)
