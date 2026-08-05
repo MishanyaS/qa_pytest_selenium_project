@@ -114,6 +114,7 @@ class TestAlerts:
     @allure.title("Timer Alert appears with expected message")
     @allure.description("Verifies that the Timer Alert appears after the configured delay and contains the expected message.")
     @pytest.mark.positive
+    @pytest.mark.slow
     def test_timer_alert_text(self, driver):
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)

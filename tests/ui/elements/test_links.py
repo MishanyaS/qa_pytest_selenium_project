@@ -196,7 +196,7 @@ class TestLinks:
 
     @allure.story("Link responses")
     @allure.title("Moved link returns 301 response")
-    @allure.description("Verifies that clicking the No Moved link displays an HTTP 301 Moved response.")
+    @allure.description("Verifies that clicking the Moved link displays an HTTP 301 Moved response.")
     @pytest.mark.positive
     def test_moved_link(self, driver):
         home_page = HomePage(driver)

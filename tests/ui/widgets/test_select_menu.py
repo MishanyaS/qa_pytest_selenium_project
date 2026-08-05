@@ -31,12 +31,12 @@ class TestSelectMenu:
         with allure.step("Open Select Menu page"):
             widgets_page.open_select_menu()
 
-        with allure.step("Verify Progress Bar page URL"):
+        with allure.step("Verify Select Menu page URL"):
             assert select_menu_page.current_url.endswith("/select-menu")
 
     @allure.story("Select Menu page")
     @allure.title("All select controls are displayed")
-    @allure.description("Verifies that all select controls are displays on the page.")
+    @allure.description("Verifies that all select controls are displayed on the page.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_select_controls_visible(self, driver):
@@ -129,7 +129,7 @@ class TestSelectMenu:
     @allure.description("Verifies that opening the React Select displays available options.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_old_style_select_options_visible(self, driver):
+    def test_react_select_options_visible(self, driver):
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
@@ -192,7 +192,7 @@ class TestSelectMenu:
     @allure.description("Verifies that an option can be selected in the standard multi select.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_react_select_option_visible(self, driver):
+    def test_multi_select_option(self, driver):
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)

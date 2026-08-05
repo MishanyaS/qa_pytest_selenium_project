@@ -36,7 +36,8 @@ class TestUploadDownload:
 
     @allure.story("Upload and Download page")
     @allure.title("Upload and Download elements are visible")
-    @allure.description("Verifies that the Upload and Download page can be opened from the Elements section.")
+    @allure.description("Verifies that the Download link and Upload file input are displayed on the Upload and Download page.")
+    @pytest.mark.smoke
     @pytest.mark.positive
     def test_upload_download_elements_visible(self, driver):
         home_page = HomePage(driver)
@@ -77,7 +78,7 @@ class TestUploadDownload:
 
     @allure.story("Download")
     @allure.title("File can be downloaded")
-    @allure.description("Verifies that clicking the Download link starts a file download.")
+    @allure.description("Verifies that the Download link can be clicked without errors.")
     @pytest.mark.positive
     def test_download_file(self, driver):
         home_page = HomePage(driver)

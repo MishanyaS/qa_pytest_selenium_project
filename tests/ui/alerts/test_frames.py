@@ -36,7 +36,7 @@ class TestFrames:
 
     @allure.story("Frames page")
     @allure.title("Frames are visible")
-    @allure.description("Verifies that the Frame page can be opened successfully from the Alerts, Frame & Windows section.")
+    @allure.description("Verifies that both frames are displayed on the Frames page.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_frames_visible(self, driver):

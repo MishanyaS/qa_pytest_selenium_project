@@ -146,7 +146,7 @@ class TestDroppable:
 
     @allure.story("Drag and Drop")
     @allure.title("Droppable text is correct")
-    @allure.description("Verifies that the draggable element contains the expected text.")
+    @allure.description("Verifies that the draggable element displays the expected text before dragging.")
     @pytest.mark.positive
     def test_draggable_text(self, driver):
         home_page = HomePage(driver)

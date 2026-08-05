@@ -58,7 +58,7 @@ class TestDynamicProperties:
             assert page.color_change_visible()
 
         with allure.step("Verify Visible After button is visible"):
-            assert page.color_change_visible()
+            assert page.visible_after_visible()
 
     @allure.story("Enable After dynamic property")
     @allure.title("Enable After button is initially disabled")
@@ -105,7 +105,7 @@ class TestDynamicProperties:
 
     @allure.story("Visible After dynamic property")
     @allure.title("Visible After button is visible")
-    @allure.description("Verifies that the Visible After button is present and visible on the current Dynamic Properties page.")
+    @allure.description("Verifies that the Visible After button becomes visible after the configured delay.")
     @pytest.mark.positive
     def test_visible_after_button_appears(self, driver):
         home_page = HomePage(driver)

@@ -13,7 +13,7 @@ from pages.home_page import HomePage
 class TestHomePage:
     @allure.story("Home Page")
     @allure.title("Home page opens successfully")
-    @allure.description("Verifies that the DemoQA home page is opened successfully and the expected URL is displayed")
+    @allure.description("Verifies that the DemoQA home page openes successfully and the expected URL is displayed")
     @pytest.mark.positive
     def test_home_page_opens(self, driver):
         page = HomePage(driver)
@@ -50,7 +50,7 @@ class TestHomePage:
             assert page.interactions_visible()
 
         with allure.step("Verify Book Store Application card"):
-            assert page.interactions_visible()
+            assert page.book_store_visible()
 
     @allure.story("Elements navigation")
     @allure.title("Elements card opens Elements section")
@@ -97,7 +97,7 @@ class TestHomePage:
         with allure.step("Click Alerts, Frame & Windows card"):
             page.open_alerts_frame_windows()
 
-        with allure.step("Verify Alerts, Frame & Window URL"):
+        with allure.step("Verify Alerts, Frame & Windows URL"):
             assert page.current_url.endswith("/alertsWindows")
 
     @allure.story("Widgets navigation")

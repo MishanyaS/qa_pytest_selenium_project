@@ -66,7 +66,7 @@ class TestTabs:
 
     @allure.story("Tabs")
     @allure.title("What tab is active by default")
-    @allure.description("Verifies that all What tab is avtive after opening the page.")
+    @allure.description("Verifies that the What tab is avtive after opening the page.")
     @pytest.mark.positive
     def test_default_active_tab(self, driver):
         home_page = HomePage(driver)

@@ -17,7 +17,7 @@ from pages.practice_form_page import PracticeFormPage
 class TestPracticeForm:
     @allure.story("Practice Form navigation")
     @allure.title("Practice Form page opens successfully")
-    @allure.description("Verifies that the DemoQA Practice Form page can be opened from the Elements section.")
+    @allure.description("Verifies that the DemoQA Practice Form page can be opened from the Forms section.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_open_practice_form(self, driver):
@@ -208,7 +208,7 @@ class TestPracticeForm:
 
     @allure.story("Practice Form gender")
     @allure.title("User can select Femail gender")
-    @allure.description("Verifies that the Femail gender option can be selected and that the other gender options remain unselected.")
+    @allure.description("Verifies that the Female gender option can be selected and that the other gender options remain unselected.")
     @pytest.mark.positive
     def test_select_female_gender(self, driver):
         home_page = HomePage(driver)

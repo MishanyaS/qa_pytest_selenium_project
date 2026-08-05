@@ -340,7 +340,7 @@ class TestWebTables:
             assert page.record_exists("Kierra")
 
     @allure.story("Record editing")
-    @allure.title("Search can be erited")
+    @allure.title("Search can be edited")
     @allure.description("Verifies that clicking the Edit button opens the registration form populated with the selected record.")
     @pytest.mark.positive
     def test_edit_record(self, driver):
@@ -428,7 +428,7 @@ class TestWebTables:
 
     @allure.story("Record lifecycle")
     @allure.title("Record can be created and deleted")
-    @allure.description("Verifies the complete lifecycle of a record: creation, search, verefication, and deletion.")
+    @allure.description("Verifies the complete lifecycle of a record: creation, search, verification, and deletion.")
     @pytest.mark.positive
     def test_create_and_delete_record(self, driver, faker: Faker):
         home_page = HomePage(driver)
@@ -482,7 +482,7 @@ class TestWebTables:
 
     @allure.story("Row actions")
     @allure.title("Every row has Edit and Delete buttons")
-    @allure.description("Verifies that every displays table row contains both Edit and Delete action buttons.")
+    @allure.description("Verifies that every displayed table row contains both Edit and Delete action buttons.")
     @pytest.mark.positive
     def test_row_action_buttons_are_available(self, driver):
         home_page = HomePage(driver)

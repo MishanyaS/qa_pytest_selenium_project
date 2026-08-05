@@ -108,7 +108,7 @@ class TestBookStore:
 
     @allure.story("Search")
     @allure.title("Search filters books")
-    @allure.description("Verifies that the first book is visible.")
+    @allure.description("Verifies that searching filters the displayed books.")
     @pytest.mark.positive
     def test_search_books(self, driver):
         home_page = HomePage(driver)

@@ -39,6 +39,7 @@ class TestRadioButton:
     @allure.story("Radio Button page")
     @allure.title("Radio Button elements are visible")
     @allure.description("Verifies that the main Radio Button elements are displayed when the page is opened.")
+    @pytest.mark.smoke
     @pytest.mark.positive
     def test_radio_button_elements_visible(self, driver):
         home_page = HomePage(driver)
@@ -265,7 +266,7 @@ class TestRadioButton:
 
     @allure.story("Radio Button result")
     @allure.title("Result changes when selected radio button changes")
-    @allure.description("Verifies that the disabled result corresponds to the currently selected radio button.")
+    @allure.description("Verifies that the displayed result corresponds to the currently selected radio button.")
     @pytest.mark.positive
     def test_result_changes_after_switching_radio_buttons(self, driver):
         home_page = HomePage(driver)

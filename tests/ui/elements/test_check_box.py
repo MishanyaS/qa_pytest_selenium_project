@@ -37,6 +37,7 @@ class TestCheckBox:
     @allure.story("Check Box page")
     @allure.title("Check Box elements are visible")
     @allure.description("Verifies that the main Check Box elements are displayed when the page is opened.")
+    @pytest.mark.smoke
     @pytest.mark.positive
     def test_check_box_elements_visible(self, driver):
         home_page = HomePage(driver)

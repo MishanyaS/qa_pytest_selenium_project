@@ -204,6 +204,7 @@ class TestButtons:
     @allure.story("Images")
     @allure.title("Valid and broken image elements have different sources")
     @allure.description("Verifies that the valid and broken image elements are displayed and reference different image resources.")
+    @pytest.mark.regression
     @pytest.mark.positive
     def test_images_load_states(self, driver):
         home_page = HomePage(driver)
@@ -244,7 +245,7 @@ class TestButtons:
 
     @allure.story("Links")
     @allure.title("Both links have different destinations")
-    @allure.description("Verifies that the valid and broken links point todifferent URLs.")
+    @allure.description("Verifies that the valid and broken links point to different URLs.")
     @pytest.mark.positive
     def test_links_have_different_destinations(self, driver):
         home_page = HomePage(driver)

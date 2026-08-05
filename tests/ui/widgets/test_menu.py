@@ -17,7 +17,7 @@ class TestMenu:
     @allure.description("Verifies that the Menu page can be opened successfully from the Widgets section.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_date_picker(self, driver):
+    def test_open_menu(self, driver):
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         menu_page = MenuPage(driver)
@@ -128,7 +128,7 @@ class TestMenu:
             assert page.sub_sub_item_1_visible()
 
         with allure.step("Verify Sub Sub Item 2 is visible"):
-            assert page.main_item_2_visible()
+            assert page.sub_sub_item_2_visible()
 
     @allure.story("Menu")
     @allure.title("Nested submenu item texts are correct")

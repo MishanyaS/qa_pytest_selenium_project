@@ -54,7 +54,7 @@ class TestResizable:
 
     @allure.story("Resizable element")
     @allure.title("Resizable element has default size")
-    @allure.description("Verifies that the resizeable element has the expected default dimension.")
+    @allure.description("Verifies that the resizable element has the expected default dimension.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_resizable_default_size(self, driver):
@@ -72,7 +72,7 @@ class TestResizable:
 
     @allure.story("Resizable element")
     @allure.title("Resizable width has default value")
-    @allure.description("Verifies that the resizeable element has the expected default width.")
+    @allure.description("Verifies that the resizable element has the expected default width.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_resizable_default_width(self, driver):
@@ -90,7 +90,7 @@ class TestResizable:
 
     @allure.story("Resizable element")
     @allure.title("Resizable height has default value")
-    @allure.description("Verifies that the resizeable element has the expected default height.")
+    @allure.description("Verifies that the resizable element has the expected default height.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_resizable_default_height(self, driver):

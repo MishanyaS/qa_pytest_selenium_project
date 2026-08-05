@@ -77,7 +77,7 @@ class TestDatePicker:
 
     @allure.story("Date Picker")
     @allure.title("Date and Time Picker popup opens")
-    @allure.description("Verifies that the standard Date Picker popup opens.")
+    @allure.description("Verifies that the Date and Time Picker popup opens.")
     @pytest.mark.positive
     def test_open_date_and_time_picker_popup(self, driver):
         home_page = HomePage(driver)

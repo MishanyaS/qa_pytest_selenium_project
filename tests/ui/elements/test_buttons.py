@@ -92,7 +92,7 @@ class TestButtons:
 
     @allure.story("Right Click")
     @allure.title("Right Click action displays success message")
-    @allure.description("Verifies that performing a double click on the Right Click button displays the corresponding success message.")
+    @allure.description("Verifies that performing a right click on the Right Click button displays the corresponding success message.")
     @pytest.mark.positive
     def test_right_click(self, driver):
         home_page = HomePage(driver)

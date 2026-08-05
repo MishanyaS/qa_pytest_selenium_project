@@ -57,7 +57,7 @@ class TestSlider:
 
     @allure.story("Slider properties")
     @allure.title("Slider has valid range and step")
-    @allure.description("Verifies that the Slider has minimum, maximum and step values.")
+    @allure.description("Verifies that the Slider has valid minimum, maximum and step values.")
     @pytest.mark.positive
     def test_slider_properties(self, driver):
         home_page = HomePage(driver)
@@ -100,7 +100,7 @@ class TestSlider:
 
     @allure.story("Slider interaction")
     @allure.title("Slider value increases")
-    @allure.description("Verifies that the Slider value Slider increases using keyboard controls.")
+    @allure.description("Verifies that the Slider value increases using keyboard controls.")
     @pytest.mark.positive
     def test_increase_slider(self, driver):
         home_page = HomePage(driver)

@@ -37,6 +37,7 @@ class TestTextBox:
     @allure.story("Text Box page")
     @allure.title("Text Box form fields are visible")
     @allure.description("Verifies that all required Text Box form fields and the Submit button are displayed.")
+    @pytest.mark.smoke
     @pytest.mark.positive
     def test_text_box_form_fields_visible(self, driver):
         home_page = HomePage(driver)
@@ -191,7 +192,7 @@ class TestTextBox:
 
     @allure.story("Text Box submission")
     @allure.title("Submitted data is displayed in output section")
-    @allure.description("Verifies that valid data entered into the Text Box form is displayed in the output section after submission.")
+    @allure.description("Verifies that submitting the Text Box form displays the output section with entered data.")
     @pytest.mark.positive
     def test_submitted_data_is_displayed(self, driver, faker):
         home_page = HomePage(driver)
@@ -234,7 +235,7 @@ class TestTextBox:
 
     @allure.story("Text Box submission")
     @allure.title("Submitted data is displayed correctly")
-    @allure.description("Verifies that all submitted values are displayed correctly in the output section.")
+    @allure.description("Verifies that each submitted field is displayed with the correct value in the output section.")
     @pytest.mark.positive
     def test_submitted_data_is_displayed_correctly(self, driver, faker):
         home_page = HomePage(driver)
@@ -283,7 +284,7 @@ class TestTextBox:
     @allure.story("Text Box validation")
     @allure.title("Invalid email is rejected by HTML validation")
     @allure.description("Verifies that an invalid email value makes the Email input Invalid according to the browser HTML5 constraint validation.")
-    @pytest.mark.positive
+    @pytest.mark.negative
     def test_invalid_email(self, driver):
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)

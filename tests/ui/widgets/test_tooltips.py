@@ -17,7 +17,7 @@ class TestToolTips:
     @allure.description("Verifies that the Tool Tips page can be opened successfully from the Widgets section.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_tabs(self, driver):
+    def test_open_tool_tips(self, driver):
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         tool_tips_page = ToolTipsPage(driver)
@@ -29,10 +29,10 @@ class TestToolTips:
             home_page.open_widgets()
 
         with allure.step("Open Tool Tips page"):
-            widgets_page.open_tabs()
+            widgets_page.open_tool_tips()
 
-        with allure.step("Verify Tabs page URL"):
-            assert tool_tips_page.current_url.endswith("/tabs")
+        with allure.step("Verify Tool Tips page URL"):
+            assert tool_tips_page.current_url.endswith("/tool-tips")
 
     @allure.story("Tool Tips page")
     @allure.title("Tool Tips elements are visible")

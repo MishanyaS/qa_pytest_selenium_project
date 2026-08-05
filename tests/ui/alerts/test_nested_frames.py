@@ -11,13 +11,13 @@ from pages.nested_frames_page import NestedFramesPage
 @allure.feature("Alerts, Frame & Windows")
 @pytest.mark.ui
 @pytest.mark.regression
-class TestFrames:
+class TestNestedFrames:
     @allure.story("Nested Frames navigation")
     @allure.title("Nested Frames page opens successfully")
     @allure.description("Verifies that the Nested Frames page can be opened successfully from the Alerts, Frame & Windows section.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_frames(self, driver):
+    def test_open_nested_frames(self, driver):
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         nested_frames_page = NestedFramesPage(driver)

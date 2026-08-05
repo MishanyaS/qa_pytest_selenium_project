@@ -19,7 +19,7 @@ class TestModalDialogs:
     @allure.description("Verifies that the Modal Dialogs page can be opened successfully from the Alerts, Frame & Windows section.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_frames(self, driver):
+    def test_open_modal_dialogs(self, driver):
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         modal_dialogs_page = ModalDialogsPage(driver)
