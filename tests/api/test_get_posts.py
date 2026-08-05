@@ -1,6 +1,8 @@
 import allure
 import pytest
+import requests
 from jsonschema import validate
+from typing import Any
 
 from schemas.post_schema import POST_SCHEMA
 from utils.api_client import ApiClient
@@ -10,14 +12,22 @@ from utils.validators import validate_status_code
 @allure.feature("Posts")
 @pytest.mark.api
 @pytest.mark.regression
-class TestGetPosts:    
+class TestGetPosts:
+    @allure.step("Get post")
+    def _get_post(self, client: ApiClient, post_id: int) -> requests.Response:
+        return client.get(f"/posts/{post_id}")
+
+    @allure.step("Get posts")
+    def _get_posts(self, client: ApiClient, **kwargs: Any) -> requests.Response:
+        return client.get("/posts", **kwargs)
+    
     @allure.story("Get posts list")
     @allure.title("GET /posts returns 200")
     @allure.description("Verifies that GET /posts returns HTTP 200 status code.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_get_posts_status_code(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         assert validate_status_code(response.status_code, 200)
     
@@ -26,7 +36,7 @@ class TestGetPosts:
     @allure.description("Verifies that the response Content-Type is JSON.")
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         assert response.headers["Content-Type"].startswith("application/json")
         
@@ -35,7 +45,7 @@ class TestGetPosts:
     @allure.description("Verifies that the response contains the 'posts' field.")
     @pytest.mark.positive
     def test_posts_key_exists(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         data = response.json()
 
@@ -46,7 +56,7 @@ class TestGetPosts:
     @allure.description("Verifies that the 'posts' field is returned as a list.")
     @pytest.mark.positive
     def test_posts_is_list(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         data = response.json()
 
@@ -58,7 +68,7 @@ class TestGetPosts:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_posts_is_not_empty(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         data = response.json()
 
@@ -69,7 +79,7 @@ class TestGetPosts:
     @allure.description("Verifies that the first post matches the JSON schema.")
     @pytest.mark.schema
     def test_first_post_schema(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         first_post = response.json()["posts"][0]
 
@@ -80,7 +90,7 @@ class TestGetPosts:
     @allure.description("Verifies that the total number of posts is greater than zero.")
     @pytest.mark.positive
     def test_total_positive(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         data = response.json()
 
@@ -91,7 +101,7 @@ class TestGetPosts:
     @allure.description("Verifies that the limit value is greater than zero.")
     @pytest.mark.positive
     def test_limit_positive(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         data = response.json()
 
@@ -102,7 +112,7 @@ class TestGetPosts:
     @allure.description("Verifies that the skip value is not negative.")
     @pytest.mark.positive
     def test_skip_not_negative(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         data = response.json()
 
@@ -113,7 +123,7 @@ class TestGetPosts:
     @allure.description("Verifies that the first post contains the 'id' field.")
     @pytest.mark.positive
     def test_first_post_has_id(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         first_post = response.json()["posts"][0]
 
@@ -124,7 +134,7 @@ class TestGetPosts:
     @allure.description("Verifies that the first post contains the 'title' field.")
     @pytest.mark.positive
     def test_first_post_has_title(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         first_post = response.json()["posts"][0]
 
@@ -135,7 +145,7 @@ class TestGetPosts:
     @allure.description("Verifies that the first post contains the 'body' field.")
     @pytest.mark.positive
     def test_first_post_has_body(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         first_post = response.json()["posts"][0]
 
@@ -147,7 +157,7 @@ class TestGetPosts:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_get_single_post_status_code(self, client: ApiClient):
-        response = client.get("/posts/1")
+        response = self._get_post(client, 1)
 
         assert response.status_code == 200
     
@@ -156,7 +166,7 @@ class TestGetPosts:
     @allure.description("Verifies that the returned post matches the JSON schema.")
     @pytest.mark.schema
     def test_single_post_schema(self, client: ApiClient):
-        response = client.get("/posts/1")
+        response = self._get_post(client, 1)
 
         validate(instance=response.json(), schema=POST_SCHEMA)
     
@@ -165,7 +175,7 @@ class TestGetPosts:
     @allure.description("Verifies that the returned post ID matches the requested ID.")
     @pytest.mark.positive
     def test_post_id_matches_requested(self, client: ApiClient):
-        response = client.get("/posts/1")
+        response = self._get_post(client, 1)
 
         assert response.json()["id"] == 1
     
@@ -185,7 +195,7 @@ class TestGetPosts:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_limit_parameter(self, client: ApiClient, limit: int):
-        response = client.get("/posts", params={"limit": limit})
+        response = self._get_posts(client, params={"limit": limit})
 
         posts = response.json()["posts"]
 
@@ -207,7 +217,7 @@ class TestGetPosts:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_skip_parameter(self, client: ApiClient, skip: int):
-        response = client.get("/posts", params={"skip": skip})
+        response = self._get_posts(client, params={"skip": skip})
 
         assert response.json()["skip"] == skip
     
@@ -227,7 +237,7 @@ class TestGetPosts:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_limit_skip(self, client: ApiClient, limit: int, skip: int):
-        response = client.get("/posts", params={"limit": limit, "skip": skip})
+        response = self._get_posts(client, params={"limit": limit, "skip": skip})
 
         data = response.json()
 
@@ -260,7 +270,7 @@ class TestGetPosts:
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         assert response.elapsed.total_seconds() < 2
     
@@ -279,7 +289,7 @@ class TestGetPosts:
     @pytest.mark.regression
     @pytest.mark.positive
     def test_all_post_ids_unique(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         ids = [post["id"] for post in response.json()["posts"]]
 
@@ -291,7 +301,7 @@ class TestGetPosts:
     @pytest.mark.regression
     @pytest.mark.positive
     def test_every_post_has_title(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         posts = response.json()["posts"]
 
@@ -303,15 +313,11 @@ class TestGetPosts:
     @pytest.mark.regression
     @pytest.mark.positive
     def test_every_post_has_body(self, client: ApiClient):
-        response = client.get("/posts")
+        response = self._get_posts(client)
 
         posts = response.json()["posts"]
 
         assert all(len(post["body"].strip()) > 0 for post in posts)
-    
-    @allure.story("Request GET /posts/{post_id}")
-    def get_post(self, client: ApiClient, post_id: int):
-        return client.get(f"/posts/{post_id}")
     
     @allure.story("Step by step")
     @allure.title("Several posts are successfully loaded")
@@ -329,7 +335,7 @@ class TestGetPosts:
     @pytest.mark.regression
     @pytest.mark.positive
     def test_multiple_posts(self, client: ApiClient, post_id: int):
-        response = self.get_post(client, post_id)
+        response = self._get_post(client, post_id)
 
         assert response.status_code == 200
         assert response.json()["id"] == post_id

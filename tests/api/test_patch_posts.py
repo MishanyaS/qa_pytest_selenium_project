@@ -1,5 +1,6 @@
 import allure
 import pytest
+import requests
 from faker import Faker
 from jsonschema import validate
 from typing import Any
@@ -15,10 +16,14 @@ class TestPatchPosts:
     @pytest.fixture(scope="function")
     def post_payload(self, faker: Faker) -> dict[str, str | int]:
         return {
-            "title":faker.sentence(nb_words=5),
+            "title": faker.sentence(nb_words=5),
             "body": faker.paragraph(nb_sentences=5),
             "userId": faker.random_int(min=1, max=100),
         }
+
+    @allure.step("Patch post")
+    def _patch_post(self, client: ApiClient, post_id: int, post_payload: dict[str, Any]) -> requests.Response:
+        return client.patch(f"/posts/{post_id}", json=post_payload)
 
     @allure.story("Patch post")
     @allure.title("PATCH /posts/1 returns 200")
@@ -26,7 +31,7 @@ class TestPatchPosts:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_patch_post_status_code(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.status_code == 200
 
@@ -36,7 +41,7 @@ class TestPatchPosts:
     @pytest.mark.schema
     @pytest.mark.positive
     def test_patch_schema(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         validate(instance=response.json(), schema=CREATE_POST_SCHEMA)
 
@@ -45,7 +50,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the response Content-Type is JSON.")
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.headers["Content-Type"].startswith("application/json")
 
@@ -54,7 +59,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the post title is updated successfully.")
     @pytest.mark.positive
     def test_title_updated(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.json()["title"] == post_payload["title"]
 
@@ -63,7 +68,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the post body is updated successfully.")
     @pytest.mark.positive
     def test_body_updated(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.json()["body"] == post_payload["body"]
 
@@ -72,7 +77,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the userId field is updated successfully.")
     @pytest.mark.positive
     def test_user_id_updated(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.json()["userId"] == post_payload["userId"]
 
@@ -81,7 +86,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the post ID remains unchanged after patching.")
     @pytest.mark.positive
     def test_id_not_changed(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.json()["id"] == 1
 
@@ -90,7 +95,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the returned post ID is an integer.")
     @pytest.mark.positive
     def test_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert isinstance(response.json()["id"], int)
 
@@ -99,7 +104,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the returned title is a string.")
     @pytest.mark.positive
     def test_title_type(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert isinstance(response.json()["title"], str)
 
@@ -108,7 +113,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the returned body is a string.")
     @pytest.mark.positive
     def test_body_type(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert isinstance(response.json()["body"], str)
 
@@ -117,7 +122,7 @@ class TestPatchPosts:
     @allure.description("Verifies that the returned userId is an integer.")
     @pytest.mark.positive
     def test_user_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert isinstance(response.json()["userId"], int)
 
@@ -140,11 +145,13 @@ class TestPatchPosts:
             "title": faker.sentence(),
         }
 
-        response = client.patch(f"/posts/{post_id}", json=payload)
+        response = self._patch_post(client, post_id, payload)
+
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["id"] == post_id
-        assert response.json()["title"] == payload["title"]
+        assert data["id"] == post_id
+        assert data["title"] == payload["title"]
 
     @allure.story("Patch post")
     @allure.title("Patch different user ids")
@@ -165,7 +172,7 @@ class TestPatchPosts:
             "userId": user_id,
         }
 
-        response = client.patch("/posts/1", json=payload)
+        response = self._patch_post(client, 1, payload)
 
         assert response.status_code == 200
         assert response.json()["userId"] == user_id
@@ -184,7 +191,7 @@ class TestPatchPosts:
     @allure.description("Verifies API behavior when patching a non-existing post.")
     @pytest.mark.negative
     def test_unknown_post_id(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/999999", json=post_payload)
+        response = self._patch_post(client, 999999, post_payload)
 
         assert response.status_code in (200, 404)
 
@@ -193,7 +200,7 @@ class TestPatchPosts:
     @allure.description("Verifies API behavior when an empty JSON payload is sent.")
     @pytest.mark.negative
     def test_empty_json(self, client: ApiClient):
-        response = client.patch("/posts/1", json={})
+        response = self._patch_post(client, 1, {})
 
         assert response.status_code in (200, 400)
 
@@ -202,7 +209,7 @@ class TestPatchPosts:
     @allure.description("Verifies API behavior when userId has an invalid type.")
     @pytest.mark.negative
     def test_invalid_user_id_type(self, client: ApiClient):
-        response = client.patch("/posts/1", json={"userId": "abc"})
+        response = self._patch_post(client, 1, {"userId": "abc"})
 
         assert response.status_code in (200, 400)
 
@@ -212,7 +219,7 @@ class TestPatchPosts:
     @pytest.mark.negative
     @pytest.mark.boundary
     def test_negative_user_id(self, client: ApiClient):
-        response = client.patch("/posts/1", json={"userId": -1})
+        response = self._patch_post(client, 1, {"userId": -1})
 
         assert response.status_code in (200, 400)
 
@@ -222,13 +229,9 @@ class TestPatchPosts:
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.patch("/posts/1", json=post_payload)
+        response = self._patch_post(client, 1, post_payload)
 
         assert response.elapsed.total_seconds() < 2
-
-    @allure.step("Patch post")
-    def patch_post(self, client: ApiClient, post_id: int, post_payload: dict[str, Any]):
-        return client.patch(f"/posts/{post_id}", json=post_payload)
 
     @allure.story("Step by step")
     @allure.title("Patch several posts")
@@ -249,8 +252,10 @@ class TestPatchPosts:
             "title": faker.sentence(),
         }
 
-        response = self.patch_post(client, post_id, payload)
+        response = self._patch_post(client, post_id, payload)
+
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["id"] == post_id
-        assert response.json()["title"] == payload["title"]
+        assert data["id"] == post_id
+        assert data["title"] == payload["title"]

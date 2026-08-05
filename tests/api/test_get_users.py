@@ -1,23 +1,33 @@
 import allure
 import pytest
+import requests
 from jsonschema import validate
+from typing import Any
 
 from schemas.user_schema import USER_SCHEMA
 from utils.api_client import ApiClient
-from utils.validators import validate_status_code, validate_email
+from utils.validators import validate_status_code
 
 @allure.epic("API")
 @allure.feature("Users")
 @pytest.mark.api
 @pytest.mark.regression
 class TestGetUsers:
+    @allure.step("Get user")
+    def _get_user(self, client: ApiClient, user_id: int) -> requests.Response:
+        return client.get(f"/users/{user_id}")
+
+    @allure.step("Get users")
+    def _get_users(self, client: ApiClient, **kwargs: Any) -> requests.Response:
+        return client.get("/users", **kwargs)
+
     @allure.story("Get users list")
     @allure.title("GET /users returns 200")
     @allure.description("Verify that GET /users returns HTTP 200 status code.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_get_users_status_code(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         assert validate_status_code(response.status_code, 200)
 
@@ -26,7 +36,7 @@ class TestGetUsers:
     @allure.description("Verify that the response Content-Type is JSON.")
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         assert response.headers["Content-Type"].startswith("application/json")
 
@@ -35,7 +45,7 @@ class TestGetUsers:
     @allure.description("Verify that the response contains the 'users' field.")
     @pytest.mark.positive
     def test_users_key_exists(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         data = response.json()
 
@@ -46,7 +56,7 @@ class TestGetUsers:
     @allure.description("Verify that the 'users' field is returned as a list.")
     @pytest.mark.positive
     def test_users_is_list(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         data = response.json()
 
@@ -58,7 +68,7 @@ class TestGetUsers:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_users_is_not_empty(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         data = response.json()
 
@@ -69,18 +79,18 @@ class TestGetUsers:
     @allure.description("Verify that the first user matches the JSON schema.")
     @pytest.mark.schema
     def test_first_user_schema(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
-        first_post = response.json()["users"][0]
+        first_user = response.json()["users"][0]
 
-        validate(instance=first_post, schema=USER_SCHEMA)
+        validate(instance=first_user, schema=USER_SCHEMA)
 
     @allure.story("Get users list")
     @allure.title("Users total count is bigger than 0")
     @allure.description("Verify that the total number of users is greater than zero.")
     @pytest.mark.positive
     def test_total_positive(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         data = response.json()
 
@@ -91,7 +101,7 @@ class TestGetUsers:
     @allure.description("Verify that the limit value is greater than zero.")
     @pytest.mark.positive
     def test_limit_positive(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         data = response.json()
 
@@ -102,7 +112,7 @@ class TestGetUsers:
     @allure.description("Verify that the skip value is not negative.")
     @pytest.mark.positive
     def test_skip_not_negative(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         data = response.json()
 
@@ -113,7 +123,7 @@ class TestGetUsers:
     @allure.description("Verify that the first user contains the 'id' field.")
     @pytest.mark.positive
     def test_first_user_has_id(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         first_user = response.json()["users"][0]
 
@@ -124,7 +134,7 @@ class TestGetUsers:
     @allure.description("Verify that the first user contains the 'firstName' field.")
     @pytest.mark.positive
     def test_first_user_has_first_name(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         first_user = response.json()["users"][0]
 
@@ -136,7 +146,7 @@ class TestGetUsers:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_get_single_user_status_code(self, client: ApiClient):
-        response = client.get("/users/1")
+        response = self._get_user(client, 1)
 
         assert response.status_code == 200
 
@@ -145,7 +155,7 @@ class TestGetUsers:
     @allure.description("Verify that the returned user matches the JSON schema.")
     @pytest.mark.schema
     def test_single_user_schema(self, client: ApiClient):
-        response = client.get("/users/1")
+        response = self._get_user(client, 1)
 
         validate(instance=response.json(), schema=USER_SCHEMA)
 
@@ -154,7 +164,7 @@ class TestGetUsers:
     @allure.description("Verify that the returned user ID matches the requested ID.")
     @pytest.mark.positive
     def test_user_id_matches(self, client: ApiClient):
-        response = client.get("/users/1")
+        response = self._get_user(client, 1)
 
         assert response.json()["id"] == 1
 
@@ -174,7 +184,7 @@ class TestGetUsers:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_limit_parameter(self, client: ApiClient, limit: int):
-        response = client.get("/users", params={"limit": limit})
+        response = self._get_users(client, params={"limit": limit})
 
         users = response.json()["users"]
 
@@ -196,7 +206,7 @@ class TestGetUsers:
     @pytest.mark.positive
     @pytest.mark.boundary
     def test_skip_parameter(self, client: ApiClient, skip: int):
-        response = client.get("/users", params={"skip": skip})
+        response = self._get_users(client, params={"skip": skip})
 
         assert response.json()["skip"] == skip
 
@@ -214,7 +224,7 @@ class TestGetUsers:
     )
     @pytest.mark.boundary
     def test_limit_skip(self, client: ApiClient, limit: int, skip: int):
-        response = client.get("/users", params={"limit": limit, "skip": skip})
+        response = self._get_users(client, params={"limit": limit, "skip": skip})
 
         data = response.json()
 
@@ -249,11 +259,13 @@ class TestGetUsers:
     @allure.title("Every user has unique id")
     @allure.description("Verify that all returned user IDs are unique.")
     def test_unique_ids(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
+
+        data = response.json()
 
         ids = [
             user["id"]
-            for user in response.json()["users"]
+            for user in data["users"]
         ]
 
         assert len(ids) == len(set(ids))
@@ -262,7 +274,7 @@ class TestGetUsers:
     @allure.title("Every user has first name")
     @allure.description("Verify that every user has a non-empty first name.")
     def test_first_names_not_empty(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         users = response.json()["users"]
 
@@ -275,7 +287,7 @@ class TestGetUsers:
     @allure.title("Every user has last name")
     @allure.description("Verify that every user has a non-empty last name.")
     def test_last_names_not_empty(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         users = response.json()["users"]
 
@@ -289,7 +301,7 @@ class TestGetUsers:
     @allure.description("Verify that every user's age is non-negative.")
     @pytest.mark.positive
     def test_age_positive(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         users = response.json()["users"]
 
@@ -304,7 +316,7 @@ class TestGetUsers:
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient):
-        response = client.get("/users")
+        response = self._get_users(client)
 
         assert response.elapsed.total_seconds() < 2
 
@@ -316,10 +328,6 @@ class TestGetUsers:
         response = client.get("/users123456")
 
         assert response.status_code == 404
-
-    @allure.step("Get user")
-    def get_user(self, client: ApiClient, user_id: int):
-        return client.get(f"/users/{user_id}")
 
     @allure.story("Step by step")
     @allure.title("Several users are successfully loaded")
@@ -336,7 +344,7 @@ class TestGetUsers:
     )
     @pytest.mark.positive
     def test_multiple_users(self, client: ApiClient, user_id: int):
-        response = self.get_user(client, user_id)
+        response = self._get_user(client, user_id)
 
         assert response.status_code == 200
         assert response.json()["id"] == user_id

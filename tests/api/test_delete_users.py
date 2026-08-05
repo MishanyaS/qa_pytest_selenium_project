@@ -1,5 +1,6 @@
 import allure
 import pytest
+import requests
 
 from utils.api_client import ApiClient
 
@@ -8,13 +9,17 @@ from utils.api_client import ApiClient
 @pytest.mark.api
 @pytest.mark.regression
 class TestDeleteUsers:
+    @allure.step("Delete user")
+    def _delete_user(self, client: ApiClient, user_id: int) -> requests.Response:
+        return client.delete(f"/users/{user_id}")
+
     @allure.story("Delete user")
     @allure.title("DELETE /users/1 returns 200")
     @allure.description("Verifies that deleting an existing user returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_delete_user_status_code(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert response.status_code == 200
 
@@ -23,7 +28,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the DELETE response is returned in JSON format.")
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert response.headers["Content-Type"].startswith("application/json")
 
@@ -32,7 +37,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the deleted user response contains the id field.")
     @pytest.mark.positive
     def test_deleted_user_has_id(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert "id" in response.json()
 
@@ -41,7 +46,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned user id matches the requested id.")
     @pytest.mark.positive
     def test_deleted_id_matches(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert response.json()["id"] == 1
 
@@ -50,7 +55,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the response contains the deletion flag.")
     @pytest.mark.positive
     def test_deleted_flag_exists(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert "isDeleted" in response.json()
 
@@ -59,7 +64,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the deleted flag is set to True.")
     @pytest.mark.positive
     def test_deleted_flag_true(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert response.json()["isDeleted"] is True
 
@@ -68,7 +73,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned user id has integer type.")
     @pytest.mark.positive
     def test_deleted_id_type(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert isinstance(response.json()["id"], int)
 
@@ -77,7 +82,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned firstName has string type.")
     @pytest.mark.positive
     def test_deleted_first_name_type(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert isinstance(response.json()["firstName"], str)
 
@@ -86,7 +91,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned lastName has string type.")
     @pytest.mark.positive
     def test_deleted_last_name_type(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert isinstance(response.json()["lastName"], str)
 
@@ -95,7 +100,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned email has string type.")
     @pytest.mark.positive
     def test_deleted_email_type(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert isinstance(response.json()["email"], str)
 
@@ -104,7 +109,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned age has integer type.")
     @pytest.mark.positive
     def test_deleted_age_type(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert isinstance(response.json()["age"], int)
 
@@ -113,7 +118,7 @@ class TestDeleteUsers:
     @allure.description("Verifies that the returned gender has string type.")
     @pytest.mark.positive
     def test_deleted_gender_type(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert isinstance(response.json()["gender"], str)
 
@@ -132,11 +137,13 @@ class TestDeleteUsers:
     )
     @pytest.mark.positive
     def test_delete_various_users(self, client: ApiClient, user_id: int):
-        response = client.delete(f"/users/{user_id}")
+        response = self._delete_user(client, user_id)
+
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["id"] == user_id
-        assert response.json()["isDeleted"] is True
+        assert data["id"] == user_id
+        assert data["isDeleted"] is True
 
     @allure.story("Negative")
     @allure.title("Unknown endpoint returns 404")
@@ -152,7 +159,7 @@ class TestDeleteUsers:
     @allure.description("Verifies the API behavior when deleting a non-existent user.")
     @pytest.mark.negative
     def test_unknown_user_id(self, client: ApiClient):
-        response = client.delete("/users/999999")
+        response = self._delete_user(client, 999999)
 
         assert response.status_code in (200, 404)
 
@@ -162,13 +169,9 @@ class TestDeleteUsers:
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient):
-        response = client.delete("/users/1")
+        response = self._delete_user(client, 1)
 
         assert response.elapsed.total_seconds() < 2
-
-    @allure.step("Delete user")
-    def delete_user(self, client: ApiClient, user_id: int):
-        return client.delete(f"/users/{user_id}")
 
     @allure.story("Step by step")
     @allure.title("Delete several users")
@@ -185,11 +188,13 @@ class TestDeleteUsers:
     )
     @pytest.mark.positive
     def test_delete_multiple_users(self, client: ApiClient, user_id: int):
-        response = self.delete_user(client, user_id)
+        response = self._delete_user(client, user_id)
+
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["id"] == user_id
-        assert response.json()["isDeleted"] is True
+        assert data["id"] == user_id
+        assert data["isDeleted"] is True
 
     @allure.story("Step by step")
     @allure.title("Delete user step by step")
@@ -198,16 +203,17 @@ class TestDeleteUsers:
     @pytest.mark.positive
     def test_delete_user_step_by_step(self, client: ApiClient):
         with allure.step("Send DELETE request"):
-            response = self.delete_user(client, 1)
+            response = self._delete_user(client, 1)
+            data = response.json()
 
         with allure.step("Verify status code"):
             assert response.status_code == 200
 
         with allure.step("Verify id"):
-            assert response.json()["id"] == 1
+            assert data["id"] == 1
 
         with allure.step("Verify deleted flag"):
-            assert response.json()["isDeleted"] is True
+            assert data["isDeleted"] is True
 
     @allure.story("Step by step")
     @allure.title("Verify response headers")
@@ -215,7 +221,7 @@ class TestDeleteUsers:
     @pytest.mark.positive
     def test_headers_step_by_step(self, client: ApiClient):
         with allure.step("Send DELETE request"):
-            response = self.delete_user(client, 1)
+            response = self._delete_user(client, 1)
 
         with allure.step("Verify Content-Type"):
             assert response.headers["Content-Type"].startswith("application/json")
@@ -227,7 +233,7 @@ class TestDeleteUsers:
     @pytest.mark.positive
     def test_response_time_step_by_step(self, client: ApiClient):
         with allure.step("Send DELETE request"):
-            response = self.delete_user(client, 1)
+            response = self._delete_user(client, 1)
 
         with allure.step("Verify response time"):
             assert response.elapsed.total_seconds() < 2

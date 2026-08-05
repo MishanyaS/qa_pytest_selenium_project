@@ -1,5 +1,6 @@
 import allure
 import pytest
+import requests
 
 from utils.api_client import ApiClient
 
@@ -8,13 +9,17 @@ from utils.api_client import ApiClient
 @pytest.mark.api
 @pytest.mark.regression
 class TestDeleteComments:
-    @allure.story("Delete user")
+    @allure.step("Delete comment")
+    def _delete_comment(self, client: ApiClient, comment_id: int) -> requests.Response:
+        return client.delete(f"/comments/{comment_id}")
+
+    @allure.story("Delete comment")
     @allure.title("DELETE /comments/1 returns 200")
     @allure.description("Verifies that DELETE /comments/1 returns status code 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_delete_comment_status_code(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert response.status_code == 200
 
@@ -23,7 +28,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the response content type is JSON.")
     @pytest.mark.positive
     def test_response_is_json(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert response.headers["Content-Type"].startswith("application/json")
 
@@ -32,7 +37,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the deleted comment contains an id field.")
     @pytest.mark.positive
     def test_deleted_comment_has_id(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert "id" in response.json()
 
@@ -41,7 +46,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned id matches the requested comment id.")
     @pytest.mark.positive
     def test_deleted_id_matches(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert response.json()["id"] == 1
 
@@ -50,7 +55,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the response contains the deletion flag.")
     @pytest.mark.positive
     def test_deleted_flag_exists(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert "isDeleted" in response.json()
 
@@ -59,7 +64,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the deletion flag is set to True.")
     @pytest.mark.positive
     def test_deleted_flag_true(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert response.json()["isDeleted"] is True
 
@@ -68,7 +73,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned id is an integer.")
     @pytest.mark.positive
     def test_deleted_id_type(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert isinstance(response.json()["id"], int)
 
@@ -77,7 +82,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned body is a string.")
     @pytest.mark.positive
     def test_deleted_body_type(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert isinstance(response.json()["body"], str)
 
@@ -86,7 +91,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned postId is an integer.")
     @pytest.mark.positive
     def test_deleted_post_id_type(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert isinstance(response.json()["postId"], int)
 
@@ -95,7 +100,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned likes value is an integer.")
     @pytest.mark.positive
     def test_deleted_likes_type(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert isinstance(response.json()["likes"], int)
 
@@ -104,7 +109,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned user is an object.")
     @pytest.mark.positive
     def test_deleted_user_type(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert isinstance(response.json()["user"], dict)
 
@@ -113,7 +118,7 @@ class TestDeleteComments:
     @allure.description("Verifies that the returned user contains required fields.")
     @pytest.mark.positive
     def test_deleted_user_fields(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         user = response.json()["user"]
 
@@ -135,11 +140,13 @@ class TestDeleteComments:
     @allure.description("Verifies that different comment ids can be deleted successfully.")
     @pytest.mark.positive
     def test_delete_various_comments(self, client: ApiClient, comment_id: int):
-        response = client.delete(f"/comments/{comment_id}")
+        response = self._delete_comment(client, comment_id)
+
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["id"] == comment_id
-        assert response.json()["isDeleted"] is True
+        assert data["id"] == comment_id
+        assert data["isDeleted"] is True
 
     @allure.story("Negative")
     @allure.title("Unknown endpoint returns 404")
@@ -155,7 +162,7 @@ class TestDeleteComments:
     @allure.description("Verifies API behavior for an unknown comment id.")
     @pytest.mark.negative
     def test_unknown_comment_id(self, client: ApiClient):
-        response = client.delete("/comments/999999")
+        response = self._delete_comment(client, 999999)
 
         assert response.status_code in (200, 404)
 
@@ -165,13 +172,9 @@ class TestDeleteComments:
     @pytest.mark.slow
     @pytest.mark.positive
     def test_response_time(self, client: ApiClient):
-        response = client.delete("/comments/1")
+        response = self._delete_comment(client, 1)
 
         assert response.elapsed.total_seconds() < 2
-
-    @allure.step("Delete comment")
-    def delete_comment(self, client: ApiClient, comment_id: int):
-        return client.delete(f"/comments/{comment_id}")
 
     @allure.story("Step by step")
     @allure.title("Delete several comments")
@@ -188,29 +191,32 @@ class TestDeleteComments:
     )
     @pytest.mark.positive
     def test_delete_multiple_comments(self, client: ApiClient, comment_id: int):
-        response = self.delete_comment(client, comment_id)
+        response = self._delete_comment(client, comment_id)
+
+        data = response.json()
 
         assert response.status_code == 200
-        assert response.json()["id"] == comment_id
-        assert response.json()["isDeleted"] is True
+        assert data["id"] == comment_id
+        assert data["isDeleted"] is True
 
     @allure.story("Step by step")
-    @allure.title("Delete commentuser step by step")
+    @allure.title("Delete comment step by step")
     @allure.description("Verifies successful comment deletion step by step.")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_delete_comment_step_by_step(self, client: ApiClient):
         with allure.step("Send DELETE request"):
-            response = self.delete_comment(client, 1)
+            response = self._delete_comment(client, 1)
+            data = response.json()
 
         with allure.step("Verify status code"):
             assert response.status_code == 200
 
         with allure.step("Verify id"):
-            assert response.json()["id"] == 1
+            assert data["id"] == 1
 
         with allure.step("Verify deleted flag"):
-            assert response.json()["isDeleted"] is True
+            assert data["isDeleted"] is True
 
     @allure.story("Step by step")
     @allure.title("Verify response headers")
@@ -218,7 +224,7 @@ class TestDeleteComments:
     @pytest.mark.positive
     def test_headers_step_by_step(self, client: ApiClient):
         with allure.step("Send DELETE request"):
-            response = self.delete_comment(client, 1)
+            response = self._delete_comment(client, 1)
 
         with allure.step("Verify Content-Type"):
             assert response.headers["Content-Type"].startswith("application/json")
@@ -230,7 +236,7 @@ class TestDeleteComments:
     @pytest.mark.positive
     def test_response_time_step_by_step(self, client: ApiClient):
         with allure.step("Send DELETE request"):
-            response = self.delete_comment(client, 1)
+            response = self._delete_comment(client, 1)
 
         with allure.step("Verify response time"):
             assert response.elapsed.total_seconds() < 2

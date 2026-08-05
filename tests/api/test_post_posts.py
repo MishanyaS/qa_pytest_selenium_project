@@ -1,5 +1,6 @@
 import allure
 import pytest
+import requests
 from faker import Faker
 from jsonschema import validate
 from typing import Any
@@ -19,6 +20,10 @@ class TestCreatePosts:
             "body": faker.paragraph(nb_sentences=5),
             "userId": faker.random_int(min=1, max=100),
         }
+
+    @allure.step("Create post")
+    def _create_post(self, client: ApiClient, post_payload: dict[str, Any]) -> requests.Response:
+        return client.post("/posts/add", json=post_payload)
     
     @allure.story("Create post")
     @allure.title("POST /posts/add returns 201")
@@ -26,7 +31,7 @@ class TestCreatePosts:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_create_post_status_code(self, client: ApiClient, post_payload: dict[str, Any]):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         assert response.status_code == 201
     
@@ -36,7 +41,7 @@ class TestCreatePosts:
     @pytest.mark.schema
     @pytest.mark.positive
     def test_created_post_schema(self, client: ApiClient, post_payload: dict):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         validate(instance=response.json(), schema=CREATE_POST_SCHEMA)
     
@@ -45,7 +50,7 @@ class TestCreatePosts:
     @allure.description("Verifies that the returned title matches the submitted value.")
     @pytest.mark.positive
     def test_created_title(self, client: ApiClient, post_payload: dict):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         assert response.json()["title"] == post_payload["title"]
     
@@ -54,7 +59,7 @@ class TestCreatePosts:
     @allure.description("Verifies that the returned body matches the submitted value.")
     @pytest.mark.positive
     def test_created_body(self, client: ApiClient, post_payload: dict):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         assert response.json()["body"] == post_payload["body"]
     
@@ -63,7 +68,7 @@ class TestCreatePosts:
     @allure.description("Verifies that the returned userId matches the submitted value.")
     @pytest.mark.positive
     def test_created_user_id(self, client: ApiClient, post_payload: dict):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         assert response.json()["userId"] == post_payload["userId"]
     
@@ -72,7 +77,7 @@ class TestCreatePosts:
     @allure.description("Verifies that the returned post ID is an integer.")
     @pytest.mark.positive
     def test_created_id_type(self, client: ApiClient, post_payload: dict):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         assert isinstance(response.json()["id"], int)
     
@@ -97,7 +102,7 @@ class TestCreatePosts:
             "userId": user_id,
         }
 
-        response = client.post("/posts/add", json=payload)
+        response = self._create_post(client, payload)
 
         assert response.status_code == 201
         assert response.json()["userId"] == user_id
@@ -112,7 +117,7 @@ class TestCreatePosts:
             "userId": 1,
         }
 
-        response = client.post("/posts/add", json=payload)
+        response = self._create_post(client, payload)
 
         assert response.status_code in (200, 201, 400)
     
@@ -126,7 +131,7 @@ class TestCreatePosts:
             "userId": 1,
         }
 
-        response = client.post("/posts/add", json=payload)
+        response = self._create_post(client, payload)
 
         assert response.status_code in (200, 201, 400)
     
@@ -147,10 +152,6 @@ class TestCreatePosts:
         response = client.post("/posts/add123", json=post_payload)
 
         assert response.status_code == 404
-    
-    @allure.step("Create new post")
-    def create_post(self, client: ApiClient, post_payload: dict[str, Any]):
-        return client.post("/posts/add", json=post_payload)
     
     @allure.story("Step by step")
     @allure.title("Create several posts")
@@ -173,18 +174,20 @@ class TestCreatePosts:
             "userId": index,
         }
 
-        response = self.create_post(client, payload)
+        response = self._create_post(client, payload)
+
+        data = response.json()
 
         assert response.status_code == 201
-        assert response.json()["title"] == payload["title"]
-        assert response.json()["body"] == payload["body"]
-        assert response.json()["userId"] == payload["userId"]
+        assert data["title"] == payload["title"]
+        assert data["body"] == payload["body"]
+        assert data["userId"] == payload["userId"]
 
     @allure.story("Performance")
     @allure.title("Create post response time")
     @allure.description("Verifies that post creation completes within the acceptable response time.")
     @pytest.mark.slow
     def test_create_response_time(self, client: ApiClient, post_payload: dict):
-        response = client.post("/posts/add", json=post_payload)
+        response = self._create_post(client, post_payload)
 
         assert response.elapsed.total_seconds() < 2

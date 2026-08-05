@@ -1,5 +1,6 @@
 import allure
 import pytest
+import requests
 from faker import Faker
 from jsonschema import validate
 from typing import Any
@@ -19,6 +20,10 @@ class TestCreateComments:
             "postId": faker.random_int(min=1, max=200),
             "userId": faker.random_int(min=1, max=200),
         }
+
+    @allure.step("Create comment")
+    def _create_comment(self, client: ApiClient, comment_payload: dict[str, Any]) -> requests.Response:
+        return client.post("/comments/add", json=comment_payload)
     
     @allure.story("Create comment")
     @allure.title("POST /comments/add returns 201")
@@ -26,7 +31,7 @@ class TestCreateComments:
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_create_comment_status_code(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert response.status_code == 201
 
@@ -36,7 +41,7 @@ class TestCreateComments:
     @pytest.mark.schema
     @pytest.mark.positive
     def test_created_comment_schema(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         validate(instance=response.json(), schema=CREATE_COMMENT_RESPONSE_SCHEMA)
 
@@ -45,7 +50,7 @@ class TestCreateComments:
     @allure.description("Verifies that the returned body matches the submitted value.")
     @pytest.mark.positive
     def test_created_body(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert response.json()["body"] == comment_payload["body"]
 
@@ -54,7 +59,7 @@ class TestCreateComments:
     @allure.description("Verifies that the returned postId matches the submitted value.")
     @pytest.mark.positive
     def test_created_post_id(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert response.json()["postId"] == comment_payload["postId"]
 
@@ -63,7 +68,7 @@ class TestCreateComments:
     @allure.description("Verifies that the returned comment ID is an integer.")
     @pytest.mark.positive
     def test_created_comment_id_type(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert isinstance(response.json()["id"], int)
 
@@ -80,7 +85,7 @@ class TestCreateComments:
     @allure.description("Verifies that all required fields are present in the response.")
     @pytest.mark.positive
     def test_required_fields_exist(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         data = response.json()
 
@@ -93,7 +98,7 @@ class TestCreateComments:
     @allure.description("Verifies that the returned comment ID is positive.")
     @pytest.mark.positive
     def test_comment_id_positive(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert response.json()["id"] > 0
 
@@ -102,7 +107,7 @@ class TestCreateComments:
     @allure.description("Verifies that all returned fields have the expected data types.")
     @pytest.mark.positive
     def test_returned_field_types(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         data = response.json()
 
@@ -132,7 +137,7 @@ class TestCreateComments:
             "userId": 1,
         }
 
-        response = client.post("/comments/add", json=payload)
+        response = self._create_comment(client, payload)
 
         assert response.status_code == 201
         assert response.json()["postId"] == post_id
@@ -159,7 +164,7 @@ class TestCreateComments:
             "userId": 1,
         }
 
-        response = client.post("/comments/add", json=payload)
+        response = self._create_comment(client, payload)
 
         assert response.status_code == 201
 
@@ -173,7 +178,7 @@ class TestCreateComments:
             "userId": 1,
         }
 
-        response = client.post("/comments/add", json=payload)
+        response = self._create_comment(client, payload)
 
         assert response.status_code in (200, 201, 400)
 
@@ -187,7 +192,7 @@ class TestCreateComments:
             "postId": 1,
         }
 
-        response = client.post("/comments/add", json=payload)
+        response = self._create_comment(client, payload)
 
         assert response.status_code in (200, 201, 400)
 
@@ -197,7 +202,7 @@ class TestCreateComments:
     @pytest.mark.negative
     def test_create_empty_comment(self, client: ApiClient):
 
-        response = client.post("/comments/add", json={})
+        response = self._create_comment(client, {})
 
         assert response.status_code in (200, 201, 400)
 
@@ -206,7 +211,7 @@ class TestCreateComments:
     @allure.description("Verifies that the response Content-Type is application/json.")
     @pytest.mark.positive
     def test_response_content_type(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert "application/json" in response.headers["Content-Type"]
 
@@ -215,7 +220,7 @@ class TestCreateComments:
     @allure.description("Verifies that comment creation completes within the acceptable response time.")
     @pytest.mark.slow
     def test_comment_creation_response_time(self, client: ApiClient, comment_payload: dict[str, Any]):
-        response = client.post("/comments/add", json=comment_payload)
+        response = self._create_comment(client, comment_payload)
 
         assert response.elapsed.total_seconds() < 2
 
@@ -231,7 +236,7 @@ class TestCreateComments:
             "userId": 1,
         }
 
-        response = client.post("/comments/add", json=payload)
+        response = self._create_comment(client, payload)
 
         assert response.status_code == 201
 
@@ -242,22 +247,23 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_create_comment_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
         with allure.step("Send POST request"):
-            response = client.post("/comments/add", json=comment_payload)
+            response = self._create_comment(client, comment_payload)
+            data = response.json()
 
         with allure.step("Verify status code"):
             assert response.status_code == 201
 
         with allure.step("Verify response schema"):
-            validate(instance=response.json(), schema=CREATE_COMMENT_RESPONSE_SCHEMA)
+            validate(instance=data, schema=CREATE_COMMENT_RESPONSE_SCHEMA)
 
         with allure.step("Verify body"):
-            assert response.json()["body"] == comment_payload["body"]
+            assert data["body"] == comment_payload["body"]
 
         with allure.step("Verify postId"):
-            assert response.json()["postId"] == comment_payload["postId"]
+            assert data["postId"] == comment_payload["postId"]
 
         with allure.step("Verify id"):
-            assert response.json()["id"] > 0
+            assert data["id"] > 0
 
     @allure.story("Step by step")
     @allure.title("Verify response headers")
@@ -265,7 +271,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_response_headers_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
         with allure.step("Send POST request"):
-            response = client.post("/comments/add", json=comment_payload)
+            response = self._create_comment(client, comment_payload)
 
         with allure.step("Verify Content-Type"):
             assert "application/json" in response.headers["Content-Type"]
@@ -276,7 +282,7 @@ class TestCreateComments:
     @pytest.mark.slow
     def test_comment_response_time_step_by_step(self, client: ApiClient, comment_payload: dict[str, Any]):
         with allure.step("Send POST request"):
-            response = client.post("/comments/add", json=comment_payload)
+            response = self._create_comment(client, comment_payload)
 
         with allure.step("Verify response time"):
             assert response.elapsed.total_seconds() < 2
