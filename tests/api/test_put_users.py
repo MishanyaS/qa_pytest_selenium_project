@@ -7,7 +7,7 @@ from typing import Any
 from schemas.user_schema import USER_SCHEMA
 from utils.api_client import ApiClient
 
-allure.epic("API")
+@allure.epic("API")
 @allure.feature("Update Users")
 @pytest.mark.api
 @pytest.mark.regression
@@ -28,6 +28,7 @@ class TestUpdateUsers:
     
     @allure.story("Update user")
     @allure.title("PUT /users/1 returns 200")
+    @allure.description("Verify that updating a user returns HTTP 200")
     @pytest.mark.smoke
     @pytest.mark.positive
     def test_updated_user_status_code(self, client: ApiClient, user_payload: dict[str, Any]):
@@ -37,6 +38,7 @@ class TestUpdateUsers:
     
     @allure.story("Update user")
     @allure.title("Update user matches schema")
+    @allure.description("Verify that the updated user matches the JSON schema.")
     @pytest.mark.schema
     @pytest.mark.positive
     def test_updated_user_schema(self, client: ApiClient, user_payload: dict[str, Any]):
@@ -46,6 +48,7 @@ class TestUpdateUsers:
     
     @allure.story("Update user")
     @allure.title("Returned firstName equals sent firstName")
+    @allure.description("Verify that the returned first name matches the updated value.")
     @pytest.mark.positive
     def test_updated_first_name(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -54,6 +57,7 @@ class TestUpdateUsers:
 
     @allure.story("Update user")
     @allure.title("Returned lastName equals sent lastName")
+    @allure.description("Verify that the returned last name matches the updated value.")
     @pytest.mark.positive
     def test_updated_last_name(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -62,6 +66,7 @@ class TestUpdateUsers:
 
     @allure.story("Update user")
     @allure.title("Returned email equals sent email")
+    @allure.description("Verify that the returned email matches the updated value.")
     @pytest.mark.positive
     def test_updated_email(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -70,6 +75,7 @@ class TestUpdateUsers:
 
     @allure.story("Update user")
     @allure.title("Returned age equals sent age")
+    @allure.description("Verify that the returned age matches the updated value.")
     @pytest.mark.positive
     def test_updated_age(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -78,6 +84,7 @@ class TestUpdateUsers:
 
     @allure.story("Validation")
     @allure.title("Response contains required fields")
+    @allure.description("Verify that all required fields are present in the response.")
     @pytest.mark.positive
     def test_required_fields_exist(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -93,6 +100,7 @@ class TestUpdateUsers:
 
     @allure.story("Validation")
     @allure.title("Returned id is positive")
+    @allure.description("Verify that the returned user ID is positive.")
     @pytest.mark.positive
     def test_user_id_positive(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -101,6 +109,7 @@ class TestUpdateUsers:
 
     @allure.story("Validation")
     @allure.title("Returned field types are correct")
+    @allure.description("Verify that all returned field types are correct.")
     @pytest.mark.positive
     def test_returned_field_types(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -116,6 +125,7 @@ class TestUpdateUsers:
 
     @allure.story("Validation")
     @allure.title("Update user with different ages")
+    @allure.description("Verify that users can be updated with different ages.")
     @pytest.mark.parametrize(
         "age",
         [
@@ -144,6 +154,7 @@ class TestUpdateUsers:
 
     @allure.story("Validation")
     @allure.title("Update user with different genders")
+    @allure.description("Verify that users can be updated with different genders.")
     @pytest.mark.parametrize(
         "gender",
         [
@@ -168,6 +179,7 @@ class TestUpdateUsers:
 
     @allure.story("Negative")
     @allure.title("Update user without firstName")
+    @allure.description("Verify the behavior when firstName is missing.")
     @pytest.mark.negative
     def test_update_without_first_name(self, client: ApiClient, faker: Faker):
         payload = {
@@ -184,6 +196,7 @@ class TestUpdateUsers:
 
     @allure.story("Negative")
     @allure.title("Update user without email")
+    @allure.description("Verify the behavior when email is missing.")
     @pytest.mark.negative
     def test_update_without_email(self, client: ApiClient, faker: Faker):
         payload = {
@@ -199,6 +212,7 @@ class TestUpdateUsers:
 
     @allure.story("Negative")
     @allure.title("Update empty payload")
+    @allure.description("Verify the behavior when an empty payload is sent.")
     @pytest.mark.negative
     def test_update_empty_payload(self, client: ApiClient):
         response = client.put("/users/1", json={})
@@ -207,7 +221,9 @@ class TestUpdateUsers:
 
     @allure.story("Boundary")
     @allure.title("Update user with minimum age")
+    @allure.description("Verify that a user can be updated with the minimum age value.")
     @pytest.mark.boundary
+    @pytest.mark.positive
     def test_update_minimum_age(self, client: ApiClient, faker: Faker):
         payload = {
             "firstName":faker.first_name(),
@@ -223,6 +239,7 @@ class TestUpdateUsers:
 
     @allure.story("Headers")
     @allure.title("Response content type is JSON")
+    @allure.description("Verify that the response content type is JSON.")
     @pytest.mark.positive
     def test_response_content_type(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -231,6 +248,7 @@ class TestUpdateUsers:
 
     @allure.story("Performance")
     @allure.title("User update response time")
+    @allure.description("Verify that the user update response time is within the acceptable limit.")
     @pytest.mark.slow
     def test_response_time(self, client: ApiClient, user_payload: dict[str, Any]):
         response = client.put("/users/1", json=user_payload)
@@ -239,7 +257,9 @@ class TestUpdateUsers:
 
     @allure.story("Step by step")
     @allure.title("Update user step by step")
+    @allure.description("Verify the complete user update workflow step by step.")
     @pytest.mark.smoke
+    @pytest.mark.positive
     def test_update_user_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
         with allure.step("Send PUT request"):
             response = client.put("/users/1", json=user_payload)
@@ -264,6 +284,8 @@ class TestUpdateUsers:
 
     @allure.story("Step by step")
     @allure.title("Verify response headers")
+    @allure.description("Verify the response headers step by step.")
+    @pytest.mark.positive
     def test_headers_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
         with allure.step("Send PUT request"):
             response = client.put("/users/1", json=user_payload)
@@ -273,6 +295,7 @@ class TestUpdateUsers:
 
     @allure.story("Step by step")
     @allure.title("Verify response time")
+    @allure.description("Verify the response time step by step.")
     @pytest.mark.slow
     def test_response_time_step_by_step(self, client: ApiClient, user_payload: dict[str, Any]):
         with allure.step("Send PUT request"):
