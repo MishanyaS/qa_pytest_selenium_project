@@ -1,0 +1,16 @@
+services:
+  tests:
+    build: .
+    container_name: qa_pytest_selenium_project
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      BASE_URL: https://dummyjson.com
+      HEADLESS: "true"
+      BROWSER: chrome
+      PYTHONUNBUFFERED: "1"
+    command: >
+      pytest
+      -v
+      --alluredir=allure-results
