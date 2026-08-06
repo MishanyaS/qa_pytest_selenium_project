@@ -114,27 +114,21 @@ class TestFixtures:
     @pytest.mark.db
     @pytest.mark.positive
     def test_create_temp_table(self, db_cursor: sqlite3.Cursor):
-        db_cursor.execute(
-            """
+        db_cursor.execute("""
             CREATE TEMP TABLE test_table(
                 id INTEGER
             )
-            """
-        )
+            """)
 
-        db_cursor.execute(
-            """
+        db_cursor.execute("""
             INSERT INTO test_table(id)
             VALUES(1)
-            """
-        )
+            """)
 
-        result = db_cursor.execute(
-            """
+        result = db_cursor.execute("""
             SELECT id
             FROM test_table
-            """
-        ).fetchone()
+            """).fetchone()
 
         assert result == (1,)
 
