@@ -67,7 +67,7 @@ jobs:
           python -m pip install --upgrade pip
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
       - name: Ruff
         run: |
           ruff check .
@@ -76,7 +76,7 @@ jobs:
           black --check .
       - name: mypy
         run: |
-          mypy .
+          mypy src tests
   tests:
     name: Run Tests
     needs: lint
@@ -89,6 +89,10 @@ jobs:
           - 4444:4444
         options: >-
           --shm-size=2g
+          --health-cmd="curl -f http://localhost:4444/status || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
     env:
       SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
     steps:
@@ -104,13 +108,28 @@ jobs:
           python -m pip install --upgrade pip
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
       - name: Create directories
         run: |
           mkdir -p $ALLURE_RESULTS
           mkdir -p $SCREENSHOTS_DIR
           mkdir -p $DOWNLOADS_DIR
           mkdir -p $LOGS_DIR
+      - name: Wait for Selenium
+        shell: bash
+        run: |
+          echo "Waiting for Selenium Server..."
+          for i in {1..30}; do
+            if curl -fs http://localhost:4444/status | grep -q '"ready":true'; then
+              echo "Selenium is ready."
+              exit 0
+            fi
+
+            echo "Attempt $i/30: Selenium is not ready yet..."
+            sleep 2
+          done
+          echo "Selenium failed to start."
+          exit 1
       - name: Build pytest command
         id: command
         shell: bash
@@ -167,6 +186,7 @@ jobs:
         with:
           name: allure-results
           path: allure-results
+          if-no-files-found: ignore
           retention-days: 30
       - name: Upload Screenshots
         if: always()
