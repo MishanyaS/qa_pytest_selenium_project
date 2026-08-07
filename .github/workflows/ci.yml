@@ -119,17 +119,20 @@ jobs:
         shell: bash
         run: |
           echo "Waiting for Selenium Server..."
-          for i in {1..30}; do
-            if curl -fs http://localhost:4444/status | grep -q '"ready":true'; then
+          for i in {1..60}; do
+            RESPONSE=$(curl -s http://localhost:4444/status || true)
+            echo "$RESPONSE"
+            if echo "$RESPONSE" | grep -q '"ready"[[:space:]]*:[[:space:]]*then'; then
               echo "Selenium is ready."
               exit 0
             fi
-
-            echo "Attempt $i/30: Selenium is not ready yet..."
             sleep 2
           done
           echo "Selenium failed to start."
           exit 1
+      - name: Print Selenium status
+        run: |
+          curl -s http://localhost:4444/status
       - name: Show Docker containers
         if: failure()
         run: docker ps -a
@@ -144,7 +147,10 @@ jobs:
           fi
       - name: Show Selenium status
         if: failure()
-        run: curl -v http://localhost:4444/status || true
+        run: |
+          curl -v http://localhost:4444/status || true
+          echo
+          curl -s http://localhost:4444/status | jg . || true
       - name: Build pytest command
         id: command
         shell: bash
