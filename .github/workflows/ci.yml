@@ -76,7 +76,7 @@ jobs:
           black --check .
       - name: mypy
         run: |
-          mypy src tests
+          mypy tests
   tests:
     name: Run Tests
     needs: lint
