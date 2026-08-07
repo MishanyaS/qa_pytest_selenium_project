@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.date_picker_page import DatePickerPage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestDatePicker:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_date_picker(self, driver):
+    def test_open_date_picker(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         date_picker_page = DatePickerPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -42,13 +43,13 @@ class TestDatePicker:
     @allure.description("Verifies that Date Picker input fields are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_date_picker_inputs_visible(self, driver):
+    def test_date_picker_inputs_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_date_picker()
 
@@ -62,13 +63,13 @@ class TestDatePicker:
     @allure.title("Date Picker popup opens")
     @allure.description("Verifies that the standard Date Picker popup opens.")
     @pytest.mark.positive
-    def test_open_date_picker_popup(self, driver):
+    def test_open_date_picker_popup(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_date_picker()
 
@@ -82,13 +83,13 @@ class TestDatePicker:
     @allure.title("Date and Time Picker popup opens")
     @allure.description("Verifies that the Date and Time Picker popup opens.")
     @pytest.mark.positive
-    def test_open_date_and_time_picker_popup(self, driver):
+    def test_open_date_and_time_picker_popup(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_date_picker()
 
@@ -102,13 +103,13 @@ class TestDatePicker:
     @allure.title("User can select a date")
     @allure.description("Verifies that a date can be selected successfully.")
     @pytest.mark.positive
-    def test_select_date(self, driver):
+    def test_select_date(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_date_picker()
 
@@ -122,13 +123,13 @@ class TestDatePicker:
     @allure.title("User can select date and time")
     @allure.description("Verifies that a date and time can be selected successfully.")
     @pytest.mark.positive
-    def test_select_date_and_time(self, driver):
+    def test_select_date_and_time(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_date_picker()
 
@@ -142,13 +143,13 @@ class TestDatePicker:
     @allure.title("Time options are displayed")
     @allure.description("Verifies that time options are available in the picker.")
     @pytest.mark.positive
-    def test_time_options_visible(self, driver):
+    def test_time_options_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = DatePickerPage(driver)
 
         with allure.step("Open Date Picker page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_date_picker()
 

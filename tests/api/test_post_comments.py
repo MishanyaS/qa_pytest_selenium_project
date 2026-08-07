@@ -36,7 +36,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_create_comment_status_code(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert response.status_code == 201
@@ -50,7 +50,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_created_comment_schema(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         validate(instance=response.json(), schema=CREATE_COMMENT_RESPONSE_SCHEMA)
@@ -59,7 +59,9 @@ class TestCreateComments:
     @allure.title("Returned body equals sent body")
     @allure.description("Verifies that the returned body matches the submitted value.")
     @pytest.mark.positive
-    def test_created_body(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_created_body(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert response.json()["body"] == comment_payload["body"]
@@ -70,7 +72,9 @@ class TestCreateComments:
         "Verifies that the returned postId matches the submitted value."
     )
     @pytest.mark.positive
-    def test_created_post_id(self, client: ApiClient, comment_payload: dict[str, Any]):
+    def test_created_post_id(
+        self, client: ApiClient, comment_payload: dict[str, Any]
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert response.json()["postId"] == comment_payload["postId"]
@@ -81,7 +85,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_created_comment_id_type(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert isinstance(response.json()["id"], int)
@@ -93,7 +97,7 @@ class TestCreateComments:
     )
     @pytest.mark.schema
     @pytest.mark.positive
-    def test_comment_payload_schema(self, comment_payload: dict[str, Any]):
+    def test_comment_payload_schema(self, comment_payload: dict[str, Any]) -> None:
         validate(instance=comment_payload, schema=CREATE_COMMENT_SCHEMA)
 
     @allure.story("Validation")
@@ -104,7 +108,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_required_fields_exist(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         data = response.json()
@@ -119,7 +123,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_comment_id_positive(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert response.json()["id"] > 0
@@ -132,7 +136,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_returned_field_types(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         data = response.json()
@@ -160,7 +164,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_create_comment_with_various_post_ids(
         self, client: ApiClient, faker: Faker, post_id: int
-    ):
+    ) -> None:
         payload = {
             "body": faker.sentence(nb_words=200),
             "postId": post_id,
@@ -191,7 +195,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_create_comment_body_lengths(
         self, client: ApiClient, faker: Faker, length: int
-    ):
+    ) -> None:
         payload = {
             "body": faker.sentence(nb_words=length),
             "postId": 1,
@@ -206,7 +210,9 @@ class TestCreateComments:
     @allure.title("Create comment without postId")
     @allure.description("Verifies API behavior when postId has invalid format.")
     @pytest.mark.negative
-    def test_create_comment_without_post_id(self, client: ApiClient, faker: Faker):
+    def test_create_comment_without_post_id(
+        self, client: ApiClient, faker: Faker
+    ) -> None:
         payload = {
             "postId": faker.text(),
             "userId": 1,
@@ -220,7 +226,9 @@ class TestCreateComments:
     @allure.title("Create comment without userId")
     @allure.description("Verifies API behavior when userId is missing.")
     @pytest.mark.negative
-    def test_create_comment_without_user_id(self, client: ApiClient, faker: Faker):
+    def test_create_comment_without_user_id(
+        self, client: ApiClient, faker: Faker
+    ) -> None:
         payload = {
             "body": faker.text(),
             "postId": 1,
@@ -234,7 +242,7 @@ class TestCreateComments:
     @allure.title("Create empty comment")
     @allure.description("Verifies API behavior when an empty payload is submitted.")
     @pytest.mark.negative
-    def test_create_empty_comment(self, client: ApiClient):
+    def test_create_empty_comment(self, client: ApiClient) -> None:
 
         response = self._create_comment(client, {})
 
@@ -246,7 +254,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_response_content_type(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert "application/json" in response.headers["Content-Type"]
@@ -259,7 +267,7 @@ class TestCreateComments:
     @pytest.mark.slow
     def test_comment_creation_response_time(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_comment(client, comment_payload)
 
         assert response.elapsed.total_seconds() < 2
@@ -271,7 +279,7 @@ class TestCreateComments:
     )
     @pytest.mark.boundary
     @pytest.mark.positive
-    def test_comment_min_body(self, client: ApiClient):
+    def test_comment_min_body(self, client: ApiClient) -> None:
         payload = {
             "body": "A",
             "postId": 1,
@@ -289,7 +297,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_create_comment_step_by_step(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         with allure.step("Send POST request"):
             response = self._create_comment(client, comment_payload)
             data = response.json()
@@ -315,7 +323,7 @@ class TestCreateComments:
     @pytest.mark.positive
     def test_response_headers_step_by_step(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         with allure.step("Send POST request"):
             response = self._create_comment(client, comment_payload)
 
@@ -328,7 +336,7 @@ class TestCreateComments:
     @pytest.mark.slow
     def test_comment_response_time_step_by_step(
         self, client: ApiClient, comment_payload: dict[str, Any]
-    ):
+    ) -> None:
         with allure.step("Send POST request"):
             response = self._create_comment(client, comment_payload)
 

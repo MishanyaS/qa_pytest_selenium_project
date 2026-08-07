@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.alerts_frames_page import AlertsFramesPage
 from pages.browser_windows_page import BrowserWindowsPage
@@ -20,13 +21,13 @@ class TestBrowserWindows:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_browser_windows(self, driver):
+    def test_open_browser_windows(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         browser_windows_page = BrowserWindowsPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Alerts, Frame & Windows section"):
             home_page.open_alerts_frame_windows()
@@ -42,13 +43,13 @@ class TestBrowserWindows:
     @allure.description("Verifies that all Browser Windows controls are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_browser_windows_elements_visible(self, driver):
+    def test_browser_windows_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -67,13 +68,13 @@ class TestBrowserWindows:
         "Verifies that clicking the New Tab button opens a new browser tab without closing the original browser window."
     )
     @pytest.mark.positive
-    def test_open_new_tab_creates_new_window_handle(self, driver):
+    def test_open_new_tab_creates_new_window_handle(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -98,13 +99,13 @@ class TestBrowserWindows:
         "Verifies that the new tab opened by the New Tab button displays the expected DemoQA simple page."
     )
     @pytest.mark.positive
-    def test_new_tab_contains_sample_heading(self, driver):
+    def test_new_tab_contains_sample_heading(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -126,13 +127,13 @@ class TestBrowserWindows:
         "Verifies that clicking the New Window button opens a new browser window without closing the original browser window."
     )
     @pytest.mark.positive
-    def test_open_new_window_creates_new_window_handle(self, driver):
+    def test_open_new_window_creates_new_window_handle(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -157,13 +158,13 @@ class TestBrowserWindows:
         "Verifies that the new browser window opened by the New Window button displays the expected DemoQA sample page."
     )
     @pytest.mark.positive
-    def test_new_window_contains_sample_heading(self, driver):
+    def test_new_window_contains_sample_heading(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -185,13 +186,13 @@ class TestBrowserWindows:
         "Verifies that the browser switches to the newly opened tab after the New Tab button is clicked."
     )
     @pytest.mark.positive
-    def test_new_tab_becomes_current_window(self, driver):
+    def test_new_tab_becomes_current_window(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -216,13 +217,13 @@ class TestBrowserWindows:
         "Verifies that the user can return from the newly opened tab to the original Browser Windows page."
     )
     @pytest.mark.positive
-    def test_switch_back_to_original_window(self, driver):
+    def test_switch_back_to_original_window(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -239,7 +240,7 @@ class TestBrowserWindows:
             assert page.sample_heading_visible()
 
         with allure.step("Switch back to original window"):
-            page.switch_to_window(0)
+            page.switch_to_window_handle(original_handle)
 
         with allure.step("Verify original window is active"):
             assert page.current_window_handle() == original_handle
@@ -255,13 +256,13 @@ class TestBrowserWindows:
         "Verifies that the newly opened browser window can be closed and that the original browser window remains available."
     )
     @pytest.mark.positive
-    def test_close_new_window(self, driver):
+    def test_close_new_window(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = BrowserWindowsPage(driver)
 
         with allure.step("Open Browser Windows page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_browser_windows()
 
@@ -284,7 +285,7 @@ class TestBrowserWindows:
             page.close_current_window()
 
         with allure.step("Switch back to original window"):
-            page.switch_to_window(0)
+            page.switch_to_window_handle(original_handle)
 
         with allure.step("Verify original window is active"):
             assert page.current_window_handle() == original_handle

@@ -60,7 +60,7 @@ class BookStorePage(BasePage):
         self.clear(self.SEARCH_BOX)
 
     def search_value(self) -> str:
-        return self.attribute(self.SEARCH_BOX, "value")
+        return self.attribute(self.SEARCH_BOX, "value") or ""
 
     def open_first_book(self) -> None:
         self.click(self.FIRST_BOOK)

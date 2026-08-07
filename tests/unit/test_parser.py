@@ -1,3 +1,5 @@
+from typing import Any
+
 import allure
 import pytest
 
@@ -9,7 +11,7 @@ from utils.parser import get_value, key_exists, nested_value
 @pytest.mark.unit
 class TestParser:
     @pytest.fixture(scope="function")
-    def nested_data(self) -> dict:
+    def nested_data(self) -> dict[str, Any]:
         return {
             "user": {
                 "profile": {
@@ -25,7 +27,7 @@ class TestParser:
         "Verifies that get_value() returns the value for an existing key."
     )
     @pytest.mark.positive
-    def test_get_value(self):
+    def test_get_value(self) -> None:
         data = {
             "name": "John",
             "age": 25,
@@ -37,14 +39,14 @@ class TestParser:
     @allure.title("Returns integer value")
     @allure.description("Verifies that get_value() returns an integer value.")
     @pytest.mark.positive
-    def test_get_integer(self):
+    def test_get_integer(self) -> None:
         assert get_value({"id": 10}, "id") == 10
 
     @allure.story("get_value")
     @allure.title("Returns nested object")
     @allure.description("Verifies that get_value() returns a nested object.")
     @pytest.mark.positive
-    def test_get_nested_object(self):
+    def test_get_nested_object(self) -> None:
         user = {
             "id": 1,
         }
@@ -60,7 +62,7 @@ class TestParser:
     @allure.description("Verifies that get_value() raises KeyError for a missing key.")
     @pytest.mark.negative
     @pytest.mark.boundary
-    def test_get_missing_key(self):
+    def test_get_missing_key(self) -> None:
         with pytest.raises(KeyError):
             get_value({}, "missing")
 
@@ -71,21 +73,21 @@ class TestParser:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_get_none_value(self):
+    def test_get_none_value(self) -> None:
         assert get_value({"value": None}, "value") is None
 
     @allure.story("key_exists")
     @allure.title("Returns True when key exists")
     @allure.description("Verifies that key_exists() returns True for an existing key.")
     @pytest.mark.positive
-    def test_key_exists(self):
+    def test_key_exists(self) -> None:
         assert key_exists({"a": 1}, "a") is True
 
     @allure.story("key_exists")
     @allure.title("Returns False when key missing")
     @allure.description("Verifies that key_exists() returns False for a missing key.")
     @pytest.mark.positive
-    def test_key_exists_false(self):
+    def test_key_exists_false(self) -> None:
         assert key_exists({"a": 1}, "b") is False
 
     @allure.story("key_exists")
@@ -95,7 +97,7 @@ class TestParser:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_key_exists_empty_dict(self):
+    def test_key_exists_empty_dict(self) -> None:
         assert key_exists({}, "a") is False
 
     @allure.story("key_exists")
@@ -103,7 +105,7 @@ class TestParser:
     @allure.description("Verifies that a key with a None value is treated as existing.")
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_key_exists_none_value(self):
+    def test_key_exists_none_value(self) -> None:
         assert key_exists({"a": None}, "a") is True
 
     @allure.story("key_exists")
@@ -122,7 +124,7 @@ class TestParser:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_key_exists_parametrize(self, key: str, expected: bool):
+    def test_key_exists_parametrize(self, key: str, expected: bool) -> None:
         data = {
             "id": 1,
             "name": "John",
@@ -134,14 +136,14 @@ class TestParser:
     @allure.title("Returns nested string")
     @allure.description("Verifies that nested_value() returns a nested string value.")
     @pytest.mark.positive
-    def test_nested_string(self, nested_data: dict):
+    def test_nested_string(self, nested_data: dict[str, Any]) -> None:
         assert nested_value(nested_data, "user", "profile", "name") == "John"
 
     @allure.story("nested_value")
     @allure.title("Returns nested integer")
     @allure.description("Verifies that nested_value() returns a nested integer value.")
     @pytest.mark.positive
-    def test_nested_integer(self, nested_data: dict):
+    def test_nested_integer(self, nested_data: dict[str, Any]) -> None:
         assert nested_value(nested_data, "user", "profile", "age") == 30
 
     @allure.story("nested_value")
@@ -150,7 +152,7 @@ class TestParser:
         "Verifies that nested_value() returns an intermediate dictionary."
     )
     @pytest.mark.positive
-    def test_nested_dictionary(self, nested_data: dict):
+    def test_nested_dictionary(self, nested_data: dict[str, Any]) -> None:
         result = nested_value(nested_data, "user")
 
         assert isinstance(result, dict)
@@ -162,7 +164,7 @@ class TestParser:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_nested_without_keys(self, nested_data: dict):
+    def test_nested_without_keys(self, nested_data: dict[str, Any]) -> None:
         assert nested_value(nested_data) == nested_data
 
     @allure.story("nested_value")
@@ -171,7 +173,7 @@ class TestParser:
         "Verifies that nested_value() raises KeyError for a missing first-level key."
     )
     @pytest.mark.negative
-    def test_nested_missing_first_key(self, nested_data: dict):
+    def test_nested_missing_first_key(self, nested_data: dict[str, Any]) -> None:
         with pytest.raises(KeyError):
             nested_value(nested_data, "account")
 
@@ -181,7 +183,7 @@ class TestParser:
         "Verifies that nested_value() raises KeyError for a missing nested key."
     )
     @pytest.mark.negative
-    def test_nested_missing_inner_key(self, nested_data: dict):
+    def test_nested_missing_inner_key(self, nested_data: dict[str, Any]) -> None:
         with pytest.raises(KeyError):
             nested_value(nested_data, "user", "address")
 
@@ -191,7 +193,7 @@ class TestParser:
         "Verifies that nested_value() raises KeyError for a missing final key."
     )
     @pytest.mark.negative
-    def test_nested_missing_last_value(self, nested_data: dict):
+    def test_nested_missing_last_value(self, nested_data: dict[str, Any]) -> None:
         with pytest.raises(KeyError):
             nested_value(nested_data, "user", "profile", "city")
 
@@ -201,7 +203,7 @@ class TestParser:
         "Verifies that nested_value() returns None for an existing key with a None value."
     )
     @pytest.mark.positive
-    def test_nested_none_value(self):
+    def test_nested_none_value(self) -> None:
         data = {
             "user": {
                 "address": None,
@@ -214,7 +216,7 @@ class TestParser:
     @allure.title("Works with boolean value")
     @allure.description("Verifies that nested_value() returns a boolean value.")
     @pytest.mark.positive
-    def test_nested_boolean(self):
+    def test_nested_boolean(self) -> None:
         data = {
             "settings": {
                 "enabled": True,

@@ -71,7 +71,7 @@ class AccordionPage(BasePage):
         self._wait_for_section_content(self.SECTION_3_HEADING, self.SECTION_3_CONTENT)
 
     def _wait_for_section_content(
-        self, heading_locator: tuple[By, str], content_locator: tuple[By, str]
+        self, heading_locator: tuple[str, str], content_locator: tuple[str, str]
     ) -> None:
         self.wait.until(
             lambda _: (

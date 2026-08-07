@@ -161,7 +161,7 @@ class WebTablesPage(BasePage):
         self.wait.until(lambda driver: len(driver.find_elements(*self.TABLE_ROWS)) == 3)
 
     def search_value(self) -> str:
-        return self.attribute(self.SEARCH_INPUT, "value")
+        return self.attribute(self.SEARCH_INPUT, "value") or ""
 
     def table(self) -> WebElement:
         return self.wait.until(EC.visibility_of_element_located(self.TABLE))

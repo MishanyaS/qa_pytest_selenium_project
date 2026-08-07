@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.interactions_page import InteractionsPage
@@ -20,13 +21,13 @@ class TestSelectable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_selectable(self, driver):
+    def test_open_selectable(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         selectable_page = SelectablePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Interactions section"):
             home_page.open_interactions()
@@ -42,13 +43,13 @@ class TestSelectable:
     @allure.description("Verifies that all selectable items are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_selectable_items_visible(self, driver):
+    def test_selectable_items_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SelectablePage(driver)
 
         with allure.step("Open Selectable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_selectable()
 
@@ -62,7 +63,7 @@ class TestSelectable:
     @allure.title("Selectable items have correct names")
     @allure.description("Verifies that selectable items contain expected text.")
     @pytest.mark.positive
-    def test_selectable_items_text(self, driver):
+    def test_selectable_items_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SelectablePage(driver)
@@ -75,7 +76,7 @@ class TestSelectable:
         ]
 
         with allure.step("Open Selectable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_selectable()
 
@@ -86,13 +87,13 @@ class TestSelectable:
     @allure.title("Selectable item can be selected")
     @allure.description("Verifies that a selectable item can be selected.")
     @pytest.mark.positive
-    def test_select_item(self, driver):
+    def test_select_item(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SelectablePage(driver)
 
         with allure.step("Open Selectable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_selectable()
 
@@ -106,13 +107,13 @@ class TestSelectable:
     @allure.title("Selectable item count is correct")
     @allure.description("Verifies that one selected item is reported.")
     @pytest.mark.positive
-    def test_selected_items_count(self, driver):
+    def test_selected_items_count(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SelectablePage(driver)
 
         with allure.step("Open Selectable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_selectable()
 
@@ -126,13 +127,13 @@ class TestSelectable:
     @allure.title("Selectable item text correct")
     @allure.description("Verifies that the selected item text is returned.")
     @pytest.mark.positive
-    def test_selected_items_text(self, driver):
+    def test_selected_items_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SelectablePage(driver)
 
         with allure.step("Open Selectable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_selectable()
 
@@ -146,13 +147,13 @@ class TestSelectable:
     @allure.title("Selection can be cleared")
     @allure.description("Verifies that selected items can be unselected.")
     @pytest.mark.positive
-    def test_clear_selection(self, driver):
+    def test_clear_selection(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SelectablePage(driver)
 
         with allure.step("Open Selectable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_selectable()
 

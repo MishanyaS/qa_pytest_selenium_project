@@ -19,7 +19,7 @@ class TestDeletePosts:
     @allure.description("Verifies that deleting an existing post returns HTTP 200.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_delete_post_status_code(self, client: ApiClient):
+    def test_delete_post_status_code(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert response.status_code == 200
@@ -28,7 +28,7 @@ class TestDeletePosts:
     @allure.title("Response is JSON")
     @allure.description("Verifies that the DELETE response is returned in JSON format.")
     @pytest.mark.positive
-    def test_response_is_json(self, client: ApiClient):
+    def test_response_is_json(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert response.headers["Content-Type"].startswith("application/json")
@@ -39,7 +39,7 @@ class TestDeletePosts:
         "Verifies that the deleted post response contains the id field."
     )
     @pytest.mark.positive
-    def test_deleted_post_has_id(self, client: ApiClient):
+    def test_deleted_post_has_id(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert "id" in response.json()
@@ -48,7 +48,7 @@ class TestDeletePosts:
     @allure.title("Deleted id equals requested id")
     @allure.description("Verifies that the returned post id matches the requested id.")
     @pytest.mark.positive
-    def test_deleted_id_matches(self, client: ApiClient):
+    def test_deleted_id_matches(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert response.json()["id"] == 1
@@ -57,7 +57,7 @@ class TestDeletePosts:
     @allure.title("Deleted flag exists")
     @allure.description("Verifies that the response contains the deletion flag.")
     @pytest.mark.positive
-    def test_deleted_flag_exists(self, client: ApiClient):
+    def test_deleted_flag_exists(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert "isDeleted" in response.json()
@@ -66,7 +66,7 @@ class TestDeletePosts:
     @allure.title("Deleted is True")
     @allure.description("Verifies that the deleted flag is set to True.")
     @pytest.mark.positive
-    def test_deleted_flag_true(self, client: ApiClient):
+    def test_deleted_flag_true(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert response.json()["isDeleted"] is True
@@ -75,7 +75,7 @@ class TestDeletePosts:
     @allure.title("Returned id is integer")
     @allure.description("Verifies that the returned post id has integer type.")
     @pytest.mark.positive
-    def test_deleted_id_type(self, client: ApiClient):
+    def test_deleted_id_type(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert isinstance(response.json()["id"], int)
@@ -96,7 +96,7 @@ class TestDeletePosts:
         ],
     )
     @pytest.mark.positive
-    def test_delete_various_posts(self, client: ApiClient, post_id: int):
+    def test_delete_various_posts(self, client: ApiClient, post_id: int) -> None:
         response = self._delete_post(client, post_id)
 
         data = response.json()
@@ -109,7 +109,7 @@ class TestDeletePosts:
     @allure.title("Unknown endpoint returns 404")
     @allure.description("Verifies that an unknown endpoint returns HTTP 404.")
     @pytest.mark.negative
-    def test_unknown_endpoint(self, client: ApiClient):
+    def test_unknown_endpoint(self, client: ApiClient) -> None:
         response = client.delete("/posts123/1")
 
         assert response.status_code == 404
@@ -118,7 +118,7 @@ class TestDeletePosts:
     @allure.title("Unknown post id")
     @allure.description("Verifies the API behavior when deleting a non-existent post.")
     @pytest.mark.negative
-    def test_unknown_post_id(self, client: ApiClient):
+    def test_unknown_post_id(self, client: ApiClient) -> None:
         response = self._delete_post(client, 999999)
 
         assert response.status_code in (200, 404)
@@ -130,7 +130,7 @@ class TestDeletePosts:
     )
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_response_time(self, client: ApiClient):
+    def test_response_time(self, client: ApiClient) -> None:
         response = self._delete_post(client, 1)
 
         assert response.elapsed.total_seconds() < 2
@@ -151,7 +151,7 @@ class TestDeletePosts:
         ],
     )
     @pytest.mark.positive
-    def test_delete_multiple_posts(self, client: ApiClient, post_id: int):
+    def test_delete_multiple_posts(self, client: ApiClient, post_id: int) -> None:
         response = self._delete_post(client, post_id)
 
         data = response.json()

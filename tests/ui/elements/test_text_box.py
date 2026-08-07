@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import allure
 import pytest
+from faker import Faker
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
@@ -20,13 +22,13 @@ class TestTextBox:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_text_box(self, driver):
+    def test_open_text_box(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         text_box_page = TextBoxPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -44,13 +46,13 @@ class TestTextBox:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_text_box_form_fields_visible(self, driver):
+    def test_text_box_form_fields_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -79,7 +81,7 @@ class TestTextBox:
         "Verifies that the Full Name input accepts and stores the entered value."
     )
     @pytest.mark.positive
-    def test_enter_full_name(self, driver, faker):
+    def test_enter_full_name(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -87,7 +89,7 @@ class TestTextBox:
         full_name = faker.name()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -103,7 +105,7 @@ class TestTextBox:
         "Verifies that the Email input accepts and stores a valid email address."
     )
     @pytest.mark.positive
-    def test_enter_email(self, driver, faker):
+    def test_enter_email(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -111,7 +113,7 @@ class TestTextBox:
         email = faker.email()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -127,7 +129,7 @@ class TestTextBox:
         "Verifies that the Current Address textarea accepts and stores the entered value."
     )
     @pytest.mark.positive
-    def test_enter_current_address(self, driver, faker):
+    def test_enter_current_address(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -135,7 +137,7 @@ class TestTextBox:
         current_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -151,7 +153,7 @@ class TestTextBox:
         "Verifies that the Permanent Address textarea accepts and stores the entered value."
     )
     @pytest.mark.positive
-    def test_enter_permanent_address(self, driver, faker):
+    def test_enter_permanent_address(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -159,7 +161,7 @@ class TestTextBox:
         permanent_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -175,7 +177,7 @@ class TestTextBox:
         "Verifies that all Text Box fields can be populated with valid data."
     )
     @pytest.mark.positive
-    def test_fill_form(self, driver, faker):
+    def test_fill_form(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -186,7 +188,7 @@ class TestTextBox:
         permanent_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -216,7 +218,7 @@ class TestTextBox:
         "Verifies that submitting the Text Box form displays the output section with entered data."
     )
     @pytest.mark.positive
-    def test_submitted_data_is_displayed(self, driver, faker):
+    def test_submitted_data_is_displayed(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -227,7 +229,7 @@ class TestTextBox:
         permanent_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -271,7 +273,9 @@ class TestTextBox:
         "Verifies that each submitted field is displayed with the correct value in the output section."
     )
     @pytest.mark.positive
-    def test_submitted_data_is_displayed_correctly(self, driver, faker):
+    def test_submitted_data_is_displayed_correctly(
+        self, driver: WebDriver, faker: Faker
+    ) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -282,7 +286,7 @@ class TestTextBox:
         permanent_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -331,7 +335,7 @@ class TestTextBox:
         "Verifies that an invalid email value makes the Email input Invalid according to the browser HTML5 constraint validation."
     )
     @pytest.mark.negative
-    def test_invalid_email(self, driver):
+    def test_invalid_email(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -339,7 +343,7 @@ class TestTextBox:
         invalid_email = "invalid-email"
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -362,7 +366,7 @@ class TestTextBox:
         "Verifies that a correctly formatted email is considered valid by browser HTML5 constraint validation."
     )
     @pytest.mark.positive
-    def test_valid_email(self, driver, faker):
+    def test_valid_email(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -370,7 +374,7 @@ class TestTextBox:
         valid_email = faker.email()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -393,13 +397,13 @@ class TestTextBox:
         "Verifies that an empty Email field is considered valid because the DemoQA Email input is not marked as required."
     )
     @pytest.mark.positive
-    def test_empty_email(self, driver):
+    def test_empty_email(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -422,7 +426,7 @@ class TestTextBox:
         "Verifies that the Text Box form accepts valid input and displays the output section after submission."
     )
     @pytest.mark.positive
-    def test_submit_valid_form(self, driver, faker):
+    def test_submit_valid_form(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -433,7 +437,7 @@ class TestTextBox:
         permanent_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 
@@ -454,7 +458,7 @@ class TestTextBox:
         "Verifies that entered values can be cleared from all Text Box form fields."
     )
     @pytest.mark.positive
-    def test_clear_form_fields(self, driver, faker):
+    def test_clear_form_fields(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = TextBoxPage(driver)
@@ -465,7 +469,7 @@ class TestTextBox:
         permanent_address = faker.address()
 
         with allure.step("Open Text Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_text_box()
 

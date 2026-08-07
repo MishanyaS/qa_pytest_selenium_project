@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
@@ -20,13 +23,13 @@ class TestUploadDownload:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_upload_download(self, driver):
+    def test_open_upload_download(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         upload_and_download_page = UploadDownloadPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -44,13 +47,13 @@ class TestUploadDownload:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_upload_download_elements_visible(self, driver):
+    def test_upload_download_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = UploadDownloadPage(driver)
 
         with allure.step("Open Upload and Download page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_upload_download()
 
@@ -66,13 +69,13 @@ class TestUploadDownload:
         "Verifies that the Download link contains a non-empty destination URL."
     )
     @pytest.mark.positive
-    def test_download_href(self, driver):
+    def test_download_href(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = UploadDownloadPage(driver)
 
         with allure.step("Open Upload and Download page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_upload_download()
 
@@ -89,13 +92,13 @@ class TestUploadDownload:
         "Verifies that the Download link can be clicked without errors."
     )
     @pytest.mark.positive
-    def test_download_file(self, driver):
+    def test_download_file(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = UploadDownloadPage(driver)
 
         with allure.step("Open Upload and Download page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_upload_download()
 
@@ -117,7 +120,7 @@ class TestUploadDownload:
         "Verifies that a file can be selected through the Upload file input and that the uploaded file path is displayed."
     )
     @pytest.mark.positive
-    def test_upload_file(self, driver, tmp_path):
+    def test_upload_file(self, driver: WebDriver, tmp_path: Path) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = UploadDownloadPage(driver)
@@ -127,7 +130,7 @@ class TestUploadDownload:
         file_path.write_text("DemoQA upload test file", encoding="utf-8")
 
         with allure.step("Open Upload and Download page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_upload_download()
 
@@ -149,7 +152,7 @@ class TestUploadDownload:
         "Verifies that the file name displayed after upload matches the selected file name."
     )
     @pytest.mark.positive
-    def test_uploaded_file_name(self, driver, tmp_path):
+    def test_uploaded_file_name(self, driver: WebDriver, tmp_path: Path) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = UploadDownloadPage(driver)
@@ -159,7 +162,7 @@ class TestUploadDownload:
         file_path.write_text("Upload test content", encoding="utf-8")
 
         with allure.step("Open Upload and Download page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_upload_download()
 
@@ -185,7 +188,9 @@ class TestUploadDownload:
             "report.txt",
         ],
     )
-    def test_uploaded_different_files(self, driver, tmp_path, file_name):
+    def test_uploaded_different_files(
+        self, driver: WebDriver, tmp_path: Path, file_name: str
+    ) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = UploadDownloadPage(driver)
@@ -194,7 +199,7 @@ class TestUploadDownload:
         file_path.write_text("DemoQA upload test content", encoding="utf-8")
 
         with allure.step("Open Upload and Download page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_upload_download()
 

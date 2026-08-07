@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestLinks:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_links(self, driver):
+    def test_open_links(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         links_page = LinkPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -44,13 +45,13 @@ class TestLinks:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_links_are_visible(self, driver):
+    def test_links_are_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -87,13 +88,13 @@ class TestLinks:
         "Verifies that clicking the Home link opens the DemoQA home page in a new browser tab."
     )
     @pytest.mark.positive
-    def test_home_links(self, driver):
+    def test_home_links(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -123,17 +124,16 @@ class TestLinks:
         "Verifies that clicking the dynamically generated Home link opens the DemoQA home page in a new browser tab."
     )
     @pytest.mark.positive
-    def test_dynamic_home_links(self, driver):
+    def test_dynamic_home_links(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
-        original_window = driver.current_window_handle
         original_windows = driver.window_handles
 
         with allure.step("Click Dynamic Home link"):
@@ -145,10 +145,7 @@ class TestLinks:
             )
 
         with allure.step("Switch to new browser tab"):
-            new_window = next(
-                window for window in driver.window_handles if window != original_window
-            )
-            driver.switch_to.window(new_window)
+            driver.switch_to.window(driver.window_handles[-1])
 
         with allure.step("Verify DemoQA home page URL"):
             assert driver.current_url == "https://demoqa.com/"
@@ -159,13 +156,13 @@ class TestLinks:
         "Verifies that clicking the Created link displays a successful HTTP 201 Created response."
     )
     @pytest.mark.positive
-    def test_created_link(self, driver):
+    def test_created_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -184,13 +181,13 @@ class TestLinks:
         "Verifies that clicking the No Content link displays an HTTP 204 No Content response."
     )
     @pytest.mark.positive
-    def test_no_content_link(self, driver):
+    def test_no_content_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -209,13 +206,13 @@ class TestLinks:
         "Verifies that clicking the Moved link displays an HTTP 301 Moved response."
     )
     @pytest.mark.positive
-    def test_moved_link(self, driver):
+    def test_moved_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -234,13 +231,13 @@ class TestLinks:
         "Verifies that clicking the Bad Request link displays an HTTP 400 Bad Request response."
     )
     @pytest.mark.positive
-    def test_bad_request_link(self, driver):
+    def test_bad_request_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -259,13 +256,13 @@ class TestLinks:
         "Verifies that clicking the Unauthorized link displays an HTTP 401 Unauthorized response."
     )
     @pytest.mark.positive
-    def test_unauthorized_link(self, driver):
+    def test_unauthorized_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -284,13 +281,13 @@ class TestLinks:
         "Verifies that clicking the Forbidden link displays an HTTP 403 Forbidden response."
     )
     @pytest.mark.positive
-    def test_forbidden_link(self, driver):
+    def test_forbidden_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -309,13 +306,13 @@ class TestLinks:
         "Verifies that clicking the Not Found link displays an HTTP 404 Not Found response."
     )
     @pytest.mark.positive
-    def test_not_found_link(self, driver):
+    def test_not_found_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 
@@ -334,13 +331,13 @@ class TestLinks:
         "Verifies that all HTTP response links display their expected HTTP status code."
     )
     @pytest.mark.positive
-    def test_all_response_links(self, driver):
+    def test_all_response_links(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = LinkPage(driver)
 
         with allure.step("Open Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_links()
 

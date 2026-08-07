@@ -65,22 +65,22 @@ class WidgetsPage(BasePage):
         self.click_with_fallback(self.SELECT_MENU_SECTION)
 
     def accordion_visible(self) -> bool:
-        return self.is_visible(self.ACCORDION_ITEM)
+        return self.is_visible(self.ACCORDION_SECTION)
 
     def auto_complete_visible(self) -> bool:
-        return self.is_visible(self.AUTO_COMPLETE_ITEM)
+        return self.is_visible(self.AUTO_COMPLETE_SECTION)
 
     def date_picker_visible(self) -> bool:
-        return self.is_visible(self.DATE_PICKER_ITEM)
+        return self.is_visible(self.DATE_PICKER_SECTION)
 
     def slider_visible(self) -> bool:
-        return self.is_visible(self.SLIDER_ITEM)
+        return self.is_visible(self.SLIDER_SECTION)
 
     def progress_bar_visible(self) -> bool:
-        return self.is_visible(self.PROGRESS_BAR_ITEM)
+        return self.is_visible(self.PROGRESS_BAR_SECTION)
 
     def tabs_visible(self) -> bool:
-        return self.is_visible(self.TABS_ITEM)
+        return self.is_visible(self.TABS_SECTION)
 
     def tool_tips_visible(self) -> bool:
         return self.is_visible(self.TOOL_TIPS_SECTION)

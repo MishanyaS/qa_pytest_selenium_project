@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.alerts_frames_page import AlertsFramesPage
@@ -21,13 +22,13 @@ class TestModalDialogs:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_modal_dialogs(self, driver):
+    def test_open_modal_dialogs(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         modal_dialogs_page = ModalDialogsPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Alerts, Frame & Windows section"):
             home_page.open_alerts_frame_windows()
@@ -45,13 +46,13 @@ class TestModalDialogs:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_modal_dialog_controls_visible(self, driver):
+    def test_modal_dialog_controls_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = ModalDialogsPage(driver)
 
         with allure.step("Open Modal Dialogs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_modal_dialogs()
 
@@ -67,13 +68,13 @@ class TestModalDialogs:
         "Verifies that clicking the Small Modal button opens the modal dialog."
     )
     @pytest.mark.positive
-    def test_open_small_modal(self, driver):
+    def test_open_small_modal(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = ModalDialogsPage(driver)
 
         with allure.step("Open Modal Dialogs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_modal_dialogs()
 
@@ -95,13 +96,13 @@ class TestModalDialogs:
         "Verifies that the Small Modal contains the expected title and non-empty body content."
     )
     @pytest.mark.positive
-    def test_small_modal_content(self, driver):
+    def test_small_modal_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = ModalDialogsPage(driver)
 
         with allure.step("Open Modal Dialogs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_modal_dialogs()
 
@@ -130,13 +131,13 @@ class TestModalDialogs:
         "Verifies that clicking the Large Modal button opens the modal dialog."
     )
     @pytest.mark.positive
-    def test_open_large_modal(self, driver):
+    def test_open_large_modal(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = ModalDialogsPage(driver)
 
         with allure.step("Open Modal Dialogs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_modal_dialogs()
 
@@ -158,13 +159,13 @@ class TestModalDialogs:
         "Verifies that the Large Modal contains the expected title and non-empty body content."
     )
     @pytest.mark.positive
-    def test_large_modal_content(self, driver):
+    def test_large_modal_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = ModalDialogsPage(driver)
 
         with allure.step("Open Modal Dialogs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_modal_dialogs()
 
@@ -193,13 +194,15 @@ class TestModalDialogs:
         "Verifies that the Small Modal and Large Modal provide different dialog content."
     )
     @pytest.mark.positive
-    def test_small_and_large_modal_content_is_different(self, driver):
+    def test_small_and_large_modal_content_is_different(
+        self, driver: WebDriver
+    ) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         page = ModalDialogsPage(driver)
 
         with allure.step("Open Modal Dialogs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_modal_dialogs()
 

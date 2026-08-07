@@ -21,8 +21,12 @@ class SliderPage(BasePage):
     def slider_value_visible(self) -> bool:
         return self.is_visible(self.SLIDER_VALUE)
 
-    def slider_value(self) -> str | None:
-        return self.attribute(self.SLIDER, "value")
+    def slider_value(self) -> str:
+        value = self.attribute(self.SLIDER, "value")
+
+        assert value is not None
+
+        return value
 
     def slider_value_text(self) -> str:
         return self.text(self.SLIDER_VALUE)

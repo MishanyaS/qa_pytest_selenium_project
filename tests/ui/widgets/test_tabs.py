@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.tabs_page import TabsPage
@@ -20,13 +21,13 @@ class TestTabs:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_tabs(self, driver):
+    def test_open_tabs(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         tabs_page = TabsPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -42,13 +43,13 @@ class TestTabs:
     @allure.description("Verifies that all available tabs are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_tabs_visible(self, driver):
+    def test_tabs_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 
@@ -71,13 +72,13 @@ class TestTabs:
     @allure.title("What tab is active by default")
     @allure.description("Verifies that the What tab is avtive after opening the page.")
     @pytest.mark.positive
-    def test_default_active_tab(self, driver):
+    def test_default_active_tab(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 
@@ -94,13 +95,13 @@ class TestTabs:
     @allure.title("What tab content is displayed")
     @allure.description("Verifies that the What tab displays its content.")
     @pytest.mark.positive
-    def test_what_tab_content(self, driver):
+    def test_what_tab_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 
@@ -117,13 +118,13 @@ class TestTabs:
     @allure.title("Origin tab content is displayed")
     @allure.description("Verifies that the Origin tab displays its content.")
     @pytest.mark.positive
-    def test_origin_tab_content(self, driver):
+    def test_origin_tab_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 
@@ -145,13 +146,13 @@ class TestTabs:
     @allure.title("Use tab content is displayed")
     @allure.description("Verifies that the Use tab displays its content.")
     @pytest.mark.positive
-    def test_use_tab_content(self, driver):
+    def test_use_tab_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 
@@ -173,13 +174,13 @@ class TestTabs:
     @allure.title("More tab content is disabled")
     @allure.description("Verifies that the More tab is disabled.")
     @pytest.mark.positive
-    def test_more_tab_disabled(self, driver):
+    def test_more_tab_disabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 
@@ -193,13 +194,13 @@ class TestTabs:
     @allure.title("Tab switching works correctly")
     @allure.description("Verifies that switching between tabs changes the active tab.")
     @pytest.mark.positive
-    def test_switch_tabs(self, driver):
+    def test_switch_tabs(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = TabsPage(driver)
 
         with allure.step("Open Tabs page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tabs()
 

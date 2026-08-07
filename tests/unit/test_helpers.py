@@ -15,14 +15,14 @@ class TestHelpers:
     @allure.title("Returns string")
     @allure.description("Verifies that random_string() returns a string.")
     @pytest.mark.positive
-    def test_random_string_type(self):
+    def test_random_string_type(self) -> None:
         assert isinstance(random_string(), str)
 
     @allure.story("random_string")
     @allure.title("Default length is 10")
     @allure.description("Verifies that the default string length is 10 characters.")
     @pytest.mark.positive
-    def test_random_string_default_length(self):
+    def test_random_string_default_length(self) -> None:
         assert len(random_string()) == 10
 
     @allure.story("random_string")
@@ -43,7 +43,7 @@ class TestHelpers:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_random_string_custom_length(self, length: int):
+    def test_random_string_custom_length(self, length: int) -> None:
         assert len(random_string(length)) == length
 
     @allure.story("random_string")
@@ -52,7 +52,7 @@ class TestHelpers:
         "Verifies that the generated string contains only letters and digits."
     )
     @pytest.mark.positive
-    def test_random_string_characters(self):
+    def test_random_string_characters(self) -> None:
         result = random_string(100)
 
         alphabet = set(string.ascii_letters + string.digits)
@@ -63,7 +63,7 @@ class TestHelpers:
     @allure.title("Returns different values")
     @allure.description("Verifies that consecutive generated strings are different.")
     @pytest.mark.positive
-    def test_random_string_unique(self):
+    def test_random_string_unique(self) -> None:
         first = random_string()
         second = random_string()
 
@@ -74,21 +74,21 @@ class TestHelpers:
     @allure.description("Verifies that a zero length returns an empty string.")
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_random_string_zero_length(self):
+    def test_random_string_zero_length(self) -> None:
         assert random_string(0) == ""
 
     @allure.story("random_email")
     @allure.title("Returns string")
     @allure.description("Verifies that random_email() returns a string.")
     @pytest.mark.positive
-    def test_random_email_type(self):
+    def test_random_email_type(self) -> None:
         assert isinstance(random_email(), str)
 
     @allure.story("random_email")
     @allure.title("Contains at sign")
     @allure.description("Verifies that the generated email contains the at sign.")
     @pytest.mark.positive
-    def test_random_email_contains_at(self):
+    def test_random_email_contains_at(self) -> None:
         assert "@" in random_email()
 
     @allure.story("random_email")
@@ -97,14 +97,14 @@ class TestHelpers:
         "Verifies that the generated email uses the example.com domain."
     )
     @pytest.mark.positive
-    def test_random_email_domain(self):
+    def test_random_email_domain(self) -> None:
         assert random_email().endswith("@example.com")
 
     @allure.story("random_email")
     @allure.title("Local part length is 12")
     @allure.description("Verifies that the email local part contains 12 characters.")
     @pytest.mark.positive
-    def test_random_email_local_part_length(self):
+    def test_random_email_local_part_length(self) -> None:
         local = random_email().split("@")[0]
 
         assert len(local) == 12
@@ -115,7 +115,7 @@ class TestHelpers:
         "Verifies that the generated email matches the expected pattern."
     )
     @pytest.mark.positive
-    def test_random_email_pattern(self):
+    def test_random_email_pattern(self) -> None:
         email = random_email()
 
         assert re.fullmatch(r"[A-Za-z0-9]{12}@example\.com", email)
@@ -124,7 +124,7 @@ class TestHelpers:
     @allure.title("Generated emails are different")
     @allure.description("Verifies that consecutive generated emails are different.")
     @pytest.mark.positive
-    def test_random_email_unique(self):
+    def test_random_email_unique(self) -> None:
         first = random_email()
         second = random_email()
 
@@ -134,14 +134,14 @@ class TestHelpers:
     @allure.title("Positive integer")
     @allure.description("Verifies that a positive integer is recognized as positive.")
     @pytest.mark.positive
-    def test_positive_integer(self):
+    def test_positive_integer(self) -> None:
         assert is_positive(5) is True
 
     @allure.story("is_positive")
     @allure.title("Positive float")
     @allure.description("Verifies that a positive float is recognized as positive.")
     @pytest.mark.positive
-    def test_positive_float(self):
+    def test_positive_float(self) -> None:
         assert is_positive(3.14) is True
 
     @allure.story("is_positive")
@@ -149,7 +149,7 @@ class TestHelpers:
     @allure.description("Verifies that zero is not treated as a positive value.")
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_zero(self):
+    def test_zero(self) -> None:
         assert is_positive(0) is False
 
     @allure.story("is_positive")
@@ -158,14 +158,14 @@ class TestHelpers:
         "Verifies that a negative integer is not recognized as positive."
     )
     @pytest.mark.negative
-    def test_negative_integer(self):
+    def test_negative_integer(self) -> None:
         assert is_positive(-5) is False
 
     @allure.story("is_positive")
     @allure.title("Negative float")
     @allure.description("Verifies that a negative float is not recognized as positive.")
     @pytest.mark.negative
-    def test_negative_float(self):
+    def test_negative_float(self) -> None:
         assert is_positive(-0.1) is False
 
     @allure.story("is_positive")
@@ -186,14 +186,14 @@ class TestHelpers:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_is_positive_parametrize(self, value: int | float, expected: bool):
+    def test_is_positive_parametrize(self, value: int | float, expected: bool) -> None:
         assert is_positive(value) is expected
 
     @allure.story("remove_none")
     @allure.title("Removes None values")
     @allure.description("Verifies that None values are removed from a dictionary.")
     @pytest.mark.positive
-    def test_remove_none(self):
+    def test_remove_none(self) -> None:
         data = {
             "a": 1,
             "b": None,
@@ -211,7 +211,7 @@ class TestHelpers:
         "Verifies that dictionaries without None values remain unchanged."
     )
     @pytest.mark.positive
-    def test_remove_none_without_none(self):
+    def test_remove_none_without_none(self) -> None:
         data = {
             "a": 1,
             "b": 2,
@@ -224,7 +224,7 @@ class TestHelpers:
     @allure.description("Verifies that all None values are removed from a dictionary.")
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_remove_all_none(self):
+    def test_remove_all_none(self) -> None:
         data = {
             "a": None,
             "b": None,
@@ -237,14 +237,14 @@ class TestHelpers:
     @allure.description("Verifies that an empty dictionary is handled correctly.")
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_remove_none_empty(self):
+    def test_remove_none_empty(self) -> None:
         assert remove_none({}) == {}
 
     @allure.story("remove_none")
     @allure.title("False values are preserved")
     @allure.description("Verifies that false-like values except None are preserved.")
     @pytest.mark.positive
-    def test_false_values_preserved(self):
+    def test_false_values_preserved(self) -> None:
         data = {
             "zero": 0,
             "false": False,
@@ -264,7 +264,7 @@ class TestHelpers:
     @allure.title("Original dictionary is unchanged")
     @allure.description("Verifies that the original dictionary is not modified.")
     @pytest.mark.positive
-    def test_original_dictionary_not_modified(self):
+    def test_original_dictionary_not_modified(self) -> None:
         data = {
             "a": 1,
             "b": None,
@@ -280,7 +280,7 @@ class TestHelpers:
     @allure.title("Returns new dictionary")
     @allure.description("Verifies that remove_none() returns a new dictionary.")
     @pytest.mark.positive
-    def test_returns_new_dictionary(self):
+    def test_returns_new_dictionary(self) -> None:
         data = {
             "a": 1,
         }
@@ -293,7 +293,7 @@ class TestHelpers:
     @allure.title("Return type is dict")
     @allure.description("Verifies that remove_none() returns a dictionary.")
     @pytest.mark.positive
-    def test_return_type(self):
+    def test_return_type(self) -> None:
         assert isinstance(
             remove_none(
                 {

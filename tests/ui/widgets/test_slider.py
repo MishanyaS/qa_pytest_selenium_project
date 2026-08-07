@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.slider_page import SliderPage
@@ -20,13 +21,13 @@ class TestSlider:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_slider(self, driver):
+    def test_open_slider(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         slider_page = SliderPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -42,13 +43,13 @@ class TestSlider:
     @allure.description("Verifies that the Slider and its value field are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_slider_visible(self, driver):
+    def test_slider_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_slider()
 
@@ -64,13 +65,13 @@ class TestSlider:
         "Verifies that the Slider has valid minimum, maximum and step values."
     )
     @pytest.mark.positive
-    def test_slider_properties(self, driver):
+    def test_slider_properties(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_slider()
 
@@ -89,13 +90,13 @@ class TestSlider:
         "Verifies that the Slider value can be changed programmatically."
     )
     @pytest.mark.positive
-    def test_set_slider_value(self, driver):
+    def test_set_slider_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_slider()
 
@@ -111,13 +112,13 @@ class TestSlider:
         "Verifies that the Slider value increases using keyboard controls."
     )
     @pytest.mark.positive
-    def test_increase_slider(self, driver):
+    def test_increase_slider(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_slider()
 
@@ -136,13 +137,13 @@ class TestSlider:
         "Verifies that the Slider value decreases using keyboard controls."
     )
     @pytest.mark.positive
-    def test_decrease_slider(self, driver):
+    def test_decrease_slider(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_slider()
 
@@ -164,13 +165,13 @@ class TestSlider:
         "Verifies that the Slider can be moved to its minimum and maximum values."
     )
     @pytest.mark.positive
-    def test_slider_min_and_max(self, driver):
+    def test_slider_min_and_max(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SliderPage(driver)
 
         with allure.step("Open Slider page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_slider()
 

@@ -43,7 +43,7 @@ class HomePage(BasePage):
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
 
-    def open(self) -> None:
+    def open_home_page(self) -> None:
         super().open(self.URL)
 
     def open_elements(self) -> None:
@@ -53,7 +53,7 @@ class HomePage(BasePage):
         self.click(self.FORMS_CARD)
 
     def open_alerts_frame_windows(self) -> None:
-        self.click(self.ALERTS_FRAME_WINDOWS_CARD)
+        self.click_with_fallback(self.ALERTS_FRAME_WINDOWS_CARD)
 
     def open_widgets(self) -> None:
         self.click(self.WIDGETS_CARD)

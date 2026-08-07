@@ -37,13 +37,13 @@ class ButtonsPage(BasePage):
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
 
-    def double_click(self) -> None:
+    def double_click_button(self) -> None:
         super().double_click(self.DOUBLE_CLICK_BUTTON)
 
-    def right_click(self) -> None:
+    def right_click_button(self) -> None:
         super().right_click(self.RIGHT_CLICK_BUTTON)
 
-    def click(self) -> None:
+    def click_button(self) -> None:
         super().click(self.CLICK_ME_BUTTON)
 
     def double_click_message_visible(self) -> bool:

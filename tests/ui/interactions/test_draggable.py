@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.draggable_page import DraggablePage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestDraggable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_draggable(self, driver):
+    def test_open_draggable(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         draggable_page = DraggablePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Interactions section"):
             home_page.open_interactions()
@@ -42,13 +43,13 @@ class TestDraggable:
     @allure.description("Verifies that the draggable element is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_draggable_visible(self, driver):
+    def test_draggable_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DraggablePage(driver)
 
         with allure.step("Open Draggable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_draggable()
 
@@ -59,13 +60,13 @@ class TestDraggable:
     @allure.title("Draggable element is enabled")
     @allure.description("Verifies that the draggable element is enabled.")
     @pytest.mark.positive
-    def test_draggable_enabled(self, driver):
+    def test_draggable_enabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DraggablePage(driver)
 
         with allure.step("Open Draggable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_draggable()
 
@@ -78,13 +79,13 @@ class TestDraggable:
         "Verifies that the draggable element contains the expected text."
     )
     @pytest.mark.positive
-    def test_draggable_text(self, driver):
+    def test_draggable_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DraggablePage(driver)
 
         with allure.step("Open Draggable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_draggable()
 
@@ -97,13 +98,13 @@ class TestDraggable:
         "Verifies that the draggable element changes its position after being dragged."
     )
     @pytest.mark.positive
-    def test_drag_changes_position(self, driver):
+    def test_drag_changes_position(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DraggablePage(driver)
 
         with allure.step("Open Draggable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_draggable()
 
@@ -120,13 +121,13 @@ class TestDraggable:
     @allure.title("Draggable X coordinate changes")
     @allure.description("Verifies that the X coordinate changes after dragging.")
     @pytest.mark.positive
-    def test_drag_changes_x(self, driver):
+    def test_drag_changes_x(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DraggablePage(driver)
 
         with allure.step("Open Draggable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_draggable()
 
@@ -143,13 +144,13 @@ class TestDraggable:
     @allure.title("Draggable Y coordinate changes")
     @allure.description("Verifies that the Y coordinate changes after dragging.")
     @pytest.mark.positive
-    def test_drag_changes_y(self, driver):
+    def test_drag_changes_y(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DraggablePage(driver)
 
         with allure.step("Open Draggable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_draggable()
 

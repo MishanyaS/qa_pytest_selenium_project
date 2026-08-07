@@ -4,6 +4,7 @@ import time
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.progress_bar_page import ProgressBarPage
@@ -22,13 +23,13 @@ class TestProgressBar:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_progress_bar(self, driver):
+    def test_open_progress_bar(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         progress_bar_page = ProgressBarPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -46,13 +47,13 @@ class TestProgressBar:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_progress_bar_elements_visible(self, driver):
+    def test_progress_bar_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_progress_bar()
 
@@ -69,13 +70,13 @@ class TestProgressBar:
     @allure.title("Progress starts successfully")
     @allure.description("Verifies that clicking Start begins progress.")
     @pytest.mark.positive
-    def test_start_progress(self, driver):
+    def test_start_progress(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_progress_bar()
 
@@ -92,13 +93,13 @@ class TestProgressBar:
     @allure.title("Progress can be stopped")
     @allure.description("Verifies that the running progress can be stopped.")
     @pytest.mark.positive
-    def test_stop_progress(self, driver):
+    def test_stop_progress(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_progress_bar()
 
@@ -118,13 +119,13 @@ class TestProgressBar:
     @allure.title("Progress reaches 100 percent")
     @allure.description("Verifies that the progress bar reaches 100 percent.")
     @pytest.mark.positive
-    def test_progress_completion(self, driver):
+    def test_progress_completion(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_progress_bar()
 
@@ -141,13 +142,13 @@ class TestProgressBar:
     @allure.title("Progress can be reset")
     @allure.description("Verifies that the Reset button restores the progress bar.")
     @pytest.mark.positive
-    def test_reset_progress(self, driver):
+    def test_reset_progress(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_progress_bar()
 
@@ -172,13 +173,13 @@ class TestProgressBar:
         "Verifies that minimum and maximum values are configured correctly."
     )
     @pytest.mark.positive
-    def test_progress_bar_limits(self, driver):
+    def test_progress_bar_limits(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ProgressBarPage(driver)
 
         with allure.step("Open Progress Bar page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_progress_bar()
 

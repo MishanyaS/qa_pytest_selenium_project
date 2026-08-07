@@ -3,6 +3,7 @@ from __future__ import annotations
 import allure
 import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.elements_page import ElementsPage
 from pages.home_page import HomePage
@@ -21,13 +22,13 @@ class TestRadioButton:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_radio_button(self, driver):
+    def test_open_radio_button(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         radio_button_page = RadioButtonPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -45,13 +46,13 @@ class TestRadioButton:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_radio_button_elements_visible(self, driver):
+    def test_radio_button_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -70,13 +71,13 @@ class TestRadioButton:
         "Verifies that no radio button is selected when the Radio Button page is opened."
     )
     @pytest.mark.positive
-    def test_no_radio_button_selected_initially(self, driver):
+    def test_no_radio_button_selected_initially(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -98,13 +99,13 @@ class TestRadioButton:
         "Verifies that the No radio button is disabled and cannot be selected."
     )
     @pytest.mark.positive
-    def test_no_radio_button_is_disabled(self, driver):
+    def test_no_radio_button_is_disabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -120,13 +121,13 @@ class TestRadioButton:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_select_yes(self, driver):
+    def test_select_yes(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -152,13 +153,13 @@ class TestRadioButton:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_select_impressive(self, driver):
+    def test_select_impressive(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -183,13 +184,13 @@ class TestRadioButton:
         "Verifies the mutual exclusivity of radio buttons by selecting Yes first and then Impressive."
     )
     @pytest.mark.positive
-    def test_switch_from_yes_to_impressive(self, driver):
+    def test_switch_from_yes_to_impressive(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -217,13 +218,13 @@ class TestRadioButton:
         "Verifies the mutual exclusivity of radio buttons by selecting Impressive first and then Yes."
     )
     @pytest.mark.positive
-    def test_switch_from_impressive_to_yes(self, driver):
+    def test_switch_from_impressive_to_yes(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -251,13 +252,13 @@ class TestRadioButton:
         "Verifies that the disabled No radio button cannot be selected."
     )
     @pytest.mark.negative
-    def test_select_no_radio_button(self, driver):
+    def test_select_no_radio_button(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 
@@ -278,13 +279,15 @@ class TestRadioButton:
         "Verifies that the displayed result corresponds to the currently selected radio button."
     )
     @pytest.mark.positive
-    def test_result_changes_after_switching_radio_buttons(self, driver):
+    def test_result_changes_after_switching_radio_buttons(
+        self, driver: WebDriver
+    ) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = RadioButtonPage(driver)
 
         with allure.step("Open Radio Button page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_radio_button()
 

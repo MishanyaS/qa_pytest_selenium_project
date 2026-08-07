@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.interactions_page import InteractionsPage
@@ -20,13 +21,13 @@ class TestResizable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_resizable(self, driver):
+    def test_open_resizable(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         resizable_page = ResizablePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Interactions section"):
             home_page.open_interactions()
@@ -42,13 +43,13 @@ class TestResizable:
     @allure.description("Verifies that the resize handle is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_resizable_handle_visible(self, driver):
+    def test_resizable_handle_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = ResizablePage(driver)
 
         with allure.step("Open Resizable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_resizable()
 
@@ -62,13 +63,13 @@ class TestResizable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_resizable_default_size(self, driver):
+    def test_resizable_default_size(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = ResizablePage(driver)
 
         with allure.step("Open Resizable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_resizable()
 
@@ -82,13 +83,13 @@ class TestResizable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_resizable_default_width(self, driver):
+    def test_resizable_default_width(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = ResizablePage(driver)
 
         with allure.step("Open Resizable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_resizable()
 
@@ -102,13 +103,13 @@ class TestResizable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_resizable_default_height(self, driver):
+    def test_resizable_default_height(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = ResizablePage(driver)
 
         with allure.step("Open Resizable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_resizable()
 
@@ -120,13 +121,13 @@ class TestResizable:
     @allure.description("Verifies that resizing the element changes its dimensions.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_resize_element(self, driver):
+    def test_resize_element(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = ResizablePage(driver)
 
         with allure.step("Open Resizable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_resizable()
 

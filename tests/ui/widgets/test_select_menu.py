@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.select_menu_page import SelectMenuPage
@@ -20,13 +21,13 @@ class TestSelectMenu:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_select_menu(self, driver):
+    def test_open_select_menu(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         select_menu_page = SelectMenuPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -42,13 +43,13 @@ class TestSelectMenu:
     @allure.description("Verifies that all select controls are displayed on the page.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_select_controls_visible(self, driver):
+    def test_select_controls_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -71,13 +72,13 @@ class TestSelectMenu:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_old_style_select(self, driver):
+    def test_old_style_select(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -92,13 +93,13 @@ class TestSelectMenu:
     @allure.description("Verifies that an option can be selected by value.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_old_style_select_by_value(self, driver):
+    def test_old_style_select_by_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -113,13 +114,13 @@ class TestSelectMenu:
     @allure.description("Verifies that an option can be selected by index.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_old_style_select_by_index(self, driver):
+    def test_old_style_select_by_index(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -136,13 +137,13 @@ class TestSelectMenu:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_react_select_options_visible(self, driver):
+    def test_react_select_options_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -157,13 +158,13 @@ class TestSelectMenu:
     @allure.description("Verifies that an option can be selected from React Select.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_react_select_option(self, driver):
+    def test_react_select_option(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -178,13 +179,13 @@ class TestSelectMenu:
     @allure.description("Verifies that the selected React option is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_react_select_option_visible(self, driver):
+    def test_react_select_option_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 
@@ -201,13 +202,13 @@ class TestSelectMenu:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_multi_select_option(self, driver):
+    def test_multi_select_option(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = SelectMenuPage(driver)
 
         with allure.step("Open Select Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_select_menu()
 

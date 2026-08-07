@@ -14,14 +14,14 @@ class TestFixtures:
     @allure.title("Faker fixture returns Faker instance")
     @allure.description("Verifies that the faker fixture returns a Faker instance.")
     @pytest.mark.positive
-    def test_faker_fixture_instance(self, faker: Faker):
+    def test_faker_fixture_instance(self, faker: Faker) -> None:
         assert isinstance(faker, Faker)
 
     @allure.story("faker")
     @allure.title("Faker generates first name")
     @allure.description("Verifies that Faker generates a non-empty first name.")
     @pytest.mark.positive
-    def test_faker_first_name(self, faker: Faker):
+    def test_faker_first_name(self, faker: Faker) -> None:
         value = faker.first_name()
 
         assert isinstance(value, str)
@@ -31,7 +31,7 @@ class TestFixtures:
     @allure.title("Faker generates email")
     @allure.description("Verifies that Faker generates a valid email string.")
     @pytest.mark.positive
-    def test_faker_email(self, faker: Faker):
+    def test_faker_email(self, faker: Faker) -> None:
         email = faker.email()
 
         assert isinstance(email, str)
@@ -41,21 +41,21 @@ class TestFixtures:
     @allure.title("Faker generates different values")
     @allure.description("Verifies that Faker generates different random values.")
     @pytest.mark.positive
-    def test_faker_random_values(self, faker: Faker):
+    def test_faker_random_values(self, faker: Faker) -> None:
         assert faker.uuid4() != faker.uuid4()
 
     @allure.story("timeout")
     @allure.title("Timeout fixture returns integer")
     @allure.description("Verifies that the timeout fixture returns an integer.")
     @pytest.mark.positive
-    def test_timeout_fixture_type(self, timeout: int):
+    def test_timeout_fixture_type(self, timeout: int) -> None:
         assert isinstance(timeout, int)
 
     @allure.story("timeout")
     @allure.title("Timeout fixture is positive")
     @allure.description("Verifies that the timeout fixture returns a positive value.")
     @pytest.mark.positive
-    def test_timeout_fixture_positive(self, timeout: int):
+    def test_timeout_fixture_positive(self, timeout: int) -> None:
         assert timeout > 0
 
     @allure.story("sqlite")
@@ -63,7 +63,9 @@ class TestFixtures:
     @allure.description("Verifies that the SQLite fixture returns a Connection object.")
     @pytest.mark.db
     @pytest.mark.positive
-    def test_sqlite_connection_type(self, sqlite_connection: sqlite3.Connection):
+    def test_sqlite_connection_type(
+        self, sqlite_connection: sqlite3.Connection
+    ) -> None:
         assert isinstance(sqlite_connection, sqlite3.Connection)
 
     @allure.story("sqlite")
@@ -73,7 +75,9 @@ class TestFixtures:
     )
     @pytest.mark.db
     @pytest.mark.positive
-    def test_sqlite_connection_open(self, sqlite_connection: sqlite3.Connection):
+    def test_sqlite_connection_open(
+        self, sqlite_connection: sqlite3.Connection
+    ) -> None:
         sqlite_connection.execute("SELECT 1")
 
     @allure.story("sqlite")
@@ -81,7 +85,7 @@ class TestFixtures:
     @allure.description("Verifies that the cursor fixture returns a Cursor object.")
     @pytest.mark.db
     @pytest.mark.positive
-    def test_db_cursor_type(self, db_cursor: sqlite3.Cursor):
+    def test_db_cursor_type(self, db_cursor: sqlite3.Cursor) -> None:
         assert isinstance(db_cursor, sqlite3.Cursor)
 
     @allure.story("sqlite")
@@ -91,7 +95,7 @@ class TestFixtures:
     )
     @pytest.mark.db
     @pytest.mark.positive
-    def test_cursor_execute(self, db_cursor: sqlite3.Cursor):
+    def test_cursor_execute(self, db_cursor: sqlite3.Cursor) -> None:
         result = db_cursor.execute("SELECT 1").fetchone()
 
         assert result == (1,)
@@ -103,7 +107,7 @@ class TestFixtures:
     )
     @pytest.mark.db
     @pytest.mark.positive
-    def test_cursor_description(self, db_cursor: sqlite3.Cursor):
+    def test_cursor_description(self, db_cursor: sqlite3.Cursor) -> None:
         db_cursor.execute("SELECT 1")
 
         assert db_cursor.description is not None
@@ -113,7 +117,7 @@ class TestFixtures:
     @allure.description("Verifies that a temporary table can be created and queried.")
     @pytest.mark.db
     @pytest.mark.positive
-    def test_create_temp_table(self, db_cursor: sqlite3.Cursor):
+    def test_create_temp_table(self, db_cursor: sqlite3.Cursor) -> None:
         db_cursor.execute("""
             CREATE TEMP TABLE test_table(
                 id INTEGER
@@ -142,7 +146,7 @@ class TestFixtures:
     @pytest.mark.positive
     def test_multiple_fixtures(
         self, api_session: requests.Session, sqlite_connection: sqlite3.Connection
-    ):
+    ) -> None:
         assert isinstance(api_session, requests.Session)
         assert isinstance(sqlite_connection, sqlite3.Connection)
 
@@ -160,7 +164,7 @@ class TestFixtures:
         timeout: int,
         api_session: requests.Session,
         sqlite_connection: sqlite3.Connection,
-    ):
+    ) -> None:
         assert faker is not None
         assert timeout > 0
         assert api_session is not None

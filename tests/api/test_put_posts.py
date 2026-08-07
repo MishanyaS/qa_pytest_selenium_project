@@ -36,7 +36,7 @@ class TestUpdatePosts:
     @pytest.mark.positive
     def test_update_post_status_code(
         self, client: ApiClient, post_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.status_code == 200
@@ -48,7 +48,9 @@ class TestUpdatePosts:
     )
     @pytest.mark.schema
     @pytest.mark.positive
-    def test_update_post_schema(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_update_post_schema(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         validate(instance=response.json(), schema=CREATE_POST_SCHEMA)
@@ -57,7 +59,9 @@ class TestUpdatePosts:
     @allure.title("Response is JSON")
     @allure.description("Verifies that the response content type is JSON.")
     @pytest.mark.positive
-    def test_response_is_json(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_response_is_json(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.headers["Content-Type"].startswith("application/json")
@@ -66,7 +70,9 @@ class TestUpdatePosts:
     @allure.title("Title updated")
     @allure.description("Verifies that the returned title matches the submitted title.")
     @pytest.mark.positive
-    def test_title_updated(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_title_updated(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.json()["title"] == post_payload["title"]
@@ -75,7 +81,9 @@ class TestUpdatePosts:
     @allure.title("Body updated")
     @allure.description("Verifies that the returned body matches the submitted body.")
     @pytest.mark.positive
-    def test_body_updated(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_body_updated(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.json()["body"] == post_payload["body"]
@@ -86,7 +94,9 @@ class TestUpdatePosts:
         "Verifies that the returned userId matches the submitted userId."
     )
     @pytest.mark.positive
-    def test_user_id_updated(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_user_id_updated(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.json()["userId"] == post_payload["userId"]
@@ -97,7 +107,9 @@ class TestUpdatePosts:
         "Verifies that the post identifier remains unchanged after update."
     )
     @pytest.mark.positive
-    def test_id_not_changed(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_id_not_changed(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.json()["id"] == 1
@@ -110,7 +122,7 @@ class TestUpdatePosts:
     @pytest.mark.positive
     def test_required_fields_exist(
         self, client: ApiClient, post_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         data = response.json()
@@ -125,7 +137,9 @@ class TestUpdatePosts:
     )
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_response_time(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_response_time(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert response.elapsed.total_seconds() < 2
@@ -144,7 +158,9 @@ class TestUpdatePosts:
         ],
     )
     @pytest.mark.positive
-    def test_update_various_posts(self, client: ApiClient, faker: Faker, post_id: int):
+    def test_update_various_posts(
+        self, client: ApiClient, faker: Faker, post_id: int
+    ) -> None:
         payload = {
             "title": faker.sentence(),
             "body": faker.text(),
@@ -172,7 +188,7 @@ class TestUpdatePosts:
     @pytest.mark.positive
     def test_update_with_various_post_ids(
         self, client: ApiClient, faker: Faker, user_id: int
-    ):
+    ) -> None:
         payload = {
             "title": faker.sentence(),
             "body": faker.text(),
@@ -188,7 +204,9 @@ class TestUpdatePosts:
     @allure.title("Unknown endpoint returns 404")
     @allure.description("Verifies that an invalid endpoint returns HTTP 404.")
     @pytest.mark.negative
-    def test_unknown_endpoint(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_unknown_endpoint(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = client.put("/posts123/1", json=post_payload)
 
         assert response.status_code == 404
@@ -197,7 +215,9 @@ class TestUpdatePosts:
     @allure.title("Unknown post id")
     @allure.description("Verifies API behavior when updating a non-existent post.")
     @pytest.mark.negative
-    def test_unknown_post_id(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_unknown_post_id(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 999999, post_payload)
 
         assert response.status_code in (200, 404)
@@ -206,7 +226,7 @@ class TestUpdatePosts:
     @allure.title("Only title")
     @allure.description("Verifies API behavior when only the title is provided.")
     @pytest.mark.negative
-    def test_only_title(self, client: ApiClient):
+    def test_only_title(self, client: ApiClient) -> None:
         response = self._put_post(
             client,
             1,
@@ -221,7 +241,7 @@ class TestUpdatePosts:
     @allure.title("Only body")
     @allure.description("Verifies API behavior when only the body is provided.")
     @pytest.mark.negative
-    def test_only_body(self, client: ApiClient):
+    def test_only_body(self, client: ApiClient) -> None:
         response = self._put_post(
             client,
             1,
@@ -236,7 +256,7 @@ class TestUpdatePosts:
     @allure.title("Only userId")
     @allure.description("Verifies API behavior when only the userId is provided.")
     @pytest.mark.negative
-    def test_only_user_id(self, client: ApiClient):
+    def test_only_user_id(self, client: ApiClient) -> None:
         response = self._put_post(
             client,
             1,
@@ -253,7 +273,7 @@ class TestUpdatePosts:
         "Verifies API behavior when an invalid userId data type is provided."
     )
     @pytest.mark.negative
-    def test_only_user_id_type(self, client: ApiClient):
+    def test_only_user_id_type(self, client: ApiClient) -> None:
         response = self._put_post(
             client, 1, {"title": "Title", "body": "Body", "userId": "abc"}
         )
@@ -264,7 +284,7 @@ class TestUpdatePosts:
     @allure.title("Negative userId")
     @allure.description("Verifies API behavior with a negative userId value.")
     @pytest.mark.negative
-    def test_negative_user_id(self, client: ApiClient):
+    def test_negative_user_id(self, client: ApiClient) -> None:
         response = self._put_post(
             client, 1, {"title": "Title", "body": "Body", "userId": -1}
         )
@@ -275,7 +295,7 @@ class TestUpdatePosts:
     @allure.title("Empty title")
     @allure.description("Verifies API behavior when the title is empty.")
     @pytest.mark.negative
-    def test_empty_title(self, client: ApiClient):
+    def test_empty_title(self, client: ApiClient) -> None:
         response = self._put_post(client, 1, {"title": "", "body": "Body", "userId": 1})
 
         assert response.status_code in (200, 400)
@@ -284,7 +304,7 @@ class TestUpdatePosts:
     @allure.title("Empty body")
     @allure.description("Verifies API behavior when the body is empty.")
     @pytest.mark.negative
-    def test_empty_body(self, client: ApiClient):
+    def test_empty_body(self, client: ApiClient) -> None:
         response = self._put_post(
             client, 1, {"title": "Title", "body": "", "userId": 1}
         )
@@ -295,7 +315,7 @@ class TestUpdatePosts:
     @allure.title("Returned id is integer")
     @allure.description("Verifies that the returned id is an integer.")
     @pytest.mark.positive
-    def test_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_id_type(self, client: ApiClient, post_payload: dict[str, Any]) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert isinstance(response.json()["id"], int)
@@ -304,7 +324,7 @@ class TestUpdatePosts:
     @allure.title("Returned title is string")
     @allure.description("Verifies that the returned title is a string.")
     @pytest.mark.positive
-    def test_title_type(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_title_type(self, client: ApiClient, post_payload: dict[str, Any]) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert isinstance(response.json()["title"], str)
@@ -313,7 +333,7 @@ class TestUpdatePosts:
     @allure.title("Returned body is string")
     @allure.description("Verifies that the returned body is a string.")
     @pytest.mark.positive
-    def test_body_type(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_body_type(self, client: ApiClient, post_payload: dict[str, Any]) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert isinstance(response.json()["body"], str)
@@ -322,7 +342,9 @@ class TestUpdatePosts:
     @allure.title("Returned userId is integer")
     @allure.description("Verifies that the returned userId is an integer.")
     @pytest.mark.positive
-    def test_user_id_type(self, client: ApiClient, post_payload: dict[str, Any]):
+    def test_user_id_type(
+        self, client: ApiClient, post_payload: dict[str, Any]
+    ) -> None:
         response = self._put_post(client, 1, post_payload)
 
         assert isinstance(response.json()["userId"], int)
@@ -341,7 +363,9 @@ class TestUpdatePosts:
         ],
     )
     @pytest.mark.positive
-    def test_update_multiple_posts(self, client: ApiClient, faker: Faker, post_id: int):
+    def test_update_multiple_posts(
+        self, client: ApiClient, faker: Faker, post_id: int
+    ) -> None:
         payload = {
             "title": faker.sentence(),
             "body": faker.text(),

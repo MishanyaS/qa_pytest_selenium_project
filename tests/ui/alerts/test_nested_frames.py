@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.alerts_frames_page import AlertsFramesPage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestNestedFrames:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_nested_frames(self, driver):
+    def test_open_nested_frames(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         nested_frames_page = NestedFramesPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Alerts, Frame & Windows section"):
             home_page.open_alerts_frame_windows()
@@ -44,13 +45,13 @@ class TestNestedFrames:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_parent_frame_visible(self, driver):
+    def test_parent_frame_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         nested_frames_page = NestedFramesPage(driver)
 
         with allure.step("Open Nested Frames page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_nested_frames()
 
@@ -61,13 +62,13 @@ class TestNestedFrames:
     @allure.title("Parent frame contains expected text")
     @allure.description("Verifies that the parent frame contains the expected text.")
     @pytest.mark.positive
-    def test_parent_frame_text(self, driver):
+    def test_parent_frame_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         nested_frames_page = NestedFramesPage(driver)
 
         with allure.step("Open Nested Frames page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_nested_frames()
 
@@ -83,13 +84,13 @@ class TestNestedFrames:
         "Verifies that the nested child frame can be accessed and contains the expected text."
     )
     @pytest.mark.positive
-    def test_child_frame_text(self, driver):
+    def test_child_frame_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         nested_frames_page = NestedFramesPage(driver)
 
         with allure.step("Open Nested Frames page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_nested_frames()
 
@@ -105,13 +106,13 @@ class TestNestedFrames:
         "Verifies that the parent and child nested frames contain their respective content."
     )
     @pytest.mark.positive
-    def test_parent_and_child_frame_text(self, driver):
+    def test_parent_and_child_frame_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         nested_frames_page = NestedFramesPage(driver)
 
         with allure.step("Open Nested Frames page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_nested_frames()
 

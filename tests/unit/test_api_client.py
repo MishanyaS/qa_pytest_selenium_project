@@ -29,21 +29,21 @@ class TestApiClient:
     @allure.title("Client stores session")
     @allure.description("Verifies that the client stores the provided session object.")
     @pytest.mark.positive
-    def test_session_saved(self, client: ApiClient, session: MagicMock):
+    def test_session_saved(self, client: ApiClient, session: MagicMock) -> None:
         assert client.session is session
 
     @allure.story("Constructor")
     @allure.title("Client stores timeout")
     @allure.description("Verifies that the client stores the configured timeout value.")
     @pytest.mark.positive
-    def test_timeout_saved(self, client: ApiClient):
+    def test_timeout_saved(self, client: ApiClient) -> None:
         assert client.timeout == 15
 
     @allure.story("Constructor")
     @allure.title("Base url trailing slash removed")
     @allure.description("Verifies that a trailing slash is removed from the base URL.")
     @pytest.mark.positive
-    def test_base_url_strip(self, session: MagicMock):
+    def test_base_url_strip(self, session: MagicMock) -> None:
         client = ApiClient(session=session, base_url="https://dummyjson.com/")
 
         assert client.base_url == "https://dummyjson.com"
@@ -65,7 +65,7 @@ class TestApiClient:
     )
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_custom_timeout(self, session: MagicMock, timeout: int):
+    def test_custom_timeout(self, session: MagicMock, timeout: int) -> None:
         client = ApiClient(
             session=session, base_url="https://dummyjson.com/", timeout=timeout
         )
@@ -90,7 +90,7 @@ class TestApiClient:
     @pytest.mark.boundary
     def test_base_url_normalization(
         self, session: MagicMock, base_url: str, expected: str
-    ):
+    ) -> None:
         client = ApiClient(session=session, base_url=base_url)
 
         assert client.base_url == expected
@@ -101,7 +101,7 @@ class TestApiClient:
         "Verifies that an endpoint without a leading slash is converted into a valid URL."
     )
     @pytest.mark.positive
-    def test_url_without_slash(self, client: ApiClient):
+    def test_url_without_slash(self, client: ApiClient) -> None:
         assert client._url("users") == "https://dummyjson.com/users"
 
     @allure.story("URL")
@@ -110,21 +110,21 @@ class TestApiClient:
         "Verifies that an endpoint with a leading slash is converted into a valid URL."
     )
     @pytest.mark.positive
-    def test_url_with_slash(self, client: ApiClient):
+    def test_url_with_slash(self, client: ApiClient) -> None:
         assert client._url("/users") == "https://dummyjson.com/users"
 
     @allure.story("URL")
     @allure.title("Nested endpoint")
     @allure.description("Verifies that nested endpoints are converted into valid URLs.")
     @pytest.mark.positive
-    def test_nested_endpoint(self, client: ApiClient):
+    def test_nested_endpoint(self, client: ApiClient) -> None:
         assert client._url("/users/1") == "https://dummyjson.com/users/1"
 
     @allure.story("URL")
     @allure.title("Empty endpoint")
     @allure.description("Verifies that an empty endpoint resolves to the base URL.")
     @pytest.mark.positive
-    def test_empty_endpoint(self, client: ApiClient):
+    def test_empty_endpoint(self, client: ApiClient) -> None:
         assert client._url("") == "https://dummyjson.com/"
 
     @allure.story("URL")
@@ -146,7 +146,7 @@ class TestApiClient:
     @pytest.mark.boundary
     def test_url_multiple_leading_slashes(
         self, client: ApiClient, endpoint: str, expected: str
-    ):
+    ) -> None:
         assert client._url(endpoint) == expected
 
     @allure.story("GET")
@@ -155,7 +155,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_called(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         result = client.get("/users")
@@ -170,7 +170,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_params(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         client.get("/users", params={"limit": 10})
@@ -185,7 +185,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_headers(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         headers = {"Authorization": "Bearer token"}
@@ -202,7 +202,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_cookies(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         cookies = {"session": "123"}
@@ -221,7 +221,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_auth(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         auth = {"admin": "password"}
@@ -238,7 +238,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_stream(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         client.get("/users", stream=True)
@@ -255,7 +255,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_get_allow_redirects(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         client.get("/users", allow_redirects=False)
@@ -272,7 +272,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_multiple_kwargs(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.get.return_value = response
 
         headers = {"Authorization": "Bearer token"}
@@ -297,7 +297,9 @@ class TestApiClient:
     @allure.title("Returns requests.Response object")
     @allure.description("Verifies that the client returns a requests.Response object.")
     @pytest.mark.positive
-    def test_returns_response_instance(self, client: ApiClient, session: MagicMock):
+    def test_returns_response_instance(
+        self, client: ApiClient, session: MagicMock
+    ) -> None:
         response = MagicMock(spec=requests.Response)
 
         session.get.return_value = response
@@ -314,7 +316,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_post_called(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.post.return_value = response
 
         payload = {"name": "John"}
@@ -335,7 +337,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_post_params(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.post.return_value = response
 
         client.post("/users", json={"debug": 1})
@@ -348,7 +350,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_post_data(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.post.return_value = response
 
         data = {
@@ -368,7 +370,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_post_files(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.post.return_value = response
 
         files = {
@@ -387,7 +389,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_put_called(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.put.return_value = response
 
         payload = {
@@ -410,7 +412,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_patch_called(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.patch.return_value = response
 
         payload = {
@@ -433,7 +435,7 @@ class TestApiClient:
     @pytest.mark.positive
     def test_delete_called(
         self, client: ApiClient, session: MagicMock, response: requests.Response
-    ):
+    ) -> None:
         session.delete.return_value = response
 
         result = client.delete("/users/1")
@@ -465,7 +467,7 @@ class TestApiClient:
         response: requests.Response,
         method: str,
         attribute: str,
-    ):
+    ) -> None:
         mocked = getattr(session, attribute)
 
         mocked.return_value = response
@@ -480,7 +482,7 @@ class TestApiClient:
         "Verifies that GET request exceptions are propagated to the caller."
     )
     @pytest.mark.negative
-    def test_get_exception(self, client: ApiClient, session: MagicMock):
+    def test_get_exception(self, client: ApiClient, session: MagicMock) -> None:
         session.get.side_effect = requests.Timeout
 
         with pytest.raises(requests.Timeout):
@@ -492,7 +494,7 @@ class TestApiClient:
         "Verifies that POST request exceptions are propagated to the caller."
     )
     @pytest.mark.negative
-    def test_post_exception(self, client: ApiClient, session: MagicMock):
+    def test_post_exception(self, client: ApiClient, session: MagicMock) -> None:
         session.post.side_effect = requests.ConnectionError
 
         with pytest.raises(requests.ConnectionError):
@@ -504,7 +506,7 @@ class TestApiClient:
         "Verifies that PUT request exceptions are propagated to the caller."
     )
     @pytest.mark.negative
-    def test_put_exception(self, client: ApiClient, session: MagicMock):
+    def test_put_exception(self, client: ApiClient, session: MagicMock) -> None:
         session.put.side_effect = requests.RequestException
 
         with pytest.raises(requests.RequestException):
@@ -516,7 +518,7 @@ class TestApiClient:
         "Verifies that PATCH request exceptions are propagated to the caller."
     )
     @pytest.mark.negative
-    def test_patch_exception(self, client: ApiClient, session: MagicMock):
+    def test_patch_exception(self, client: ApiClient, session: MagicMock) -> None:
         session.patch.side_effect = requests.HTTPError
 
         with pytest.raises(requests.HTTPError):
@@ -528,7 +530,7 @@ class TestApiClient:
         "Verifies that DELETE request exceptions are propagated to the caller."
     )
     @pytest.mark.negative
-    def test_delete_exception(self, client: ApiClient, session: MagicMock):
+    def test_delete_exception(self, client: ApiClient, session: MagicMock) -> None:
         session.delete.side_effect = requests.Timeout
 
         with pytest.raises(requests.Timeout):

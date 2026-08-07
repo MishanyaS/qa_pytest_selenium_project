@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.book_store_page import BookStorePage
 from pages.home_page import HomePage
@@ -19,12 +20,12 @@ class TestBookStore:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_book_store(self, driver):
+    def test_open_book_store(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         book_store_page = BookStorePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Book Store page"):
             home_page.open_book_store()
@@ -37,12 +38,12 @@ class TestBookStore:
     @allure.description("Verifies that the search box is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_search_box_visible(self, driver):
+    def test_search_box_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Verify search box is visible"):
@@ -53,12 +54,12 @@ class TestBookStore:
     @allure.description("Verifies that the books table is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_books_visible(self, driver):
+    def test_books_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Verify books table is visible"):
@@ -68,12 +69,12 @@ class TestBookStore:
     @allure.title("Books list is not empty")
     @allure.description("Verifies that the books table contains at least one book.")
     @pytest.mark.positive
-    def test_books_count(self, driver):
+    def test_books_count(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Verify books count"):
@@ -83,12 +84,12 @@ class TestBookStore:
     @allure.title("Books titles are displayed")
     @allure.description("Verifies that the book titles are available.")
     @pytest.mark.positive
-    def test_book_titles(self, driver):
+    def test_book_titles(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Verify book titles"):
@@ -98,12 +99,12 @@ class TestBookStore:
     @allure.title("First book is visible")
     @allure.description("Verifies that the first book is visible.")
     @pytest.mark.positive
-    def test_first_book_visible(self, driver):
+    def test_first_book_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Verify first book is visibles"):
@@ -113,12 +114,12 @@ class TestBookStore:
     @allure.title("Search filters books")
     @allure.description("Verifies that searching filters the displayed books.")
     @pytest.mark.positive
-    def test_search_books(self, driver):
+    def test_search_books(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Search for Git"):
@@ -133,12 +134,12 @@ class TestBookStore:
         "Verifies that the entered search value is displayed in the search field."
     )
     @pytest.mark.positive
-    def test_search_value(self, driver):
+    def test_search_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Enter search text"):
@@ -151,12 +152,12 @@ class TestBookStore:
     @allure.title("Search can be cleared")
     @allure.description("Verifies that the search field can be cleared.")
     @pytest.mark.positive
-    def test_clear_search(self, driver):
+    def test_clear_search(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Search for Python"):
@@ -172,12 +173,12 @@ class TestBookStore:
     @allure.title("Book details page opens")
     @allure.description("Verifies that clicking the first book opens its details page.")
     @pytest.mark.positive
-    def test_open_first_book(self, driver):
+    def test_open_first_book(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Open first book"):
@@ -192,12 +193,12 @@ class TestBookStore:
     @allure.title("Login button is displayed")
     @allure.description("Verifies that the Login button is visible.")
     @pytest.mark.positive
-    def test_login_button_visible(self, driver):
+    def test_login_button_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         page = BookStorePage(driver)
 
         with allure.step("Open Book Store page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_book_store()
 
         with allure.step("Verify Login button is visible"):

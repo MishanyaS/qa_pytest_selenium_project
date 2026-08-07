@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.droppable_page import DroppablePage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestDroppable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_droppable(self, driver):
+    def test_open_droppable(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         droppable_page = DroppablePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Interactions section"):
             home_page.open_interactions()
@@ -42,13 +43,13 @@ class TestDroppable:
     @allure.description("Verifies that the draggable element is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_draggable_visible(self, driver):
+    def test_draggable_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 
@@ -60,13 +61,13 @@ class TestDroppable:
     @allure.description("Verifies that the droppable area is visible.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_droppable_visible(self, driver):
+    def test_droppable_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 
@@ -77,13 +78,13 @@ class TestDroppable:
     @allure.title("Draggable element is enabled")
     @allure.description("Verifies that the draggable element is enabled.")
     @pytest.mark.positive
-    def test_draggable_enabled(self, driver):
+    def test_draggable_enabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 
@@ -94,13 +95,13 @@ class TestDroppable:
     @allure.title("Droppable area is enabled")
     @allure.description("Verifies that the droppable area is enabled.")
     @pytest.mark.positive
-    def test_droppable_enabled(self, driver):
+    def test_droppable_enabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 
@@ -111,13 +112,13 @@ class TestDroppable:
     @allure.title("Element can be dropped")
     @allure.description("Verifies that dragging the element to the drop area succeeds.")
     @pytest.mark.positive
-    def test_drag_and_drop(self, driver):
+    def test_drag_and_drop(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 
@@ -133,13 +134,13 @@ class TestDroppable:
         "Verifies that the drop area text changes after a successful drop."
     )
     @pytest.mark.positive
-    def test_droppable_text_after_drop(self, driver):
+    def test_droppable_text_after_drop(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 
@@ -155,13 +156,13 @@ class TestDroppable:
         "Verifies that the draggable element displays the expected text before dragging."
     )
     @pytest.mark.positive
-    def test_draggable_text(self, driver):
+    def test_draggable_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = DroppablePage(driver)
 
         with allure.step("Open Droppable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_droppable()
 

@@ -29,10 +29,10 @@ class ResizablePage(BasePage):
         )
 
     def resizable_width(self) -> int:
-        return self.wait_visible(self.RESIZABLE).size["width"]
+        return int(self.wait_visible(self.RESIZABLE).size["width"])
 
     def resizable_height(self) -> int:
-        return self.wait_visible(self.RESIZABLE).size["height"]
+        return int(self.wait_visible(self.RESIZABLE).size["height"])
 
     def resize_element(self, x_offset: int, y_offset: int) -> None:
         self.drag_by_offset(self.RESIZABLE_HANDLE, x_offset, y_offset)

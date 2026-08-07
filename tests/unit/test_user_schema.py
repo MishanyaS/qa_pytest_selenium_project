@@ -1,3 +1,5 @@
+from typing import Any
+
 import allure
 import pytest
 from jsonschema import ValidationError, validate
@@ -10,7 +12,7 @@ from schemas.user_schema import USER_SCHEMA
 @pytest.mark.unit
 class TestUserSchema:
     @pytest.fixture(scope="function")
-    def valid_user(self) -> dict:
+    def valid_user(self) -> dict[str, Any]:
         return {
             "id": 1,
             "firstName": "John",
@@ -24,35 +26,35 @@ class TestUserSchema:
     @allure.title("Schema is object")
     @allure.description("Verifies that the schema root type is object.")
     @pytest.mark.positive
-    def test_schema_type(self):
+    def test_schema_type(self) -> None:
         assert USER_SCHEMA["type"] == "object"
 
     @allure.story("Schema")
     @allure.title("Schema contains required section")
     @allure.description("Verifies that the schema defines required fields.")
     @pytest.mark.positive
-    def test_required_exists(self):
+    def test_required_exists(self) -> None:
         assert "required" in USER_SCHEMA
 
     @allure.story("Schema")
     @allure.title("Schema contains properties section")
     @allure.description("Verifies that the schema defines properties.")
     @pytest.mark.positive
-    def test_properties_exists(self):
+    def test_properties_exists(self) -> None:
         assert "properties" in USER_SCHEMA
 
     @allure.story("Schema")
     @allure.title("Required fields count")
     @allure.description("Verifies that the schema contains six required fields.")
     @pytest.mark.positive
-    def test_required_fields_count(self):
+    def test_required_fields_count(self) -> None:
         assert len(USER_SCHEMA["required"]) == 6
 
     @allure.story("Schema")
     @allure.title("Required fields match expected")
     @allure.description("Verifies that the required fields match the expected list.")
     @pytest.mark.positive
-    def test_required_fields(self):
+    def test_required_fields(self) -> None:
         assert USER_SCHEMA["required"] == [
             "id",
             "firstName",
@@ -66,49 +68,49 @@ class TestUserSchema:
     @allure.title("Properties count")
     @allure.description("Verifies that the schema defines six properties.")
     @pytest.mark.positive
-    def test_properties_count(self):
+    def test_properties_count(self) -> None:
         assert len(USER_SCHEMA["properties"]) == 6
 
     @allure.story("Schema")
     @allure.title("Id type")
     @allure.description("Verifies that the id property is an integer.")
     @pytest.mark.positive
-    def test_id_type(self):
+    def test_id_type(self) -> None:
         assert USER_SCHEMA["properties"]["id"]["type"] == "integer"
 
     @allure.story("Schema")
     @allure.title("First name type")
     @allure.description("Verifies that the firstName property is a string.")
     @pytest.mark.positive
-    def test_first_name_type(self):
+    def test_first_name_type(self) -> None:
         assert USER_SCHEMA["properties"]["firstName"]["type"] == "string"
 
     @allure.story("Schema")
     @allure.title("Last name type")
     @allure.description("Verifies that the lastName property is a string.")
     @pytest.mark.positive
-    def test_last_name_type(self):
+    def test_last_name_type(self) -> None:
         assert USER_SCHEMA["properties"]["lastName"]["type"] == "string"
 
     @allure.story("Schema")
     @allure.title("Email type")
     @allure.description("Verifies that the email property is a string.")
     @pytest.mark.positive
-    def test_email_type(self):
+    def test_email_type(self) -> None:
         assert USER_SCHEMA["properties"]["email"]["type"] == "string"
 
     @allure.story("Schema")
     @allure.title("Email format")
     @allure.description("Verifies that the email property uses the email format.")
     @pytest.mark.positive
-    def test_email_format(self):
+    def test_email_format(self) -> None:
         assert USER_SCHEMA["properties"]["email"]["format"] == "email"
 
     @allure.story("Schema")
     @allure.title("Age type")
     @allure.description("Verifies that the age property is an integer.")
     @pytest.mark.positive
-    def test_age_type(self):
+    def test_age_type(self) -> None:
         assert USER_SCHEMA["properties"]["age"]["type"] == "integer"
 
     @allure.story("Schema")
@@ -116,14 +118,14 @@ class TestUserSchema:
     @allure.description("Verifies that the minimum allowed value for age is zero.")
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_age_minimum(self):
+    def test_age_minimum(self) -> None:
         assert USER_SCHEMA["properties"]["age"]["minimum"] == 0
 
     @allure.story("Schema")
     @allure.title("Gender type")
     @allure.description("Verifies that the gender property is a string.")
     @pytest.mark.positive
-    def test_gender_type(self):
+    def test_gender_type(self) -> None:
         assert USER_SCHEMA["properties"]["gender"]["type"] == "string"
 
     @allure.story("Validation")
@@ -131,7 +133,7 @@ class TestUserSchema:
     @allure.description("Verifies that a valid user passes schema validation.")
     @pytest.mark.schema
     @pytest.mark.positive
-    def test_valid_user(self, valid_user: dict):
+    def test_valid_user(self, valid_user: dict[str, Any]) -> None:
         validate(instance=valid_user, schema=USER_SCHEMA)
 
     @allure.story("Validation")
@@ -139,7 +141,7 @@ class TestUserSchema:
     @allure.description("Verifies that additional properties are accepted.")
     @pytest.mark.schema
     @pytest.mark.positive
-    def test_additional_properties(self, valid_user: dict):
+    def test_additional_properties(self, valid_user: dict[str, Any]) -> None:
         valid_user["country"] = "USA"
 
         validate(instance=valid_user, schema=USER_SCHEMA)
@@ -149,7 +151,7 @@ class TestUserSchema:
     @allure.description("Verifies that validation fails when id is missing.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_missing_id(self, valid_user: dict):
+    def test_missing_id(self, valid_user: dict[str, Any]) -> None:
         valid_user.pop("id")
 
         with pytest.raises(ValidationError):
@@ -160,7 +162,7 @@ class TestUserSchema:
     @allure.description("Verifies that validation fails when firstName is missing.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_missing_first_name(self, valid_user: dict):
+    def test_missing_first_name(self, valid_user: dict[str, Any]) -> None:
         valid_user.pop("firstName")
 
         with pytest.raises(ValidationError):
@@ -171,7 +173,7 @@ class TestUserSchema:
     @allure.description("Verifies that validation fails when email is missing.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_missing_email(self, valid_user: dict):
+    def test_missing_email(self, valid_user: dict[str, Any]) -> None:
         valid_user.pop("email")
 
         with pytest.raises(ValidationError):
@@ -183,7 +185,7 @@ class TestUserSchema:
     @pytest.mark.schema
     @pytest.mark.negative
     @pytest.mark.boundary
-    def test_negative_age(self, valid_user: dict):
+    def test_negative_age(self, valid_user: dict[str, Any]) -> None:
         valid_user["age"] = -1
 
         with pytest.raises(ValidationError):
@@ -194,7 +196,7 @@ class TestUserSchema:
     @allure.description("Verifies that id must be an integer.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_invalid_id_type(self, valid_user: dict):
+    def test_invalid_id_type(self, valid_user: dict[str, Any]) -> None:
         valid_user["id"] = "1"
 
         with pytest.raises(ValidationError):
@@ -205,7 +207,7 @@ class TestUserSchema:
     @allure.description("Verifies that age must be an integer.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_invalid_age_type(self, valid_user: dict):
+    def test_invalid_age_type(self, valid_user: dict[str, Any]) -> None:
         valid_user["age"] = "18"
 
         with pytest.raises(ValidationError):
@@ -216,7 +218,7 @@ class TestUserSchema:
     @allure.description("Verifies that email must be a string.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_invalid_email_type(self, valid_user: dict):
+    def test_invalid_email_type(self, valid_user: dict[str, Any]) -> None:
         valid_user["email"] = 123
 
         with pytest.raises(ValidationError):
@@ -227,7 +229,7 @@ class TestUserSchema:
     @allure.description("Verifies that firstName must be a string.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_invalid_first_name_type(self, valid_user: dict):
+    def test_invalid_first_name_type(self, valid_user: dict[str, Any]) -> None:
         valid_user["firstName"] = 123
 
         with pytest.raises(ValidationError):
@@ -238,7 +240,7 @@ class TestUserSchema:
     @allure.description("Verifies that lastName must be a string.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_invalid_last_name_type(self, valid_user: dict):
+    def test_invalid_last_name_type(self, valid_user: dict[str, Any]) -> None:
         valid_user["lastName"] = 123
 
         with pytest.raises(ValidationError):
@@ -249,7 +251,7 @@ class TestUserSchema:
     @allure.description("Verifies that gender must be a string.")
     @pytest.mark.schema
     @pytest.mark.negative
-    def test_invalid_gender_type(self, valid_user: dict):
+    def test_invalid_gender_type(self, valid_user: dict[str, Any]) -> None:
         valid_user["gender"] = 1
 
         with pytest.raises(ValidationError):
@@ -271,7 +273,7 @@ class TestUserSchema:
     @pytest.mark.schema
     @pytest.mark.positive
     @pytest.mark.boundary
-    def test_valid_ages(self, valid_user: dict, age: int):
+    def test_valid_ages(self, valid_user: dict[str, Any], age: int) -> None:
         valid_user["age"] = age
 
         validate(instance=valid_user, schema=USER_SCHEMA)

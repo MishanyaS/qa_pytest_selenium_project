@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -35,13 +37,13 @@ class DraggablePage(BasePage):
             ),
         )
 
-    def draggable_x(self) -> int:
+    def draggable_x(self) -> Any:
         return self.execute_script(
             "return window.getComputedStyle(arguments[0]).left;",
             self.wait_visible(self.DRAGGABLE),
         )
 
-    def draggable_y(self) -> int:
+    def draggable_y(self) -> Any:
         return self.execute_script(
             "return window.getComputedStyle(arguments[0]).top;",
             self.wait_visible(self.DRAGGABLE),

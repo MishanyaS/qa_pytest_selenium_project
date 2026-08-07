@@ -1,3 +1,5 @@
+from typing import Any
+
 import allure
 import pytest
 from jsonschema import ValidationError, validate
@@ -10,7 +12,7 @@ from schemas.comment_schema import COMMENT_SCHEMA
 @pytest.mark.unit
 class TestCommentSchema:
     @pytest.fixture(scope="function")
-    def valid_comment(self) -> dict:
+    def valid_comment(self) -> dict[str, Any]:
         return {
             "id": 1,
             "body": "Test comment",
@@ -27,7 +29,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the schema root type is object.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_schema_type(self):
+    def test_schema_type(self) -> None:
         assert COMMENT_SCHEMA["type"] == "object"
 
     @allure.story("Schema")
@@ -35,7 +37,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the schema contains the required section.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_required_exists(self):
+    def test_required_exists(self) -> None:
         assert "required" in COMMENT_SCHEMA
 
     @allure.story("Schema")
@@ -43,7 +45,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the schema contains the properties section.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_properties_exists(self):
+    def test_properties_exists(self) -> None:
         assert "properties" in COMMENT_SCHEMA
 
     @allure.story("Schema")
@@ -53,7 +55,7 @@ class TestCommentSchema:
     )
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_required_fields_count(self):
+    def test_required_fields_count(self) -> None:
         assert len(COMMENT_SCHEMA["required"]) == 5
 
     @allure.story("Schema")
@@ -61,7 +63,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the required fields match the expected list.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_required_fields(self):
+    def test_required_fields(self) -> None:
         assert COMMENT_SCHEMA["required"] == [
             "id",
             "body",
@@ -77,7 +79,7 @@ class TestCommentSchema:
     )
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_properties_count(self):
+    def test_properties_count(self) -> None:
         assert len(COMMENT_SCHEMA["properties"]) == 5
 
     @allure.story("Schema")
@@ -85,7 +87,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the id property is defined as an integer.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_id_type(self):
+    def test_id_type(self) -> None:
         assert COMMENT_SCHEMA["properties"]["id"]["type"] == "integer"
 
     @allure.story("Schema")
@@ -93,7 +95,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the body property is defined as a string.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_body_type(self):
+    def test_body_type(self) -> None:
         assert COMMENT_SCHEMA["properties"]["body"]["type"] == "string"
 
     @allure.story("Schema")
@@ -101,7 +103,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the postId property is defined as an integer.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_post_id_type(self):
+    def test_post_id_type(self) -> None:
         assert COMMENT_SCHEMA["properties"]["postId"]["type"] == "integer"
 
     @allure.story("Schema")
@@ -109,7 +111,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the likes property is defined as an integer.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_likes_type(self):
+    def test_likes_type(self) -> None:
         assert COMMENT_SCHEMA["properties"]["likes"]["type"] == "integer"
 
     @allure.story("Schema")
@@ -117,7 +119,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the minimum value for likes is zero.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_likes_minimum(self):
+    def test_likes_minimum(self) -> None:
         assert COMMENT_SCHEMA["properties"]["likes"]["minimum"] == 0
 
     @allure.story("Schema")
@@ -125,7 +127,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the user property is defined as an object.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_user_type(self):
+    def test_user_type(self) -> None:
         assert COMMENT_SCHEMA["properties"]["user"]["type"] == "object"
 
     @allure.story("Schema")
@@ -133,7 +135,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the user object defines the required fields.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_user_required_fields(self):
+    def test_user_required_fields(self) -> None:
         assert COMMENT_SCHEMA["properties"]["user"]["required"] == [
             "id",
             "username",
@@ -144,7 +146,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the user id property is defined as an integer.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_user_id_type(self):
+    def test_user_id_type(self) -> None:
         assert (
             COMMENT_SCHEMA["properties"]["user"]["properties"]["id"]["type"]
             == "integer"
@@ -155,7 +157,7 @@ class TestCommentSchema:
     @allure.description("Verifies that the username property is defined as a string.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_username_type(self):
+    def test_username_type(self) -> None:
         assert (
             COMMENT_SCHEMA["properties"]["user"]["properties"]["username"]["type"]
             == "string"
@@ -166,7 +168,7 @@ class TestCommentSchema:
     @allure.description("Verifies that a valid comment passes schema validation.")
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_valid_comment(self, valid_comment: dict):
+    def test_valid_comment(self, valid_comment: dict[str, Any]) -> None:
         validate(instance=valid_comment, schema=COMMENT_SCHEMA)
 
     @allure.story("Validation")
@@ -176,7 +178,7 @@ class TestCommentSchema:
     )
     @pytest.mark.positive
     @pytest.mark.schema
-    def test_additional_properties(self, valid_comment: dict):
+    def test_additional_properties(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["createdAt"] = "2026-07-25"
 
         validate(instance=valid_comment, schema=COMMENT_SCHEMA)
@@ -186,7 +188,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when the id field is missing.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_missing_id(self, valid_comment: dict):
+    def test_missing_id(self, valid_comment: dict[str, Any]) -> None:
         valid_comment.pop("id")
 
         with pytest.raises(ValidationError):
@@ -199,7 +201,7 @@ class TestCommentSchema:
     )
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_missing_body(self, valid_comment: dict):
+    def test_missing_body(self, valid_comment: dict[str, Any]) -> None:
         valid_comment.pop("body")
 
         with pytest.raises(ValidationError):
@@ -212,7 +214,7 @@ class TestCommentSchema:
     )
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_missing_user(self, valid_comment: dict):
+    def test_missing_user(self, valid_comment: dict[str, Any]) -> None:
         valid_comment.pop("user")
 
         with pytest.raises(ValidationError):
@@ -225,7 +227,7 @@ class TestCommentSchema:
     )
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_missing_username(self, valid_comment: dict):
+    def test_missing_username(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["user"].pop("username")
 
         with pytest.raises(ValidationError):
@@ -237,7 +239,7 @@ class TestCommentSchema:
     @pytest.mark.negative
     @pytest.mark.schema
     @pytest.mark.boundary
-    def test_negative_likes(self, valid_comment: dict):
+    def test_negative_likes(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["likes"] = -1
 
         with pytest.raises(ValidationError):
@@ -248,7 +250,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when id is not an integer.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_id_type(self, valid_comment: dict):
+    def test_invalid_id_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["id"] = "1"
 
         with pytest.raises(ValidationError):
@@ -259,7 +261,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when body is not a string.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_body_type(self, valid_comment: dict):
+    def test_invalid_body_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["body"] = 123
 
         with pytest.raises(ValidationError):
@@ -270,7 +272,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when postId is not an integer.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_post_id_type(self, valid_comment: dict):
+    def test_invalid_post_id_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["postId"] = "10"
 
         with pytest.raises(ValidationError):
@@ -281,7 +283,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when likes is not an integer.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_likes_type(self, valid_comment: dict):
+    def test_invalid_likes_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["likes"] = "5"
 
         with pytest.raises(ValidationError):
@@ -292,7 +294,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when user is not an object.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_user_type(self, valid_comment: dict):
+    def test_invalid_user_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["user"] = []
 
         with pytest.raises(ValidationError):
@@ -305,7 +307,7 @@ class TestCommentSchema:
     )
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_user_id_type(self, valid_comment: dict):
+    def test_invalid_user_id_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["user"]["id"] = "3"
 
         with pytest.raises(ValidationError):
@@ -316,7 +318,7 @@ class TestCommentSchema:
     @allure.description("Verifies that validation fails when username is not a string.")
     @pytest.mark.negative
     @pytest.mark.schema
-    def test_invalid_username_type(self, valid_comment: dict):
+    def test_invalid_username_type(self, valid_comment: dict[str, Any]) -> None:
         valid_comment["user"]["username"] = 123
 
         with pytest.raises(ValidationError):
@@ -338,7 +340,7 @@ class TestCommentSchema:
     @pytest.mark.positive
     @pytest.mark.schema
     @pytest.mark.boundary
-    def test_valid_likes(self, valid_comment: dict, likes: int):
+    def test_valid_likes(self, valid_comment: dict[str, Any], likes: int) -> None:
         valid_comment["likes"] = likes
 
         validate(instance=valid_comment, schema=COMMENT_SCHEMA)
@@ -358,7 +360,7 @@ class TestCommentSchema:
     @pytest.mark.positive
     @pytest.mark.schema
     @pytest.mark.boundary
-    def test_valid_post_ids(self, valid_comment: dict, post_id: int):
+    def test_valid_post_ids(self, valid_comment: dict[str, Any], post_id: int) -> None:
         valid_comment["postId"] = post_id
 
         validate(instance=valid_comment, schema=COMMENT_SCHEMA)

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.alerts_frames_page import AlertsFramesPage
 from pages.alerts_page import AlertsPage
@@ -20,13 +21,13 @@ class TestAlerts:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_alerts(self, driver):
+    def test_open_alerts(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         alerts_page = AlertsPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Alerts, Frame & Windows section"):
             home_page.open_alerts_frame_windows()
@@ -44,13 +45,13 @@ class TestAlerts:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_alert_controls_visible(self, driver):
+    def test_alert_controls_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -72,13 +73,13 @@ class TestAlerts:
         "Verifies that clicking the Simple Alert button opens a browser alert containing the expected message."
     )
     @pytest.mark.positive
-    def test_simple_alert_text(self, driver):
+    def test_simple_alert_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -98,13 +99,13 @@ class TestAlerts:
     @allure.title("Simple alert can be accepted")
     @allure.description("Verifies that the Simple Alert can be successfully accepted.")
     @pytest.mark.positive
-    def test_accept_simple_alert(self, driver):
+    def test_accept_simple_alert(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -124,13 +125,13 @@ class TestAlerts:
     )
     @pytest.mark.positive
     @pytest.mark.slow
-    def test_timer_alert_text(self, driver):
+    def test_timer_alert_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -152,13 +153,13 @@ class TestAlerts:
         "Verifies that the Confirm Alert opens with the expected message."
     )
     @pytest.mark.positive
-    def test_confirm_alert_text(self, driver):
+    def test_confirm_alert_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -180,13 +181,13 @@ class TestAlerts:
         "Verifies that accepting the Confirm Alert displays the expected confirmation result."
     )
     @pytest.mark.positive
-    def test_accept_confirm_alert(self, driver):
+    def test_accept_confirm_alert(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -208,13 +209,13 @@ class TestAlerts:
         "Verifies that dismissing the Confirm Alert displays the expected cancellation result."
     )
     @pytest.mark.positive
-    def test_dismiss_confirm_alert(self, driver):
+    def test_dismiss_confirm_alert(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -236,13 +237,13 @@ class TestAlerts:
         "Verifies that the Prompt Alert opens with the expected message."
     )
     @pytest.mark.positive
-    def test_prompt_alert_text(self, driver):
+    def test_prompt_alert_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 
@@ -262,13 +263,13 @@ class TestAlerts:
     @allure.title("Prompt alert can be dismissed")
     @allure.description("Verifies that the Prompt Alert can be dismissed successfully.")
     @pytest.mark.positive
-    def test_dismiss_prompt_alert(self, driver):
+    def test_dismiss_prompt_alert(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_page = AlertsPage(driver)
         page = AlertsFramesPage(driver)
 
         with allure.step("Open Alerts page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_page.open_alerts()
 

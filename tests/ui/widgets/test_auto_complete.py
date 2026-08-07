@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.auto_complete_page import AutoCompletePage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestAutoComplete:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_auto_complete(self, driver):
+    def test_open_auto_complete(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         auto_complete_page = AutoCompletePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -44,13 +45,13 @@ class TestAutoComplete:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_auto_complete_input_visible(self, driver):
+    def test_open_auto_complete_input_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -66,7 +67,7 @@ class TestAutoComplete:
         "Verifies that text can be entered into the Single Value Auto Complete input."
     )
     @pytest.mark.positive
-    def test_enter_single_value(self, driver):
+    def test_enter_single_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -74,7 +75,7 @@ class TestAutoComplete:
         value = "Red"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -90,7 +91,7 @@ class TestAutoComplete:
         "Verifies that text can be entered into the Multiple Values Auto Complete input."
     )
     @pytest.mark.positive
-    def test_enter_multiple_value(self, driver):
+    def test_enter_multiple_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -98,7 +99,7 @@ class TestAutoComplete:
         value = "Red"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -114,7 +115,7 @@ class TestAutoComplete:
         "Verifies that Auto Complete suggestions are displayed after entering a color value."
     )
     @pytest.mark.positive
-    def test_options_are_displayed(self, driver):
+    def test_options_are_displayed(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -122,7 +123,7 @@ class TestAutoComplete:
         value = "Red"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -141,7 +142,7 @@ class TestAutoComplete:
         "Verifies that a color can be selected from the Single Value Auto Complete suggestions."
     )
     @pytest.mark.positive
-    def test_select_single_value(self, driver):
+    def test_select_single_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -149,7 +150,7 @@ class TestAutoComplete:
         value = "Red"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -168,7 +169,7 @@ class TestAutoComplete:
         "Verifies that a color can be selected from the Multiple Values Auto Complete suggestions."
     )
     @pytest.mark.positive
-    def test_select_multiple_values(self, driver):
+    def test_select_multiple_values(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -177,7 +178,7 @@ class TestAutoComplete:
         second_value = "Blue"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -202,7 +203,7 @@ class TestAutoComplete:
         "Verifies that a selected color can be removed from the Multiple Values Auto Complete field."
     )
     @pytest.mark.positive
-    def test_remove_multiple_value(self, driver):
+    def test_remove_multiple_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -211,7 +212,7 @@ class TestAutoComplete:
         second_value = "Blue"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -238,7 +239,7 @@ class TestAutoComplete:
         "Verifies that the Single Value Auto Complete input can be cleared."
     )
     @pytest.mark.positive
-    def test_clear_single_value(self, driver):
+    def test_clear_single_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -246,7 +247,7 @@ class TestAutoComplete:
         value = "Red"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 
@@ -265,7 +266,7 @@ class TestAutoComplete:
         "Verifies that the Multiple Values Auto Complete input can be cleared."
     )
     @pytest.mark.positive
-    def test_clear_multiple_value_input(self, driver):
+    def test_clear_multiple_value_input(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AutoCompletePage(driver)
@@ -273,7 +274,7 @@ class TestAutoComplete:
         value = "Red"
 
         with allure.step("Open Auto Complete page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_auto_complete()
 

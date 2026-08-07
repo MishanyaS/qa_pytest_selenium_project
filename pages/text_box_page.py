@@ -110,14 +110,14 @@ class TextBoxPage(BasePage):
     def output_permanent_address(self) -> str:
         return self.text(self.OUTPUT_PERMANENT_ADDRESS)
 
-    def full_name_value(self) -> str:
+    def full_name_value(self) -> str | None:
         return self.attribute(self.FULL_NAME_INPUT, "value")
 
-    def email_value(self) -> str:
+    def email_value(self) -> str | None:
         return self.attribute(self.EMAIL_INPUT, "value")
 
-    def current_address_value(self) -> str:
+    def current_address_value(self) -> str | None:
         return self.attribute(self.CURRENT_ADDRESS_TEXTAREA, "value")
 
-    def permanent_address_value(self) -> str:
+    def permanent_address_value(self) -> str | None:
         return self.attribute(self.PERMANENT_ADDRESS_TEXTAREA, "value")

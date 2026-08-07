@@ -157,25 +157,29 @@ class CheckBoxPage(BasePage):
     def expand_home(self) -> None:
         switcher = self.find(self.HOME_SWITCHER)
 
-        if "switcher_close" in switcher.get_attribute("class"):
+        classes = switcher.get_attribute("class") or ""
+        if "switcher_close" in classes:
             switcher.click()
 
     def expand_documents(self) -> None:
         switcher = self.find(self.DOCUMENTS_SWITCHER)
 
-        if "switcher_close" in switcher.get_attribute("class"):
+        classes = switcher.get_attribute("class") or ""
+        if "switcher_close" in classes:
             switcher.click()
 
     def expand_workspace(self) -> None:
         switcher = self.find(self.WORKSPACE_SWITCHER)
 
-        if "switcher_close" in switcher.get_attribute("class"):
+        classes = switcher.get_attribute("class") or ""
+        if "switcher_close" in classes:
             switcher.click()
 
     def expand_office(self) -> None:
         switcher = self.find(self.OFFICE_SWITCHER)
 
-        if "switcher_close" in switcher.get_attribute("class"):
+        classes = switcher.get_attribute("class") or ""
+        if "switcher_close" in classes:
             switcher.click()
 
     def result_visible(self) -> bool:

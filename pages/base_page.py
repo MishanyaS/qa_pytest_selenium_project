@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from selenium.common.exceptions import (
     ElementClickInterceptedException,
     TimeoutException,
@@ -23,7 +25,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from config import PAGE_LOAD_TIMEOUT
 
-Locator = tuple[str, str]
+type Locator = tuple[str, str]
 
 
 class BasePage:
@@ -70,7 +72,7 @@ class BasePage:
         return self.wait.until(element_to_be_clickable(locator))
 
     def wait_invisible(self, locator: Locator) -> bool:
-        return self.wait.until(invisibility_of_element_located(locator))
+        return bool(self.wait.until(invisibility_of_element_located(locator)))
 
     def wait_text(self, locator: Locator, text: str) -> bool:
         return self.wait.until(text_to_be_present_in_element(locator, text))
@@ -98,7 +100,7 @@ class BasePage:
     def text(self, locator: Locator) -> str:
         return self.wait_visible(locator).text
 
-    def attribute(self, locator: Locator, name: str):
+    def attribute(self, locator: Locator, name: str) -> str | None:
         return self.wait_visible(locator).get_attribute(name)
 
     def is_visible(self, locator: Locator) -> bool:
@@ -117,7 +119,7 @@ class BasePage:
     def is_selected(self, locator: Locator) -> bool:
         return self.wait_visible(locator).is_selected()
 
-    def execute_script(self, script: str, *args):
+    def execute_script(self, script: str, *args: Any) -> Any:
         return self.driver.execute_script(script, *args)
 
     def js_click(self, locator: Locator) -> None:
@@ -222,6 +224,9 @@ class BasePage:
 
     def switch_to_window(self, index: int) -> None:
         self.driver.switch_to.window(self.driver.window_handles[index])
+
+    def switch_to_window_handle(self, hande: str) -> None:
+        self.driver.switch_to.window(hande)
 
     def close_window(self) -> None:
         self.driver.close()

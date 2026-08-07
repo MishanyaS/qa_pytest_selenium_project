@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.alerts_frames_page import AlertsFramesPage
 from pages.frames_page import FramesPage
@@ -20,13 +21,13 @@ class TestFrames:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_frames(self, driver):
+    def test_open_frames(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         frames_page = FramesPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Alerts, Frame & Windows section"):
             home_page.open_alerts_frame_windows()
@@ -42,13 +43,13 @@ class TestFrames:
     @allure.description("Verifies that both frames are displayed on the Frames page.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_frames_visible(self, driver):
+    def test_frames_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         frames_page = FramesPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_frames()
 
@@ -65,13 +66,13 @@ class TestFrames:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_frame_1_heading(self, driver):
+    def test_frame_1_heading(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         frames_page = FramesPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_frames()
 
@@ -88,13 +89,13 @@ class TestFrames:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_frame_2_heading(self, driver):
+    def test_frame_2_heading(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         alerts_frames_page = AlertsFramesPage(driver)
         frames_page = FramesPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_alerts_frame_windows()
             alerts_frames_page.open_frames()
 

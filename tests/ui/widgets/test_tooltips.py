@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.tool_tips_page import ToolTipsPage
@@ -20,13 +21,13 @@ class TestToolTips:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_tool_tips(self, driver):
+    def test_open_tool_tips(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         tool_tips_page = ToolTipsPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -44,13 +45,13 @@ class TestToolTips:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_tooltips_elements_visible(self, driver):
+    def test_tooltips_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 
@@ -64,13 +65,13 @@ class TestToolTips:
     @allure.title("Button tooltip is displayed")
     @allure.description("Verifies that hovering over the button displays the tooltip.")
     @pytest.mark.positive
-    def test_button_tooltip(self, driver):
+    def test_button_tooltip(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 
@@ -89,13 +90,13 @@ class TestToolTips:
         "Verifies that hovering over the text field displays the tooltip."
     )
     @pytest.mark.positive
-    def test_text_field_tooltip(self, driver):
+    def test_text_field_tooltip(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 
@@ -112,13 +113,13 @@ class TestToolTips:
     @allure.title("Tooltip button text is correct")
     @allure.description("Verifies that the tooltip button has the expected label.")
     @pytest.mark.positive
-    def test_tooltip_button_text(self, driver):
+    def test_tooltip_button_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 
@@ -129,13 +130,13 @@ class TestToolTips:
     @allure.title("Text field is initially empty")
     @allure.description("Verifies that the tooltip text field has no value initially.")
     @pytest.mark.positive
-    def test_tooltip_text_field_initial_value(self, driver):
+    def test_tooltip_text_field_initial_value(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 
@@ -148,13 +149,13 @@ class TestToolTips:
         "Verifies that the helper method returns the tooltip text for the button."
     )
     @pytest.mark.positive
-    def test_hover_button_get_tooltip(self, driver):
+    def test_hover_button_get_tooltip(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 
@@ -170,13 +171,13 @@ class TestToolTips:
         "Verifies that the helper method returns the tooltip text for the text field."
     )
     @pytest.mark.positive
-    def test_hover_text_field_get_tooltip(self, driver):
+    def test_hover_text_field_get_tooltip(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = ToolTipsPage(driver)
 
         with allure.step("Open Tool Tips page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_tool_tips()
 

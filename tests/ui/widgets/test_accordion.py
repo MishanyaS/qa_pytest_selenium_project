@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.accordion_page import AccordionPage
 from pages.home_page import HomePage
@@ -20,13 +21,13 @@ class TestAccordion:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_accordion(self, driver):
+    def test_open_accordion(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         accordion_page = AccordionPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -44,13 +45,13 @@ class TestAccordion:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_accordion_sections_visible(self, driver):
+    def test_accordion_sections_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_accordion()
 
@@ -69,13 +70,13 @@ class TestAccordion:
         "Verifies that the first Accordion section can be opened and contains non-empty content."
     )
     @pytest.mark.positive
-    def test_open_section_1(self, driver):
+    def test_open_section_1(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_accordion()
 
@@ -97,13 +98,13 @@ class TestAccordion:
         "Verifies that the second Accordion section can be opened and contains non-empty content."
     )
     @pytest.mark.positive
-    def test_open_section_2(self, driver):
+    def test_open_section_2(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_accordion()
 
@@ -125,13 +126,13 @@ class TestAccordion:
         "Verifies that the third Accordion section can be opened and contains non-empty content."
     )
     @pytest.mark.positive
-    def test_open_section_3(self, driver):
+    def test_open_section_3(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_accordion()
 
@@ -153,13 +154,13 @@ class TestAccordion:
         "Verifies that each Accordion section provides non-empty content."
     )
     @pytest.mark.positive
-    def test_all_sections_contain_content(self, driver):
+    def test_all_sections_contain_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_accordion()
 
@@ -187,13 +188,13 @@ class TestAccordion:
         "Verifies that the three Accordion sections provide different content."
     )
     @pytest.mark.positive
-    def test_sections_contain_different_content(self, driver):
+    def test_sections_contain_different_content(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = AccordionPage(driver)
 
         with allure.step("Open Accordion page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_accordion()
 

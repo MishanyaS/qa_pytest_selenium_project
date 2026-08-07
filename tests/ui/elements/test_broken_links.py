@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.broken_links_page import BrokenLinksPage
 from pages.elements_page import ElementsPage
@@ -22,13 +23,13 @@ class TestButtons:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_broken_links(self, driver):
+    def test_open_broken_links(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         broken_links_page = BrokenLinksPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -46,13 +47,13 @@ class TestButtons:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_broken_links_elements_visible(self, driver):
+    def test_broken_links_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -72,13 +73,13 @@ class TestButtons:
     @allure.title("Valid link has a valid href")
     @allure.description("Verifies that the valid link contains an HTTP(S) destination.")
     @pytest.mark.positive
-    def test_valid_link_href(self, driver):
+    def test_valid_link_href(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -95,13 +96,13 @@ class TestButtons:
         "Verifies that the broken link contains an HTTP(S) destination even though the destination itself is expected to be unavailable."
     )
     @pytest.mark.positive
-    def test_broken_link_href(self, driver):
+    def test_broken_link_href(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -118,13 +119,13 @@ class TestButtons:
         "Verifies that clicking the valid link navigates to the expected DemoQA page."
     )
     @pytest.mark.positive
-    def test_click_valid_link(self, driver):
+    def test_click_valid_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -140,13 +141,13 @@ class TestButtons:
         "Verifies that clicking the broken link navigates to its configured broken destination."
     )
     @pytest.mark.negative
-    def test_click_broken_link(self, driver):
+    def test_click_broken_link(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -172,13 +173,13 @@ class TestButtons:
         "Verifies that the valid image element is displayed and contains a configured image source."
     )
     @pytest.mark.positive
-    def test_valid_image_loaded(self, driver):
+    def test_valid_image_loaded(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -200,13 +201,13 @@ class TestButtons:
         "Verifies that the broken image is present on the page but its naturalWidth is zero."
     )
     @pytest.mark.negative
-    def test_broken_image_not_loaded(self, driver):
+    def test_broken_image_not_loaded(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -223,13 +224,13 @@ class TestButtons:
     )
     @pytest.mark.regression
     @pytest.mark.positive
-    def test_images_load_states(self, driver):
+    def test_images_load_states(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 
@@ -264,13 +265,13 @@ class TestButtons:
         "Verifies that the valid and broken links point to different URLs."
     )
     @pytest.mark.positive
-    def test_links_have_different_destinations(self, driver):
+    def test_links_have_different_destinations(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = BrokenLinksPage(driver)
 
         with allure.step("Open Broken Links page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_broken_links_images()
 

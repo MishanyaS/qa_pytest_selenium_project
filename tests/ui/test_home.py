@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from config import BASE_UI_URL
 from pages.home_page import HomePage
@@ -18,11 +19,11 @@ class TestHomePage:
         "Verifies that the DemoQA home page openes successfully and the expected URL is displayed"
     )
     @pytest.mark.positive
-    def test_home_page_opens(self, driver):
+    def test_home_page_opens(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Verify current URL"):
             assert page.current_url == BASE_UI_URL
@@ -33,11 +34,11 @@ class TestHomePage:
         "Verifies that all six main DemoQA category cards are displayed on the home page."
     )
     @pytest.mark.positive
-    def test_all_category_cards_visible(self, driver):
+    def test_all_category_cards_visible(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Verify Element card"):
             assert page.elements_visible()
@@ -63,11 +64,11 @@ class TestHomePage:
         "Verifies navigation from the Home page to the Elements section."
     )
     @pytest.mark.positive
-    def test_open_elements(self, driver):
+    def test_open_elements(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Click Elements card"):
             page.open_elements()
@@ -79,11 +80,11 @@ class TestHomePage:
     @allure.title("Forms card opens Forms section")
     @allure.description("Verifies navigation from the Home page to the Forms section.")
     @pytest.mark.positive
-    def test_open_forms(self, driver):
+    def test_open_forms(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Click Forms card"):
             page.open_forms()
@@ -97,11 +98,11 @@ class TestHomePage:
         "Verifies navigation from the Home page to the Alerts, Frame & Windows section."
     )
     @pytest.mark.positive
-    def test_open_alerts(self, driver):
+    def test_open_alerts(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Click Alerts, Frame & Windows card"):
             page.open_alerts_frame_windows()
@@ -115,11 +116,11 @@ class TestHomePage:
         "Verifies navigation from the Home page to the Widgets section."
     )
     @pytest.mark.positive
-    def test_open_widgets(self, driver):
+    def test_open_widgets(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Click Widgets card"):
             page.open_widgets()
@@ -133,11 +134,11 @@ class TestHomePage:
         "Verifies navigation from the Home page to the Interactions section."
     )
     @pytest.mark.positive
-    def test_open_interactions(self, driver):
+    def test_open_interactions(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Click Interactions card"):
             page.open_interactions()
@@ -151,11 +152,11 @@ class TestHomePage:
         "Verifies navigation from the Home page to the Book Store Application section."
     )
     @pytest.mark.positive
-    def test_open_book_store(self, driver):
+    def test_open_book_store(self, driver: WebDriver) -> None:
         page = HomePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            page.open()
+            page.open_home_page()
 
         with allure.step("Click Book Store Application card"):
             page.open_book_store()

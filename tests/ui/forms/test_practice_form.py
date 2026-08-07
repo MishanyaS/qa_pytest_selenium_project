@@ -4,6 +4,8 @@ from pathlib import Path
 
 import allure
 import pytest
+from faker import Faker
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.forms_page import FormsPage
 from pages.home_page import HomePage
@@ -22,13 +24,13 @@ class TestPracticeForm:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_practice_form(self, driver):
+    def test_open_practice_form(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         practice_form_page = PracticeFormPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Forms section"):
             home_page.open_forms()
@@ -44,13 +46,13 @@ class TestPracticeForm:
     @allure.description("Verifies that the main Practice Form controls are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_practice_form_elements_visible(self, driver):
+    def test_practice_form_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -99,13 +101,13 @@ class TestPracticeForm:
         "Verifies that no gender option is selected when the Practice Form is opened."
     )
     @pytest.mark.positive
-    def test_gender_radio_buttons_initial_state(self, driver):
+    def test_gender_radio_buttons_initial_state(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -124,13 +126,13 @@ class TestPracticeForm:
         "Verifies that no hobby checkbox is selected when the Practice Form is opened."
     )
     @pytest.mark.positive
-    def test_hobby_checkboxes_initial_state(self, driver):
+    def test_hobby_checkboxes_initial_state(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -149,7 +151,7 @@ class TestPracticeForm:
         "Verifies that First Name, Last Name, Email and Mobile fields accept and preserve entered values."
     )
     @pytest.mark.positive
-    def test_enter_personal_information(self, driver, faker):
+    def test_enter_personal_information(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -160,7 +162,7 @@ class TestPracticeForm:
         mobile = faker.numerify("##########")
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -194,13 +196,13 @@ class TestPracticeForm:
         "Verifies that the Male gender option can be selected and that the other gender options remain unselected."
     )
     @pytest.mark.positive
-    def test_select_male_gender(self, driver):
+    def test_select_male_gender(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -222,13 +224,13 @@ class TestPracticeForm:
         "Verifies that the Female gender option can be selected and that the other gender options remain unselected."
     )
     @pytest.mark.positive
-    def test_select_female_gender(self, driver):
+    def test_select_female_gender(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -250,13 +252,13 @@ class TestPracticeForm:
         "Verifies that the Other gender option can be selected and that the other gender options remain unselected."
     )
     @pytest.mark.positive
-    def test_select_other_gender(self, driver):
+    def test_select_other_gender(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -278,13 +280,13 @@ class TestPracticeForm:
         "Verifies that selecting another gender option clears the previously selected gender option."
     )
     @pytest.mark.positive
-    def test_gender_selection_is_exclusive(self, driver):
+    def test_gender_selection_is_exclusive(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -318,7 +320,7 @@ class TestPracticeForm:
         "Verifies that the Date of Birth field accepts and preserves the entered date."
     )
     @pytest.mark.positive
-    def test_enter_date_of_birth(self, driver):
+    def test_enter_date_of_birth(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -326,7 +328,7 @@ class TestPracticeForm:
         date_of_birth = "15 May 2000"
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -342,7 +344,7 @@ class TestPracticeForm:
         "Verifies that a subject can be entered and selected from the Subjects autocomplete list."
     )
     @pytest.mark.positive
-    def test_select_subject(self, driver):
+    def test_select_subject(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -350,7 +352,7 @@ class TestPracticeForm:
         subject = "Maths"
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -366,19 +368,20 @@ class TestPracticeForm:
                 "textContent",
             )
 
+            assert selected_subject is not None
             assert selected_subject.strip() == subject
 
     @allure.story("Practice Form hobbies")
     @allure.title("User can select Sports hobby")
     @allure.description("Verifies that the Sports hobby checkbox can be selected.")
     @pytest.mark.positive
-    def test_select_sports_hobby(self, driver):
+    def test_select_sports_hobby(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -398,13 +401,13 @@ class TestPracticeForm:
     @allure.title("User can select Reading hobby")
     @allure.description("Verifies that the Reading hobby checkbox can be selected.")
     @pytest.mark.positive
-    def test_select_reading_hobby(self, driver):
+    def test_select_reading_hobby(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -424,13 +427,13 @@ class TestPracticeForm:
     @allure.title("User can select Music hobby")
     @allure.description("Verifies that the Music hobby checkbox can be selected.")
     @pytest.mark.positive
-    def test_select_music_hobby(self, driver):
+    def test_select_music_hobby(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -452,13 +455,13 @@ class TestPracticeForm:
         "Verifies that multiple hobby checkboxes can be selected simultaneously."
     )
     @pytest.mark.positive
-    def test_select_multiple_hobbies(self, driver):
+    def test_select_multiple_hobbies(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -483,7 +486,7 @@ class TestPracticeForm:
         "Verifies that the Current Address textarea accepts and preserves entered text."
     )
     @pytest.mark.positive
-    def test_enter_current_address(self, driver, faker):
+    def test_enter_current_address(self, driver: WebDriver, faker: Faker) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -491,7 +494,7 @@ class TestPracticeForm:
         address = faker.address()
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -507,13 +510,13 @@ class TestPracticeForm:
         "Verifies that a state can be selected and that the corresponding city can subsequently be selected."
     )
     @pytest.mark.positive
-    def test_select_state_and_city(self, driver):
+    def test_select_state_and_city(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -548,7 +551,7 @@ class TestPracticeForm:
         "Verifies that a picture file can be uploaded through the Picture input."
     )
     @pytest.mark.positive
-    def test_upload_picture(self, driver, tmp_path: Path):
+    def test_upload_picture(self, driver: WebDriver, tmp_path: Path) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -557,7 +560,7 @@ class TestPracticeForm:
         picture_path.write_text("DemoQA test file", encoding="utf-8")
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -577,7 +580,9 @@ class TestPracticeForm:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_submit_practice_form(self, driver, faker, tmp_path: Path):
+    def test_submit_practice_form(
+        self, driver: WebDriver, faker: Faker, tmp_path: Path
+    ) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -596,7 +601,7 @@ class TestPracticeForm:
         picture_path.write_text("DemoQA test file", encoding="utf-8")
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -650,8 +655,8 @@ class TestPracticeForm:
     )
     @pytest.mark.positive
     def test_submitted_form_contains_personal_information(
-        self, driver, faker, tmp_path: Path
-    ):
+        self, driver: WebDriver, faker: Faker, tmp_path: Path
+    ) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -666,7 +671,7 @@ class TestPracticeForm:
         picture_path.write_text("DemoQA test file", encoding="utf-8")
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -726,8 +731,8 @@ class TestPracticeForm:
     )
     @pytest.mark.positive
     def test_submitted_form_contains_selected_options(
-        self, driver, faker, tmp_path: Path
-    ):
+        self, driver: WebDriver, faker: Faker, tmp_path: Path
+    ) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -745,7 +750,7 @@ class TestPracticeForm:
         mobile = faker.numerify("##########")
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 
@@ -814,8 +819,8 @@ class TestPracticeForm:
     )
     @pytest.mark.positive
     def test_submission_result_contains_expected_rows(
-        self, driver, faker, tmp_path: Path
-    ):
+        self, driver: WebDriver, faker: Faker, tmp_path: Path
+    ) -> None:
         home_page = HomePage(driver)
         forms_page = FormsPage(driver)
         page = PracticeFormPage(driver)
@@ -824,7 +829,7 @@ class TestPracticeForm:
         picture_path.write_text("DemoQA test file", encoding="utf-8")
 
         with allure.step("Open Practice Form page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_forms()
             forms_page.open_practice_form()
 

@@ -275,7 +275,10 @@ class PracticeFormPage(BasePage):
         return self.is_visible(self.RESULT_TABLE)
 
     def result_rows(self) -> list[str]:
-        return [row.text for row in self.wait_all_present(self.RESULT_ROWS)]
+        return [
+            self.execute_script("return arguments[0].innerText;", row)
+            for row in self.wait_all_present(self.RESULT_ROWS)
+        ]
 
     def result_text(self) -> str:
         return self.text(self.RESULT_TABLE)

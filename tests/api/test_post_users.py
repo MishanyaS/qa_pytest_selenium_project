@@ -43,7 +43,7 @@ class TestCreateUsers:
     @pytest.mark.positive
     def test_create_user_status_code(
         self, client: ApiClient, user_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.status_code == 201
@@ -52,7 +52,9 @@ class TestCreateUsers:
     @allure.title("Response is JSON")
     @allure.description("Verifies that the response is returned in JSON format.")
     @pytest.mark.positive
-    def test_response_is_json(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_response_is_json(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.headers["Content-Type"].startswith("application/json")
@@ -62,7 +64,9 @@ class TestCreateUsers:
     @allure.description("Verifies that the created user matches the JSON schema.")
     @pytest.mark.schema
     @pytest.mark.positive
-    def test_created_user_schema(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_user_schema(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         validate(instance=response.json(), schema=USER_SCHEMA)
@@ -73,7 +77,9 @@ class TestCreateUsers:
         "Verifies that the returned firstName matches the submitted value."
     )
     @pytest.mark.positive
-    def test_created_first_name(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_first_name(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.json()["firstName"] == user_payload["firstName"]
@@ -84,7 +90,9 @@ class TestCreateUsers:
         "Verifies that the returned lastName matches the submitted value."
     )
     @pytest.mark.positive
-    def test_created_last_name(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_last_name(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.json()["lastName"] == user_payload["lastName"]
@@ -93,7 +101,9 @@ class TestCreateUsers:
     @allure.title("Returned email equals sent email")
     @allure.description("Verifies that the returned email matches the submitted value.")
     @pytest.mark.positive
-    def test_created_email(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_email(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.json()["email"] == user_payload["email"]
@@ -102,7 +112,7 @@ class TestCreateUsers:
     @allure.title("Returned age equals sent age")
     @allure.description("Verifies that the returned age matches the submitted value.")
     @pytest.mark.positive
-    def test_created_age(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_age(self, client: ApiClient, user_payload: dict[str, Any]) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.json()["age"] == user_payload["age"]
@@ -113,7 +123,9 @@ class TestCreateUsers:
         "Verifies that the returned gender matches the submitted value."
     )
     @pytest.mark.positive
-    def test_created_gender(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_gender(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.json()["gender"] == user_payload["gender"]
@@ -122,7 +134,9 @@ class TestCreateUsers:
     @allure.title("Returned id is integer")
     @allure.description("Verifies that the returned user ID is an integer.")
     @pytest.mark.positive
-    def test_created_id_type(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_created_id_type(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert isinstance(response.json()["id"], int)
@@ -131,7 +145,7 @@ class TestCreateUsers:
     @allure.title("Returned id exists")
     @allure.description("Verifies that the response contains the user ID.")
     @pytest.mark.positive
-    def test_id_exists(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_id_exists(self, client: ApiClient, user_payload: dict[str, Any]) -> None:
         response = self._create_user(client, user_payload)
 
         assert "id" in response.json()
@@ -140,7 +154,9 @@ class TestCreateUsers:
     @allure.title("Returned firstName exists")
     @allure.description("Verifies that the response contains the firstName field.")
     @pytest.mark.positive
-    def test_first_name_exists(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_first_name_exists(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert "firstName" in response.json()
@@ -149,7 +165,9 @@ class TestCreateUsers:
     @allure.title("Returned lastName exists")
     @allure.description("Verifies that the response contains the lastName field.")
     @pytest.mark.positive
-    def test_last_name_exists(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_last_name_exists(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert "lastName" in response.json()
@@ -158,7 +176,9 @@ class TestCreateUsers:
     @allure.title("Returned email exists")
     @allure.description("Verifies that the response contains the email field.")
     @pytest.mark.positive
-    def test_email_exists(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_email_exists(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert "email" in response.json()
@@ -167,7 +187,7 @@ class TestCreateUsers:
     @allure.title("Returned age exists")
     @allure.description("Verifies that the response contains the age field.")
     @pytest.mark.positive
-    def test_age_exists(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_age_exists(self, client: ApiClient, user_payload: dict[str, Any]) -> None:
         response = self._create_user(client, user_payload)
 
         assert "age" in response.json()
@@ -176,7 +196,9 @@ class TestCreateUsers:
     @allure.title("Returned gender exists")
     @allure.description("Verifies that the response contains the gender field.")
     @pytest.mark.positive
-    def test_gender_exists(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_gender_exists(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert "gender" in response.json()
@@ -195,7 +217,9 @@ class TestCreateUsers:
         ],
     )
     @pytest.mark.positive
-    def test_create_with_various_ages(self, client: ApiClient, faker: Faker, age: int):
+    def test_create_with_various_ages(
+        self, client: ApiClient, faker: Faker, age: int
+    ) -> None:
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -224,7 +248,7 @@ class TestCreateUsers:
     @pytest.mark.positive
     def test_create_with_various_genders(
         self, client: ApiClient, faker: Faker, gender: str
-    ):
+    ) -> None:
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -255,7 +279,7 @@ class TestCreateUsers:
     @pytest.mark.positive
     def test_create_with_various_domains(
         self, client: ApiClient, faker: Faker, domain: str
-    ):
+    ) -> None:
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -275,7 +299,7 @@ class TestCreateUsers:
         "Verifies the API behavior when an empty JSON payload is submitted."
     )
     @pytest.mark.negative
-    def test_empty_json(self, client: ApiClient):
+    def test_empty_json(self, client: ApiClient) -> None:
         response = self._create_user(client, {})
 
         assert response.status_code in (200, 201, 400)
@@ -284,7 +308,7 @@ class TestCreateUsers:
     @allure.title("Missing firstName")
     @allure.description("Verifies the API behavior when firstName is missing.")
     @pytest.mark.negative
-    def test_missing_first_name(self, client: ApiClient, faker: Faker):
+    def test_missing_first_name(self, client: ApiClient, faker: Faker) -> None:
         payload = {
             "firstName": faker.first_name(),
             "email": faker.email(),
@@ -300,7 +324,7 @@ class TestCreateUsers:
     @allure.title("Missing lastName")
     @allure.description("Verifies the API behavior when lastName is missing.")
     @pytest.mark.negative
-    def test_missing_last_name(self, client: ApiClient, faker: Faker):
+    def test_missing_last_name(self, client: ApiClient, faker: Faker) -> None:
         payload = {
             "firstName": faker.first_name(),
             "email": faker.email(),
@@ -316,7 +340,7 @@ class TestCreateUsers:
     @allure.title("Missing email")
     @allure.description("Verifies the API behavior when email is missing.")
     @pytest.mark.negative
-    def test_missing_email(self, client: ApiClient, faker: Faker):
+    def test_missing_email(self, client: ApiClient, faker: Faker) -> None:
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -332,7 +356,7 @@ class TestCreateUsers:
     @allure.title("Invalid email")
     @allure.description("Verifies the API behavior when an invalid email is submitted.")
     @pytest.mark.negative
-    def test_invalid_email(self, client: ApiClient, faker: Faker):
+    def test_invalid_email(self, client: ApiClient, faker: Faker) -> None:
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -349,7 +373,7 @@ class TestCreateUsers:
     @allure.title("Negative age")
     @allure.description("Verifies the API behavior when a negative age is submitted.")
     @pytest.mark.negative
-    def test_negative_age(self, client: ApiClient, faker: Faker):
+    def test_negative_age(self, client: ApiClient, faker: Faker) -> None:
         payload = {
             "firstName": faker.first_name(),
             "lastName": faker.last_name(),
@@ -366,7 +390,9 @@ class TestCreateUsers:
     @allure.title("Invalid endpoint")
     @allure.description("Verifies that an invalid endpoint returns HTTP 404.")
     @pytest.mark.negative
-    def test_invalid_endpoint(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_invalid_endpoint(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = client.post("/users/add123", json=user_payload)
 
         assert response.status_code == 404
@@ -376,7 +402,9 @@ class TestCreateUsers:
     @allure.description("Verifies that the user creation response time is acceptable.")
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_response_time(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_response_time(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._create_user(client, user_payload)
 
         assert response.elapsed.total_seconds() < 2
@@ -395,7 +423,9 @@ class TestCreateUsers:
         ],
     )
     @pytest.mark.positive
-    def test_create_multiple_users(self, client: ApiClient, faker: Faker, index: int):
+    def test_create_multiple_users(
+        self, client: ApiClient, faker: Faker, index: int
+    ) -> None:
         payload = {
             "firstName": f"User{index}",
             "lastName": faker.last_name(),

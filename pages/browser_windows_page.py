@@ -19,10 +19,10 @@ class BrowserWindowsPage(BasePage):
         super().__init__(driver)
 
     def open_new_tab(self) -> None:
-        self.click(self.NEW_TAB_BUTTON)
+        self.click_with_fallback(self.NEW_TAB_BUTTON)
 
     def open_new_window(self) -> None:
-        self.click(self.NEW_WINDOW_BUTTON)
+        self.click_with_fallback(self.NEW_WINDOW_BUTTON)
 
     def open_new_window_message(self) -> None:
         self.click(self.NEW_WINDOW_MESSAGE_BUTTON)
@@ -47,6 +47,9 @@ class BrowserWindowsPage(BasePage):
 
     def switch_to_window(self, index: int) -> None:
         super().switch_to_window(index)
+
+    def switch_to_window_handle(self, handle: str) -> None:
+        super().switch_to_window_handle(handle)
 
     def switch_to_last_window(self) -> None:
         super().switch_to_window(-1)

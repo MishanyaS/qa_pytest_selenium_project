@@ -1,13 +1,22 @@
 import logging
 import sqlite3
+from collections.abc import Generator
+from sqlite3 import Connection, Cursor
+from typing import cast
 
 import allure
 import pytest
 import requests
+from _pytest.fixtures import FixtureRequest
+from _pytest.python import Function
+from _pytest.reports import TestReport
+from _pytest.runner import CallInfo
 from faker import Faker
+from pluggy import Result
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.remote.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 from config import (
@@ -43,7 +52,7 @@ def faker() -> Faker:
 
 
 @pytest.fixture(scope="session")
-def api_session() -> requests.Session:
+def api_session() -> Generator[requests.Session, None, None]:
     session = requests.Session()
 
     session.headers.update(
@@ -64,7 +73,7 @@ def timeout() -> int:
 
 
 @pytest.fixture(scope="session")
-def sqlite_connection():
+def sqlite_connection() -> Generator[Connection, None, None]:
     connection = sqlite3.connect(DATABASE_PATH)
 
     yield connection
@@ -73,7 +82,7 @@ def sqlite_connection():
 
 
 @pytest.fixture(scope="session")
-def db_cursor(sqlite_connection):
+def db_cursor(sqlite_connection: Connection) -> Generator[Cursor, None, None]:
     cursor = sqlite_connection.cursor()
 
     yield cursor
@@ -84,7 +93,7 @@ def db_cursor(sqlite_connection):
 
 
 @pytest.fixture(scope="session")
-def driver():
+def driver() -> Generator[WebDriver, None, None]:
     options = Options()
 
     options.add_argument("--start-maximized")
@@ -119,18 +128,20 @@ def driver():
 
 
 @pytest.hookimpl(hookwrapper=True)
-def pytest_runtest_makereport(item, call):
+def pytest_runtest_makereport(
+    item: Function, call: CallInfo[None]
+) -> Generator[None, None, None]:
     outcome = yield
 
-    report = outcome.get_result()
+    report = cast(Result[TestReport], outcome).get_result()
 
     if report.when != "call":
         return
 
     if report.failed:
-        driver = item.funcargs.get("driver")
+        driver = cast(WebDriver | None, item.funcargs.get("driver"))
 
-        if driver:
+        if driver is not None:
             screenshot = driver.get_screenshot_as_png()
 
             allure.attach(
@@ -150,7 +161,7 @@ logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(autouse=True)
-def test_logget(request):
+def test_logget(request: FixtureRequest) -> Generator[None, None, None]:
     logger.info("=" * 80)
     logger.info("START TEST -> %s", request.node.name)
 
@@ -161,5 +172,5 @@ def test_logget(request):
 
 
 @pytest.fixture(scope="session")
-def client(api_session) -> ApiClient:
+def client(api_session: requests.Session) -> ApiClient:
     return ApiClient(api_session)

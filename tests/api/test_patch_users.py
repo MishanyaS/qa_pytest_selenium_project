@@ -34,7 +34,7 @@ class TestPatchUsers:
     @pytest.mark.positive
     def test_patch_user_status_code(
         self, client: ApiClient, user_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         assert response.status_code == 200
@@ -44,7 +44,9 @@ class TestPatchUsers:
     @allure.description("Verifies that the patched user matches the JSON schema.")
     @pytest.mark.schema
     @pytest.mark.positive
-    def test_patch_schema(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_patch_schema(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         validate(instance=response.json(), schema=USER_SCHEMA)
@@ -55,7 +57,9 @@ class TestPatchUsers:
         "Verifies that the returned firstName matches the submitted value."
     )
     @pytest.mark.positive
-    def test_patch_first_name(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_patch_first_name(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         assert response.json()["firstName"] == user_payload["firstName"]
@@ -64,7 +68,9 @@ class TestPatchUsers:
     @allure.title("Returned id is positive")
     @allure.description("Verifies that the returned user ID is positive.")
     @pytest.mark.positive
-    def test_user_id_positive(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_user_id_positive(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         assert response.json()["id"] > 0
@@ -77,7 +83,7 @@ class TestPatchUsers:
     @pytest.mark.positive
     def test_returned_field_types(
         self, client: ApiClient, user_payload: dict[str, Any]
-    ):
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         data = response.json()
@@ -105,7 +111,9 @@ class TestPatchUsers:
         ],
     )
     @pytest.mark.positive
-    def test_patch_various_first_names(self, client: ApiClient, first_name: str):
+    def test_patch_various_first_names(
+        self, client: ApiClient, first_name: str
+    ) -> None:
         payload = {
             "firstName": first_name,
         }
@@ -129,7 +137,9 @@ class TestPatchUsers:
         ],
     )
     @pytest.mark.positive
-    def test_patch_multiple_users(self, client: ApiClient, faker: Faker, user_id: int):
+    def test_patch_multiple_users(
+        self, client: ApiClient, faker: Faker, user_id: int
+    ) -> None:
         payload = {
             "firstName": faker.first_name(),
         }
@@ -156,7 +166,7 @@ class TestPatchUsers:
         ],
     )
     @pytest.mark.positive
-    def test_patch_age(self, client: ApiClient, age: int):
+    def test_patch_age(self, client: ApiClient, age: int) -> None:
         payload = {
             "age": age,
         }
@@ -174,7 +184,7 @@ class TestPatchUsers:
         ["male", "female"],
     )
     @pytest.mark.positive
-    def test_patch_gender(self, client: ApiClient, gender: str):
+    def test_patch_gender(self, client: ApiClient, gender: str) -> None:
         payload = {
             "gender": gender,
         }
@@ -188,7 +198,7 @@ class TestPatchUsers:
     @allure.title("Patch empty payload")
     @allure.description("Verifies API behavior when an empty PATCH payload is sent.")
     @pytest.mark.negative
-    def test_patch_empty_payload(self, client: ApiClient):
+    def test_patch_empty_payload(self, client: ApiClient) -> None:
         response = self._patch_user(client, 1, {})
 
         assert response.status_code in (200, 400)
@@ -197,7 +207,9 @@ class TestPatchUsers:
     @allure.title("Patch invalid id")
     @allure.description("Verifies API behavior when patching a non-existing user.")
     @pytest.mark.negative
-    def test_patch_invalid_id(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_patch_invalid_id(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._patch_user(client, 999999, user_payload)
 
         assert response.status_code in (200, 404)
@@ -207,7 +219,7 @@ class TestPatchUsers:
     @allure.description("Verifies that the minimum allowed age is accepted.")
     @pytest.mark.boundary
     @pytest.mark.positive
-    def test_patch_minimum_age(self, client: ApiClient):
+    def test_patch_minimum_age(self, client: ApiClient) -> None:
         payload = {
             "age": 0,
         }
@@ -220,7 +232,9 @@ class TestPatchUsers:
     @allure.title("Response content type")
     @allure.description("Verifies that the response Content-Type is application/json.")
     @pytest.mark.positive
-    def test_content_type(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_content_type(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         assert "application/json" in response.headers["Content-Type"]
@@ -232,7 +246,9 @@ class TestPatchUsers:
     )
     @pytest.mark.slow
     @pytest.mark.positive
-    def test_patch_response_time(self, client: ApiClient, user_payload: dict[str, Any]):
+    def test_patch_response_time(
+        self, client: ApiClient, user_payload: dict[str, Any]
+    ) -> None:
         response = self._patch_user(client, 1, user_payload)
 
         assert response.elapsed.total_seconds() < 2
@@ -253,7 +269,7 @@ class TestPatchUsers:
     @pytest.mark.positive
     def test_patch_multiple_users_step_by_step(
         self, client: ApiClient, faker: Faker, user_id: int
-    ):
+    ) -> None:
         payload = {
             "firstName": faker.first_name(),
         }
@@ -273,7 +289,7 @@ class TestPatchUsers:
     @pytest.mark.positive
     def test_update_user_step_by_step(
         self, client: ApiClient, user_payload: dict[str, Any]
-    ):
+    ) -> None:
         with allure.step("Send PATCH request"):
             response = self._patch_user(client, 1, user_payload)
             data = response.json()
@@ -293,7 +309,7 @@ class TestPatchUsers:
     @pytest.mark.positive
     def test_headers_step_by_step(
         self, client: ApiClient, user_payload: dict[str, Any]
-    ):
+    ) -> None:
         with allure.step("Send PATCH request"):
             response = self._patch_user(client, 1, user_payload)
 
@@ -307,7 +323,7 @@ class TestPatchUsers:
     @pytest.mark.positive
     def test_response_time_step_by_step(
         self, client: ApiClient, user_payload: dict[str, Any]
-    ):
+    ) -> None:
         with allure.step("Send PATCH request"):
             response = self._patch_user(client, 1, user_payload)
 

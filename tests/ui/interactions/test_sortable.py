@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.interactions_page import InteractionsPage
@@ -20,13 +21,13 @@ class TestSortable:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_sortable(self, driver):
+    def test_open_sortable(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         sortable_page = SortablePage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Interactions section"):
             home_page.open_interactions()
@@ -42,13 +43,13 @@ class TestSortable:
     @allure.description("Verifies that all sortable items are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_sortable_items_visible(self, driver):
+    def test_sortable_items_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SortablePage(driver)
 
         with allure.step("Open Sortable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_sortable()
 
@@ -62,7 +63,7 @@ class TestSortable:
     @allure.title("Sortable items have correct names")
     @allure.description("Verifies that sortable items contain expected text.")
     @pytest.mark.positive
-    def test_sortable_items_text(self, driver):
+    def test_sortable_items_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SortablePage(driver)
@@ -70,7 +71,7 @@ class TestSortable:
         expected = ["One", "Two", "Three", "Four", "Five", "Six"]
 
         with allure.step("Open Sortable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_sortable()
 
@@ -83,13 +84,13 @@ class TestSortable:
         "Verifies that the specified sortable item contains the expected text."
     )
     @pytest.mark.positive
-    def test_sortable_item_text(self, driver):
+    def test_sortable_item_text(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SortablePage(driver)
 
         with allure.step("Open Sortable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_sortable()
 
@@ -102,13 +103,13 @@ class TestSortable:
         "Verifies that dragging one sortable item onto another changes the order."
     )
     @pytest.mark.positive
-    def test_drag_sortable_item(self, driver):
+    def test_drag_sortable_item(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SortablePage(driver)
 
         with allure.step("Open Sortable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_sortable()
 
@@ -131,13 +132,13 @@ class TestSortable:
         "Verifies that sortable items can be reordered using locator arguments."
     )
     @pytest.mark.positive
-    def test_drag_sortable_item_by_locator(self, driver):
+    def test_drag_sortable_item_by_locator(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         interactions_page = InteractionsPage(driver)
         page = SortablePage(driver)
 
         with allure.step("Open Sortable page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_interactions()
             interactions_page.open_sortable()
 

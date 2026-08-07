@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.check_box_page import CheckBoxPage
 from pages.elements_page import ElementsPage
@@ -20,13 +21,13 @@ class TestCheckBox:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_check_box(self, driver):
+    def test_open_check_box(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         check_box_page = CheckBoxPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -44,13 +45,13 @@ class TestCheckBox:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_check_box_elements_visible(self, driver):
+    def test_check_box_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -66,13 +67,13 @@ class TestCheckBox:
         "Verifies that the Check Box tree starts with no selected items."
     )
     @pytest.mark.positive
-    def test_no_items_selected_initially(self, driver):
+    def test_no_items_selected_initially(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -85,13 +86,13 @@ class TestCheckBox:
         "Verifies that the Home checkbox has aria-checked=false before selection."
     )
     @pytest.mark.positive
-    def test_home_checkbox_initially_unchecked(self, driver):
+    def test_home_checkbox_initially_unchecked(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -108,13 +109,13 @@ class TestCheckBox:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_select_home(self, driver):
+    def test_select_home(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -142,13 +143,13 @@ class TestCheckBox:
         "Verifies that the Home checkbox can be selected and then deselected."
     )
     @pytest.mark.positive
-    def test_deselect_home(self, driver):
+    def test_deselect_home(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -171,13 +172,13 @@ class TestCheckBox:
     @allure.title("Desktop checkbox can be selected")
     @allure.description("Verifies that the Desktop checkbox can be selected.")
     @pytest.mark.positive
-    def test_select_desktop(self, driver):
+    def test_select_desktop(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -191,13 +192,13 @@ class TestCheckBox:
     @allure.title("Documents checkbox can be selected")
     @allure.description("Verifies that the Documents checkbox can be selected.")
     @pytest.mark.positive
-    def test_select_documents(self, driver):
+    def test_select_documents(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -211,13 +212,13 @@ class TestCheckBox:
     @allure.title("Downloads checkbox can be selected")
     @allure.description("Verifies that the Downloads checkbox can be selected.")
     @pytest.mark.positive
-    def test_select_downloads(self, driver):
+    def test_select_downloads(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 
@@ -233,13 +234,13 @@ class TestCheckBox:
         "Verifies that multiple independent checkboxes can be selected and all selected items are displayed in the results."
     )
     @pytest.mark.positive
-    def test_select_multiple_checkboxes(self, driver):
+    def test_select_multiple_checkboxes(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = CheckBoxPage(driver)
 
         with allure.step("Open Check Box page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_check_box()
 

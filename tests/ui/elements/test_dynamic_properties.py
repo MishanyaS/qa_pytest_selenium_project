@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.dynamic_properties_page import DynamicPropertiesPage
@@ -21,13 +22,13 @@ class TestDynamicProperties:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_dynamic_properties(self, driver):
+    def test_open_dynamic_properties(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         dynamic_properties_page = DynamicPropertiesPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Elements section"):
             home_page.open_elements()
@@ -45,13 +46,13 @@ class TestDynamicProperties:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_dynamic_properties_elements_visible(self, driver):
+    def test_dynamic_properties_elements_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 
@@ -70,13 +71,13 @@ class TestDynamicProperties:
         "Verifies that the Enable After button is displayed but disabled immediately after opening the Dynamic Properties page."
     )
     @pytest.mark.positive
-    def test_enable_after_button_initially_disabled(self, driver):
+    def test_enable_after_button_initially_disabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 
@@ -92,13 +93,13 @@ class TestDynamicProperties:
         "Verifies that the Enable After button becomes enabled automatically after the configured delay."
     )
     @pytest.mark.positive
-    def test_enable_after_button_becomes_enabled(self, driver):
+    def test_enable_after_button_becomes_enabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 
@@ -117,13 +118,13 @@ class TestDynamicProperties:
         "Verifies that the Visible After button becomes visible after the configured delay."
     )
     @pytest.mark.positive
-    def test_visible_after_button_appears(self, driver):
+    def test_visible_after_button_appears(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 
@@ -142,13 +143,13 @@ class TestDynamicProperties:
         "Verifies that the Color Change button initially has the primary Bootstrap button class."
     )
     @pytest.mark.positive
-    def test_color_change_initial_color(self, driver):
+    def test_color_change_initial_color(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 
@@ -166,13 +167,13 @@ class TestDynamicProperties:
         "Verifies that the Color Change button changes its computed text color after the configured delay."
     )
     @pytest.mark.positive
-    def test_color_change_button_changes_color(self, driver):
+    def test_color_change_button_changes_color(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 
@@ -222,13 +223,13 @@ class TestDynamicProperties:
         "Color Change changes its computed color."
     )
     @pytest.mark.positive
-    def test_dynamic_properties_final_states(self, driver):
+    def test_dynamic_properties_final_states(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         elements_page = ElementsPage(driver)
         page = DynamicPropertiesPage(driver)
 
         with allure.step("Open Dynamic Properties page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_elements()
             elements_page.open_dynamic_properties()
 

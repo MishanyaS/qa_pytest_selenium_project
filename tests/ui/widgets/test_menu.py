@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import allure
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.home_page import HomePage
 from pages.menu_page import MenuPage
@@ -20,13 +21,13 @@ class TestMenu:
     )
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_open_menu(self, driver):
+    def test_open_menu(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         menu_page = MenuPage(driver)
 
         with allure.step("Open DemoQA home page"):
-            home_page.open()
+            home_page.open_home_page()
 
         with allure.step("Open Widgets section"):
             home_page.open_widgets()
@@ -42,13 +43,13 @@ class TestMenu:
     @allure.description("Verifies that all top-level menu items are displayed.")
     @pytest.mark.smoke
     @pytest.mark.positive
-    def test_menu_items_visible(self, driver):
+    def test_menu_items_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
@@ -68,13 +69,13 @@ class TestMenu:
     @allure.title("Main menu item texts are correct")
     @allure.description("Verifies the text of the top-level menu items.")
     @pytest.mark.positive
-    def test_main_menu_item_texts(self, driver):
+    def test_main_menu_item_texts(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
@@ -91,13 +92,13 @@ class TestMenu:
     @allure.title("Sub menu becomes visible")
     @allure.description("Verifies that hovering over Main Item 2 displays its submenu.")
     @pytest.mark.positive
-    def test_sub_menu_visible(self, driver):
+    def test_sub_menu_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
@@ -113,13 +114,13 @@ class TestMenu:
         "Verifies that hovering over SUB SUB LIST displays nested items."
     )
     @pytest.mark.positive
-    def test_nested_sub_menu_visible(self, driver):
+    def test_nested_sub_menu_visible(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
@@ -139,13 +140,13 @@ class TestMenu:
     @allure.title("Nested submenu item texts are correct")
     @allure.description("Verifies the text of nested submenu items.")
     @pytest.mark.positive
-    def test_nested_sub_menu_item_texts(self, driver):
+    def test_nested_sub_menu_item_texts(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
@@ -168,13 +169,13 @@ class TestMenu:
     @allure.title("Main Item 2 is enabled")
     @allure.description("Verifies that Main Item 2 is enabled.")
     @pytest.mark.positive
-    def test_main_item_2_enabled(self, driver):
+    def test_main_item_2_enabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
@@ -187,13 +188,13 @@ class TestMenu:
         "Verifies that Sub Sub Item 1 is enabled after opening the nested menu."
     )
     @pytest.mark.positive
-    def test_sub_sub_item_1_enabled(self, driver):
+    def test_sub_sub_item_1_enabled(self, driver: WebDriver) -> None:
         home_page = HomePage(driver)
         widgets_page = WidgetsPage(driver)
         page = MenuPage(driver)
 
         with allure.step("Open Menu page"):
-            home_page.open()
+            home_page.open_home_page()
             home_page.open_widgets()
             widgets_page.open_menu()
 
