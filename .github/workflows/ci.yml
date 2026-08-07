@@ -84,7 +84,7 @@ jobs:
     timeout-minutes: 60
     services:
       selenium:
-        image: selenium/standalone-chrome:4.46.0
+        image: selenium/standalone-chrome:latest
         ports:
           - 4444:4444
         options: >-
