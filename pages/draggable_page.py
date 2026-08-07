@@ -22,7 +22,7 @@ class DraggablePage(BasePage):
         return self.text(self.DRAGGABLE)
 
     def draggable_position(self) -> tuple[int, int]:
-        element = self.wait_visible(self.DRAGGABLE)
+        self.wait_visible(self.DRAGGABLE)
 
         return (
             self.execute_script(
