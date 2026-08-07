@@ -84,7 +84,7 @@ jobs:
     timeout-minutes: 60
     services:
       selenium:
-        image: selenium/standalone-chrome:latest
+        image: selenium/standalone-chrome:4.46.0
         ports:
           - 4444:4444
         options: >-
@@ -130,6 +130,15 @@ jobs:
           done
           echo "Selenium failed to start."
           exit 1
+      - name: Show Docker containers
+        if: always()
+        run: docker ps -a
+      - name: Show Selenium Logs
+        if: always()
+        run: docker logs  ${{ job.services.selenium.id }}
+      - name: Show Selenium status
+        if: always()
+        run: cutl -v http://localhost:4444/status || true
       - name: Build pytest command
         id: command
         shell: bash
