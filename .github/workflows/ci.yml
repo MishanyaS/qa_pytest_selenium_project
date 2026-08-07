@@ -89,7 +89,7 @@ jobs:
           - 4444:4444
         options: >-
           --shm-size=2g
-          --health-cmd="curl -f http://localhost:4444/status || exit 1"
+          --health-cmd="curl -fs http://localhost:4444/status || exit 1"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
@@ -131,14 +131,20 @@ jobs:
           echo "Selenium failed to start."
           exit 1
       - name: Show Docker containers
-        if: always()
+        if: failure()
         run: docker ps -a
       - name: Show Selenium Logs
-        if: always()
-        run: docker logs  ${{ job.services.selenium.id }}
+        if: failure()
+        run: |
+          CONTAINER_ID=$(docker ps -aq --filter "ancestor=selenium/standalone-chrome:4.46.0")
+          if [ -n "$CONTAINER_ID" ]; then
+            docker logs "$CONTAINER_ID"
+          else
+            echo "Selenium container not found."
+          fi
       - name: Show Selenium status
-        if: always()
-        run: cutl -v http://localhost:4444/status || true
+        if: failure()
+        run: curl -v http://localhost:4444/status || true
       - name: Build pytest command
         id: command
         shell: bash
