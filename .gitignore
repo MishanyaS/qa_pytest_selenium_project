@@ -17,7 +17,8 @@ allure-results/
 allure-report/
 
 screenshots/
-*.png
+*.jpg
+*.jpeg
 
 logs/
 .log

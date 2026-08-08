@@ -23,6 +23,7 @@ allure-report
 screenshots
 downloads
 logs
+project_description
 
 dist
 build
